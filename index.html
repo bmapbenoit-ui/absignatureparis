@@ -710,6 +710,15 @@ body.wl-open{overflow:hidden}
 </div>
 
 <script>
+/* Refresh propre : retour en haut + vidéo hero repartie de zéro (incl. bfcache iOS) */
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+if (location.hash) history.replaceState(null, '', location.pathname);
+window.scrollTo(0, 0);
+window.addEventListener('pageshow', () => {
+  window.scrollTo(0, 0);
+  const v = document.getElementById('heroVideo');
+  if (v){ try { v.currentTime = 0; } catch(_){} v.play().catch(()=>{}); }
+});
 /* Préloader */
 window.addEventListener('load', () => {
   setTimeout(() => document.getElementById('loader').classList.add('is-done'), 2350);
