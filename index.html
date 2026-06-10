@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AB Signature Paris — Îles Paradisiaques · Extraits de Parfum 25&nbsp;%</title>
+<meta name="description" content="AB Signature Paris — Îles Paradisiaques. Trois extraits de parfum 25 % composés à Grasse : Oro Rojo (Aruba), Karès Blan (La Digue), Ahi Pō (Moorea). Éditions en séries limitées.">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/favicon.png">
+<link rel="canonical" href="https://www.absignatureparis.com/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AB Signature Paris — Îles Paradisiaques">
+<meta property="og:description" content="Trois îles, trois heures du monde. Extraits de parfum 25 % composés à Grasse — Oro Rojo, Karès Blan, Ahi Pō.">
+<meta property="og:url" content="https://www.absignatureparis.com/">
+<meta property="og:image" content="https://www.absignatureparis.com/assets/og_image.jpg">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"Organization","@id":"https://www.absignatureparis.com/#maison","name":"AB Signature Paris",
+  "url":"https://www.absignatureparis.com/","logo":"https://www.absignatureparis.com/assets/logo_or_hero.webp",
+  "parentOrganization":{"@type":"Organization","name":"PBABS INTERNATIONAL PTE. LTD."},
+  "contactPoint":{"@type":"ContactPoint","email":"contact@absignatureparis.com","contactType":"customer service"}},
+ {"@type":"Product","name":"Oro Rojo","brand":{"@id":"https://www.absignatureparis.com/#maison"},
+  "image":"https://www.absignatureparis.com/assets/oro-v11-front.webp",
+  "description":"Extrait de parfum 25 % fruité boisé incandescent — l’incandescence du couchant d’Aruba, où la cerise embrasse l’oud.",
+  "offers":[{"@type":"Offer","price":"160","priceCurrency":"EUR","availability":"https://schema.org/PreOrder","url":"https://www.absignatureparis.com/#oro"},
+            {"@type":"Offer","price":"49","priceCurrency":"EUR","availability":"https://schema.org/PreOrder","url":"https://www.absignatureparis.com/#oro"}]},
+ {"@type":"Product","name":"Karès Blan","brand":{"@id":"https://www.absignatureparis.com/#maison"},
+  "image":"https://www.absignatureparis.com/assets/kb-v11-front.webp",
+  "description":"Extrait de parfum 25 % floral musqué solaire — la caresse blanche des Seychelles, fleur d’oranger et vanille.",
+  "offers":[{"@type":"Offer","price":"160","priceCurrency":"EUR","availability":"https://schema.org/PreOrder","url":"https://www.absignatureparis.com/#kares"},
+            {"@type":"Offer","price":"49","priceCurrency":"EUR","availability":"https://schema.org/PreOrder","url":"https://www.absignatureparis.com/#kares"}]},
+ {"@type":"Product","name":"Ahi Pō","brand":{"@id":"https://www.absignatureparis.com/#maison"},
+  "image":"https://www.absignatureparis.com/assets/ahi-v11s-front.webp",
+  "description":"Extrait de parfum 25 % cuir boisé mystique — nuit sacrée des îles, où le cuir noble s’enlace aux fleurs blanches.",
+  "offers":[{"@type":"Offer","price":"160","priceCurrency":"EUR","availability":"https://schema.org/PreOrder","url":"https://www.absignatureparis.com/#ahi"},
+            {"@type":"Offer","price":"49","priceCurrency":"EUR","availability":"https://schema.org/PreOrder","url":"https://www.absignatureparis.com/#ahi"}]}
+]}
+</script>
+<style>
+/* ══════════════════════════════════════════════════════════════════════
+   AB SIGNATURE PARIS — Maquette officielle V2 · « Les Îles de la Nuit Sacrée »
+   Hero grammaire Silona (vidéo plein écran + logo seul) · boutique propre
+   Palette échantillonnée flacons v11 · spec_absignature_site_FINALE.md
+   ══════════════════════════════════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Marcellus&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@200;300;400&display=swap');
+
+:root{
+  --night:#07100f; --night-2:#0a1c1a;
+  --oro:#240502; --kares:#ece8da; --kares-ink:#262b21; --ahi:#03100f;
+  --ivory:#f0eadb; --ivory-60:rgba(240,234,219,.66); --ivory-35:rgba(240,234,219,.35);
+  --gold-1:#6e521b; --gold-2:#b08a2e; --gold-3:#e8c76a; --gold-4:#f7e7a8;
+  --gold-deep-1:#5c430f; --gold-deep-2:#8a6d1f; --gold-deep-3:#b8943a;
+  --gold-line:rgba(232,199,106,.30);
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--night);color:var(--ivory);
+  font-family:'Jost',sans-serif;font-weight:300;letter-spacing:.02em;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;cursor:none}
+@media (hover:none),(max-width:900px){body{cursor:auto}.cursor{display:none!important}}
+::selection{background:var(--gold-3);color:var(--night)}
+img{user-select:none}
+
+/* ─── Or métallique : texte (statique, fiable partout) ─── */
+.gold{background:linear-gradient(105deg,
+  var(--gold-1) 0%,var(--gold-2) 20%,var(--gold-3) 40%,var(--gold-4) 50%,
+  var(--gold-3) 60%,#a87f28 80%,var(--gold-1) 100%);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:var(--gold-3)}
+/* version or profond pour fonds clairs */
+.gold-deep{background:linear-gradient(105deg,
+  var(--gold-deep-1) 0%,var(--gold-deep-2) 35%,var(--gold-deep-3) 50%,
+  var(--gold-deep-2) 65%,var(--gold-deep-1) 100%);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:var(--gold-deep-2)}
+
+/* ─── Curseur ─── */
+.cursor{position:fixed;z-index:9999;width:7px;height:7px;border-radius:50%;
+  background:var(--gold-3);pointer-events:none;mix-blend-mode:screen;
+  transform:translate(-50%,-50%);
+  transition:width .35s var(--ease),height .35s var(--ease),border .3s;
+  box-shadow:0 0 16px rgba(232,199,106,.5)}
+.cursor.is-link{width:34px;height:34px;background:transparent;border:1px solid var(--gold-3)}
+
+/* ─── Grain film ─── */
+body::after{content:'';position:fixed;inset:0;z-index:9000;pointer-events:none;opacity:.045;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:180px}
+
+/* ─── Préloader (générique façon Silona : monogramme → fondu) ─── */
+.loader{position:fixed;inset:0;z-index:9500;background:#050b0a;
+  display:flex;align-items:center;justify-content:center;
+  transition:opacity 1.2s var(--ease) .2s,visibility 1.2s .2s}
+.loader.is-done{opacity:0;visibility:hidden}
+/* générique cinématique : AB → SIGNATURE → PARIS (calques exacts du master, diff pixel 0) */
+.loader .lcine{position:relative;width:min(58vw,400px);aspect-ratio:2134/1788}
+.loader .lcine img{position:absolute;left:0;width:100%;display:block;opacity:0;
+  will-change:opacity,transform,filter}
+.loader .lab{top:14.709%;animation:partIn .75s var(--ease) .15s forwards}
+.loader .lsig{top:66.667%;animation:partIn .7s var(--ease) .8s forwards}
+.loader .lparis{top:84.172%;animation:partIn .65s var(--ease) 1.4s forwards}
+@keyframes partIn{
+  from{opacity:0;transform:translateY(14px) scale(.985);filter:blur(9px) brightness(1.55)}
+  45%{opacity:1;filter:blur(1px) brightness(1.12)}
+  60%{filter:blur(0) brightness(1.04)}
+  to{opacity:1;transform:none;filter:blur(0) brightness(1)}}
+.loader .sweep{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(115deg,transparent 36%,rgba(247,231,168,.85) 50%,transparent 64%);
+  background-size:280% 100%;background-position:120% 0;
+  -webkit-mask:url('assets/logo_or_metallique_trim.png') center/100% 100% no-repeat;
+  mask:url('assets/logo_or_metallique_trim.png') center/100% 100% no-repeat;
+  animation:sweep 1.2s var(--ease) 1.75s forwards;mix-blend-mode:screen}
+@keyframes sweep{to{background-position:-160% 0}}
+
+/* ─── Navigation (fine, façon Silona) ─── */
+nav{position:fixed;top:0;left:0;right:0;z-index:900;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.5rem clamp(1.4rem,4vw,3.2rem);
+  opacity:0;animation:fadein 1.2s var(--ease) 2.6s forwards;
+  transition:background .6s,backdrop-filter .6s,padding .5s}
+nav.is-scrolled{background:rgba(6,13,12,.78);backdrop-filter:blur(16px);
+  padding-top:1rem;padding-bottom:1rem;
+  border-bottom:1px solid rgba(232,199,106,.10)}
+nav .nlogo{height:40px;display:block}
+nav ul{display:flex;gap:clamp(1.1rem,2.6vw,2.5rem);list-style:none;align-items:center}
+nav a{color:var(--ivory-60);text-decoration:none;font-size:.72rem;
+  letter-spacing:.32em;text-transform:uppercase;transition:color .4s}
+nav a:hover{color:var(--gold-3)}
+nav .bag{display:inline-flex;align-items:center;gap:.5rem;color:var(--gold-3);
+  border:1px solid rgba(232,199,106,.35);padding:.5rem .9rem;border-radius:2px;
+  transition:background .4s,color .4s}
+nav .bag:hover{background:rgba(232,199,106,.12)}
+@media(max-width:780px){nav ul li.hide-m{display:none}}
+@keyframes fadein{to{opacity:1}}
+
+/* ─── Côtés façon Silona : Instagram vertical + langue ─── */
+.side-ig{position:fixed;right:1.5rem;bottom:7.5rem;z-index:890;
+  writing-mode:vertical-rl;font-size:.66rem;letter-spacing:.4em;text-transform:uppercase;
+  color:var(--ivory-35);text-decoration:none;transition:color .4s;
+  opacity:0;animation:fadein 1.2s var(--ease) 3.4s forwards}
+.side-ig:hover{color:var(--gold-3)}
+.side-lang{position:fixed;left:1.6rem;bottom:1.6rem;z-index:890;
+  font-size:.66rem;letter-spacing:.3em;color:var(--ivory-35);
+  opacity:0;animation:fadein 1.2s var(--ease) 3.4s forwards}
+.side-lang b{color:var(--gold-3);font-weight:400}
+@media(max-width:780px){.side-ig,.side-lang{display:none}}
+
+/* ─── HERO — grammaire Silona : vidéo plein écran + LOGO SEUL ─── */
+.hero{position:relative;height:100svh;min-height:620px;overflow:hidden}
+.hero video,.hero .hero-fallback{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero .hero-fallback{background:radial-gradient(120% 90% at 50% 115%,#123634 0%,var(--night) 64%)}
+.hero .veil{position:absolute;inset:0;
+  background:
+    radial-gradient(70% 58% at 50% 54%,rgba(5,10,9,.46) 0%,rgba(5,10,9,.16) 52%,transparent 74%),
+    linear-gradient(180deg,rgba(5,10,9,.42) 0%,transparent 26%,transparent 64%,var(--night) 100%)}
+.hero-inner{position:absolute;inset:0;z-index:5;
+  display:flex;align-items:center;justify-content:center}
+.hero-logo{width:min(72vw,720px);max-height:44svh;object-fit:contain;
+  filter:drop-shadow(0 14px 64px rgba(0,0,0,.72)) drop-shadow(0 2px 14px rgba(0,0,0,.5));
+  opacity:0;animation:heroLogo 2s var(--ease) 2.45s forwards}
+@keyframes heroLogo{from{opacity:0;transform:scale(.965)}to{opacity:1;transform:scale(1)}}
+.scroll-cue{position:absolute;bottom:2.1rem;left:50%;transform:translateX(-50%);z-index:6;
+  display:flex;flex-direction:column;align-items:center;gap:1.1rem;white-space:nowrap;
+  font-family:'Marcellus',serif;font-size:.62rem;letter-spacing:.58em;text-indent:.58em;
+  text-transform:uppercase;color:var(--ivory-35);
+  opacity:0;animation:fadein 1.6s var(--ease) 3.6s forwards}
+.scroll-cue .line{width:1px;height:54px;overflow:hidden;position:relative}
+.scroll-cue .line::after{content:'';position:absolute;left:0;top:-100%;width:100%;height:100%;
+  background:linear-gradient(180deg,transparent,var(--gold-3));
+  animation:drip 2.6s var(--ease) infinite}
+@keyframes drip{0%{top:-100%}55%{top:0}100%{top:100%}}
+
+/* ─── Sections / rythme ─── */
+section{position:relative}
+.wrap{max-width:1280px;margin:0 auto;padding:0 clamp(1.4rem,4.5vw,3.6rem)}
+.eyebrow{font-size:.68rem;letter-spacing:.52em;text-transform:uppercase;color:var(--gold-3)}
+.rv{opacity:0;transform:translateY(40px);
+  transition:opacity 1.15s var(--ease),transform 1.15s var(--ease)}
+.rv.is-in{opacity:1;transform:none}
+.rv-d1{transition-delay:.1s}.rv-d2{transition-delay:.22s}
+.rv-d3{transition-delay:.34s}.rv-d4{transition-delay:.46s}.rv-d5{transition-delay:.58s}
+
+/* ─── Manifeste ─── */
+.manifesto{padding:clamp(7rem,15vh,12rem) 0 clamp(6rem,12vh,10rem);text-align:center;
+  background:linear-gradient(180deg,var(--night) 0%,var(--night-2) 55%,var(--night) 100%)}
+.manifesto .orn{width:120px;margin:0 auto 2.6rem;display:block;opacity:.9}
+.manifesto p.lead{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;
+  font-size:clamp(1.65rem,3.4vw,2.6rem);line-height:1.6;max-width:900px;margin:0 auto;
+  color:var(--ivory)}
+.manifesto p.lead em{font-style:normal;font-family:'Marcellus',serif;font-size:.86em;
+  letter-spacing:.08em}
+.manifesto .small{margin-top:2.5rem;max-width:600px;margin-inline:auto;
+  color:var(--ivory-60);font-size:1.02rem;line-height:2.05}
+.manifesto .roman{display:flex;justify-content:center;gap:clamp(2rem,7vw,5.5rem);
+  margin-top:4.2rem}
+.manifesto .roman a{display:flex;flex-direction:column;align-items:center;gap:.7rem;
+  color:var(--ivory-60);text-decoration:none;transition:color .45s}
+.manifesto .roman a:hover{color:var(--gold-3)}
+.manifesto .roman .n{font-family:'Marcellus',serif;font-size:1.5rem;color:var(--gold-3)}
+.manifesto .roman .t{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:1.05rem;letter-spacing:.06em}
+
+/* ─── Chapitres ─── */
+.chapter{min-height:100svh;display:flex;align-items:center;overflow:hidden;
+  padding:clamp(6.5rem,13vh,10rem) 0}
+.chapter .bgv{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  transform:scale(1.06);transition:transform 2.8s var(--ease)}
+.chapter.is-seen .bgv{transform:scale(1)}
+.chapter .veil{position:absolute;inset:0}
+.chapter .wrap{position:relative;z-index:4;display:grid;
+  grid-template-columns:minmax(0,5fr) minmax(0,6fr);
+  gap:clamp(2.6rem,6vw,6rem);align-items:center;width:100%}
+.chapter .wrap.flip{grid-template-columns:minmax(0,6fr) minmax(0,5fr)}
+@media(max-width:940px){.chapter .wrap,.chapter .wrap.flip{grid-template-columns:1fr;gap:3.2rem}}
+
+/* arche filaire or (écho des gravures) — flacon détouré posé DIRECTEMENT sur la vidéo,
+   plus aucune plaque derrière (directive Benoit 10/06 soir) */
+.arch{position:relative;justify-self:center;width:min(72vw,400px)}
+.arch .medallion{position:relative;display:block;padding:11% 9% 6%}
+.arch img{display:block;width:100%;
+  filter:drop-shadow(0 36px 48px rgba(0,0,0,.6)) drop-shadow(0 8px 16px rgba(0,0,0,.4));
+  transform:translateY(20px) scale(1.01);
+  transition:transform 1.7s var(--ease) .25s}
+.arch.is-in img{transform:translateY(0) scale(1.01)}
+/* cycle recto → verso → recto : fondu de film 14 s + respiration de zoom.
+   .faces = repère exact commun aux 2 vues (le padding du médaillon ne biaise plus l'absolu) */
+.arch .faces{position:relative;display:block}
+.arch img.face-b{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0}
+@keyframes faceA{0%,38%{opacity:1}50%,88%{opacity:0}100%{opacity:1}}
+@keyframes faceB{0%,38%{opacity:0}50%,88%{opacity:1}100%{opacity:0}}
+@keyframes medBreath{0%,100%{transform:scale(1)}50%{transform:scale(1.014)}}
+.arch.is-in .medallion{animation:medBreath 14s ease-in-out infinite}
+.arch.is-in img.face-a{animation:faceA 14s ease-in-out 1.8s infinite}
+.arch.is-in img.face-b{animation:faceB 14s ease-in-out 1.8s infinite}
+/* assise lumineuse très subtile derrière le flacon (présence sans plaque) */
+.arch .medallion::after{content:'';position:absolute;inset:-4% -14%;z-index:-1;
+  background:radial-gradient(58% 46% at 50% 56%,rgba(232,199,106,.13) 0%,transparent 70%);
+  pointer-events:none}
+.ch-kares .arch .medallion::after{
+  background:radial-gradient(58% 46% at 50% 56%,rgba(38,43,33,.16) 0%,transparent 70%)}
+.ch-kares .arch img{filter:drop-shadow(0 36px 48px rgba(40,30,10,.42)) drop-shadow(0 8px 16px rgba(40,30,10,.3))}
+/* arche or filaire extérieure qui se dessine */
+.arch svg.halo{position:absolute;inset:-6.5% -8%;width:116%;height:111%;overflow:visible}
+.arch svg.halo path{fill:none;stroke:url(#goldStroke);stroke-width:1.6;
+  stroke-dasharray:1750;stroke-dashoffset:1750;
+  transition:stroke-dashoffset 3s var(--ease) .35s}
+.is-in .arch svg.halo path{stroke-dashoffset:0}
+
+/* textes chapitre */
+.ch-num{font-family:'Marcellus',serif;font-size:.74rem;letter-spacing:.5em;
+  text-transform:uppercase;color:var(--gold-3)}
+.ch-txt .name{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;
+  font-size:clamp(3rem,6.6vw,5.2rem);line-height:1.05;margin:1rem 0 .5rem}
+.ch-txt .accord{font-family:'Marcellus',serif;font-size:.82rem;letter-spacing:.4em;
+  text-transform:uppercase;color:var(--ivory-60);margin-bottom:2rem}
+.ch-txt .desc{max-width:530px;line-height:2.05;color:var(--ivory-60);font-size:1.02rem}
+.quote{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(1.2rem,2.2vw,1.55rem);line-height:1.65;margin-top:2.2rem;max-width:530px;
+  color:var(--ivory)}
+.quote::before{content:'«\00a0'}.quote::after{content:'\00a0»'}
+
+/* pyramide */
+.pyramid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;
+  margin-top:2.5rem;max-width:580px}
+.pyramid>div{border-top:1px solid var(--gold-line);padding-top:1rem}
+.pyramid h4{font-size:.62rem;letter-spacing:.42em;text-transform:uppercase;
+  color:var(--gold-3);font-weight:400;margin-bottom:.5rem}
+.pyramid p{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:1.05rem;line-height:1.55}
+@media(max-width:560px){.pyramid{grid-template-columns:1fr;gap:1.1rem}}
+
+/* prix + CTA boutique propre */
+.buy{display:flex;align-items:center;gap:2.2rem;margin-top:2.7rem;flex-wrap:wrap}
+.price .amount{font-family:'Marcellus',serif;font-size:1.7rem;letter-spacing:.05em}
+.price .label{display:block;font-size:.66rem;letter-spacing:.34em;
+  text-transform:uppercase;color:var(--ivory-60);margin-top:.3rem}
+.btn{display:inline-flex;align-items:center;gap:.85rem;
+  font-family:'Marcellus',serif;font-size:.78rem;letter-spacing:.38em;text-transform:uppercase;
+  color:var(--night);text-decoration:none;padding:1.05rem 2.1rem;border-radius:2px;
+  background:linear-gradient(115deg,var(--gold-2) 0%,var(--gold-3) 35%,var(--gold-4) 50%,var(--gold-3) 65%,var(--gold-2) 100%);
+  background-size:180% 100%;
+  transition:background-position .8s var(--ease),transform .5s var(--ease),box-shadow .5s;
+  box-shadow:0 14px 34px -14px rgba(232,199,106,.45)}
+.btn:hover{background-position:100% 0;transform:translateY(-2px);
+  box-shadow:0 20px 42px -14px rgba(232,199,106,.55)}
+.discovery{font-size:.86rem;color:var(--ivory-60);margin-top:1.1rem;letter-spacing:.04em}
+.discovery b{color:var(--gold-3);font-weight:400}
+
+/* thèmes chapitres + fenêtres vidéo selon position de l'arche */
+.ch-oro{background:var(--oro)}
+.ch-oro .veil{background:linear-gradient(90deg,rgba(22,4,2,.45) 0%,rgba(22,4,2,.62) 45%,rgba(22,4,2,.92) 100%)}
+.ch-kares{background:var(--kares);color:var(--kares-ink)}
+.ch-kares .veil{background:linear-gradient(90deg,rgba(236,232,218,.93) 0%,rgba(236,232,218,.66) 48%,rgba(236,232,218,.30) 100%)}
+.ch-kares .ch-num{color:var(--gold-deep-2)}
+.ch-kares .ch-txt .accord{color:rgba(38,43,33,.66)}
+.ch-kares .ch-txt .desc{color:rgba(38,43,33,.78)}
+.ch-kares .pyramid h4{color:var(--gold-deep-2)}
+.ch-kares .pyramid>div{border-top-color:rgba(138,109,31,.4)}
+.ch-kares .price .label,.ch-kares .discovery{color:rgba(38,43,33,.66)}
+.ch-kares .discovery b{color:var(--gold-deep-2)}
+.ch-ahi{background:var(--ahi)}
+.ch-ahi .veil{background:linear-gradient(90deg,rgba(2,11,10,.92) 0%,rgba(2,11,10,.6) 48%,rgba(2,11,10,.42) 100%)}
+
+/* ─── Maison ─── */
+.maison{padding:clamp(7rem,15vh,12rem) 0;
+  background:radial-gradient(95% 75% at 50% 0%,var(--night-2) 0%,var(--night) 72%)}
+.maison .wrap{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);
+  gap:clamp(2.6rem,6vw,6rem);align-items:center}
+@media(max-width:940px){.maison .wrap{grid-template-columns:1fr}}
+.maison h2{font-family:'Marcellus',serif;font-weight:400;
+  font-size:clamp(1.9rem,3.8vw,2.9rem);letter-spacing:.12em;line-height:1.3;
+  margin:1.2rem 0 1.9rem}
+.maison p{color:var(--ivory-60);line-height:2.1;max-width:560px;font-size:1.02rem}
+.maison p+p{margin-top:1.25rem}
+.maison .photo{position:relative;overflow:hidden;border-radius:2px;
+  box-shadow:0 60px 110px -45px rgba(0,0,0,.85)}
+.maison .photo img{display:block;width:100%;
+  transform:scale(1.1);transition:transform 2.6s var(--ease)}
+.maison .photo.is-in img{transform:scale(1.02)}
+.maison .nez{margin-top:2.2rem;border-left:1px solid var(--gold-line);padding-left:1.6rem}
+.maison .nez .who{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:1.5rem;color:var(--ivory)}
+.maison .nez .role{font-size:.68rem;letter-spacing:.4em;text-transform:uppercase;
+  color:var(--gold-3);margin-top:.4rem}
+
+/* ─── Footer ─── */
+footer{border-top:1px solid rgba(232,199,106,.12);
+  padding:5rem 0 3rem;text-align:center;background:#050c0b}
+footer .flogo{width:200px;margin:0 auto 2rem;display:block}
+footer .links{display:flex;gap:2.4rem;justify-content:center;margin:0 0 2.6rem;flex-wrap:wrap}
+footer .links a{color:var(--ivory-60);text-decoration:none;font-size:.7rem;
+  letter-spacing:.32em;text-transform:uppercase;transition:color .4s}
+footer .links a:hover{color:var(--gold-3)}
+footer .legal{font-size:.72rem;color:rgba(240,234,219,.32);letter-spacing:.06em;line-height:2.1}
+
+/* ─── Manifeste : appel ─── */
+.suivez{display:inline-block;font-family:'Marcellus',serif;font-size:.95rem;
+  letter-spacing:.5em;text-transform:uppercase;margin-top:3.2rem}
+
+/* ─── Citation sur section claire ─── */
+.ch-kares .quote{color:var(--kares-ink)}
+
+/* ─── Exergue mot du nez ─── */
+.exergue{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(1.2rem,2vw,1.45rem);line-height:1.7;color:var(--ivory);
+  margin-top:2.4rem;max-width:540px}
+
+/* ─── Voile Réservation (liste d'attente) ─── */
+.wl{position:fixed;inset:0;z-index:9300;display:flex;align-items:center;justify-content:center;
+  padding:1.2rem}
+.wl[hidden]{display:none}
+.wl-backdrop{position:absolute;inset:0;background:rgba(4,9,8,.82);backdrop-filter:blur(14px)}
+.wl-card{position:relative;width:min(96vw,560px);max-height:92svh;overflow:auto;
+  background:linear-gradient(168deg,#0c1917 0%,#07100f 100%);
+  border:1px solid rgba(232,199,106,.28);border-radius:4px;
+  padding:clamp(1.8rem,4vw,3rem);
+  box-shadow:0 80px 140px -40px rgba(0,0,0,.9),inset 0 0 70px rgba(176,138,46,.06);
+  animation:wlIn .7s var(--ease)}
+@keyframes wlIn{from{opacity:0;transform:translateY(26px) scale(.985)}to{opacity:1;transform:none}}
+.wl-close{position:absolute;top:1rem;right:1.1rem;background:none;border:0;color:var(--ivory-60);
+  font-size:1.6rem;line-height:1;cursor:pointer;transition:color .3s;padding:.3rem}
+.wl-close:hover{color:var(--gold-3)}
+.wl-title{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;
+  font-size:clamp(2rem,4.4vw,2.7rem);margin:.9rem 0 .6rem}
+.wl-sub{color:var(--ivory-60);line-height:1.95;font-size:.95rem;max-width:440px}
+.wl-group{border:0;margin:1.6rem 0 0;display:flex;gap:.7rem;flex-wrap:wrap}
+.chip{font-family:'Jost',sans-serif;font-weight:300;text-align:left;cursor:pointer;
+  background:transparent;color:var(--ivory);
+  border:1px solid rgba(232,199,106,.30);border-radius:2px;
+  padding:.72rem 1.05rem;font-size:.84rem;letter-spacing:.06em;
+  transition:border-color .35s,background .35s,color .35s}
+.chip small{display:block;font-size:.66rem;letter-spacing:.05em;color:var(--ivory-60);
+  margin-top:.25rem}
+.chip:hover{border-color:var(--gold-3)}
+#wlProducts .chip{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:1.12rem;letter-spacing:.02em;padding:.6rem 1.15rem}
+.chip.is-on{background:linear-gradient(115deg,var(--gold-2),var(--gold-3) 55%,var(--gold-4));
+  color:var(--night);border-color:transparent}
+.chip.is-on small{color:rgba(7,16,15,.72)}
+.wl-row{display:flex;gap:.8rem;margin-top:1.9rem;flex-wrap:wrap}
+.wl-row input{flex:1;min-width:220px;background:transparent;border:0;
+  border-bottom:1px solid rgba(232,199,106,.35);color:var(--ivory);
+  font-family:'Jost',sans-serif;font-weight:300;font-size:1rem;letter-spacing:.03em;
+  padding:.85rem .1rem;outline:none;transition:border-color .35s;border-radius:0}
+.wl-row input:focus{border-bottom-color:var(--gold-3)}
+.wl-row input::placeholder{color:var(--ivory-35)}
+.wl-note{margin-top:1.2rem;font-size:.72rem;letter-spacing:.05em;color:var(--ivory-35)}
+.wl-note.is-error{color:#d98c7a}
+.wl-done{padding:1.6rem 0 .6rem}
+.wl-done-title{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.9rem;
+  margin-bottom:.7rem}
+.wl-done p:last-child{color:var(--ivory-60);line-height:1.9}
+body.wl-open{overflow:hidden}
+
+/* ─── Typo mobile : lisibilité 3000 % téléphone (police jamais trop petite) ─── */
+@media(max-width:700px){
+  .ch-txt .desc{font-size:1.09rem;line-height:2.05}
+  .manifesto .small{font-size:1.08rem;line-height:2.05}
+  .manifesto .roman .t{font-size:.74rem}
+  .pyramid p{font-size:1.14rem}
+  .pyramid h4{font-size:.7rem}
+  .quote{font-size:1.34rem}
+  .discovery{font-size:.96rem;line-height:1.8}
+  .eyebrow{font-size:.73rem;letter-spacing:.42em}
+  .ch-num{font-size:.79rem;letter-spacing:.34em}
+  .ch-txt .accord{font-size:.89rem;letter-spacing:.28em}
+  .price .label{font-size:.73rem}
+  nav a{font-size:.78rem}
+  .scroll-cue{font-size:.65rem}
+  .wl-sub{font-size:1.03rem;line-height:1.95}
+  .chip{font-size:.93rem}
+  #wlProducts .chip{font-size:1.22rem}
+  .chip small{font-size:.73rem}
+  .wl-row input{font-size:1.05rem}   /* ≥16px → pas de zoom auto iOS */
+  .wl-note{font-size:.8rem}
+  footer .links a{font-size:.78rem}
+  footer .legal{font-size:.8rem}
+  .maison p{font-size:1.08rem;line-height:2.05}
+  .exergue{font-size:1.3rem}
+  .nez .who{font-size:1.6rem}
+}
+
+/* reduced motion */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .rv{opacity:1;transform:none}
+  .loader{display:none}
+  video{display:none!important}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="goldStroke" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6e521b"/><stop offset=".3" stop-color="#b08a2e"/>
+      <stop offset=".5" stop-color="#f7e7a8"/><stop offset=".7" stop-color="#e8c76a"/>
+      <stop offset="1" stop-color="#6e521b"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<!-- Préloader -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="lcine">
+    <img class="lab" src="assets/logo_part_ab.png" alt="">
+    <img class="lsig" src="assets/logo_part_signature.png" alt="">
+    <img class="lparis" src="assets/logo_part_paris.png" alt="">
+    <div class="sweep"></div>
+  </div>
+</div>
+
+<!-- Navigation -->
+<nav id="nav">
+  <a href="#top" aria-label="Accueil"><img class="nlogo" src="assets/logo_or_nav.webp" alt="AB Signature Paris"></a>
+  <ul>
+    <li><a href="#collection">La Collection</a></li>
+    <li class="hide-m"><a href="#maison">La Maison</a></li>
+    <li class="hide-m"><a href="mailto:contact@absignatureparis.com">Contact</a></li>
+    <li><a class="bag" href="#collection" data-waitlist data-product="Oro Rojo">Réserver</a></li>
+  </ul>
+</nav>
+
+<!-- HERO — vidéo plein écran + logo seul (grammaire Silona) -->
+<header class="hero" id="top">
+  <div class="hero-fallback"></div>
+  <!-- montage 21 s : océan étoilé → silhouette → vague d’or → tikis (boucle respirée) -->
+  <video autoplay muted loop playsinline poster="videos/hero_poster.webp" id="heroVideo">
+    <source src="videos/hero_web.mp4" type="video/mp4">
+  </video>
+  <script>/* mobile : hero 720p (−60 % de poids), choisi AVANT le chargement */
+  (function(){var v=document.getElementById('heroVideo');
+    if(matchMedia('(max-width:700px)').matches){v.querySelector('source').src='videos/hero_web_720.mp4';v.load();}})();
+  </script>
+  <div class="veil"></div>
+  <div class="hero-inner">
+    <img class="hero-logo" src="assets/logo_or_hero.webp" alt="AB Signature Paris">
+  </div>
+  <div class="scroll-cue"><span>Le voyage commence</span><span class="line"></span></div>
+</header>
+
+<!-- MANIFESTE -->
+<section class="manifesto">
+  <div class="wrap">
+    <div class="eyebrow rv">Îles Paradisiaques · Trois extraits de parfum</div>
+    <p class="lead rv rv-d1" style="margin-top:2.6rem">Il est des voyages qui ne s’écrivent pas
+    sur des cartes.</p>
+    <p class="small rv rv-d2">Trois îles, trois heures du monde&nbsp;: le couchant d’Aruba, le
+    plein midi de La&nbsp;Digue, la nuit sacrée de Moorea. AB&nbsp;Signature&nbsp;Paris les a
+    gravées dans le verre, scellées d’un bouchon d’or, signées d’un trait.</p>
+    <p class="suivez gold rv rv-d3">Suivez la ligne.</p>
+    <div class="roman rv rv-d4">
+      <a href="#oro"><span class="n">I</span><span class="t">Oro Rojo</span></a>
+      <a href="#kares"><span class="n">II</span><span class="t">Karès Blan</span></a>
+      <a href="#ahi"><span class="n">III</span><span class="t">Ahi Pō</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPITRE I — ORO ROJO -->
+<section class="chapter ch-oro" id="collection">
+  <span id="oro" style="position:absolute;top:-1px"></span>
+  <video class="bgv" muted loop playsinline preload="none" poster="videos/oro_poster.webp"
+         data-src="videos/oro_web.mp4"></video>
+  <div class="veil"></div>
+  <div class="wrap">
+    <div class="arch rv">
+      <svg class="halo" viewBox="0 0 100 124" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M3 121 L3 44 Q3 4 50 4 Q97 4 97 44 L97 121"/>
+      </svg>
+      <span class="medallion">
+        <span class="faces"><img class="face-a" src="assets/oro-front-detoure.webp" alt="Oro Rojo — extrait de parfum AB Signature Paris, flacon gravé d’Aruba">
+        <img class="face-b" src="assets/oro-back-detoure.webp" alt="Oro Rojo — verso gravé, divi-divi au couchant d’Aruba"></span>
+      </span>
+    </div>
+    <div class="ch-txt">
+      <div class="ch-num rv">Chapitre I — Aruba · L’heure du couchant</div>
+      <h2 class="name gold rv rv-d1">Oro Rojo</h2>
+      <div class="accord rv rv-d2">Fruité boisé incandescent · Extrait de parfum 25&nbsp;%</div>
+      <p class="desc rv rv-d2">Oro Rojo est un extrait fruité boisé incandescent. Une cerise
+      voluptueuse rehaussée d’un safran flamboyant s’enroule autour d’une fleur d’oranger soyeuse
+      et d’un iris poudré, avant de plonger dans un fond profond de cacao noir et
+      d’oud&nbsp;— un voyage sensoriel d’Aruba, sucré, épicé et mystérieux.</p>
+      <p class="quote rv rv-d3">L’incandescence du couchant d’Aruba, où la cerise embrasse l’oud.</p>
+      <div class="pyramid rv rv-d3">
+        <div><h4>Tête</h4><p>Cerise, Safran, Agrumes, Liqueur</p></div>
+        <div><h4>Cœur</h4><p>Fleur d’oranger, Iris</p></div>
+        <div><h4>Fond</h4><p>Oud, Cacao</p></div>
+      </div>
+      <div class="buy rv rv-d4">
+        <div class="price"><span class="amount gold">160&nbsp;€</span>
+          <span class="label">Extrait 50&nbsp;ml</span></div>
+        <a class="btn" href="#" data-waitlist data-product="Oro Rojo">Réserver</a>
+      </div>
+      <p class="discovery rv rv-d5">Découverte 10&nbsp;ml&nbsp;— <b>49&nbsp;€</b> · Édition limitée à 300&nbsp;exemplaires</p>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPITRE II — KARÈS BLAN (lumière) -->
+<section class="chapter ch-kares" id="kares">
+  <video class="bgv" muted loop playsinline preload="none" poster="videos/kares_poster.webp"
+         data-src="videos/kares_web.mp4"></video>
+  <div class="veil"></div>
+  <div class="wrap flip">
+    <div class="ch-txt">
+      <div class="ch-num rv">Chapitre II — La Digue · Le plein midi</div>
+      <h2 class="name gold-deep rv rv-d1">Karès Blan</h2>
+      <div class="accord rv rv-d2">Floral musqué solaire · Extrait de parfum 25&nbsp;%</div>
+      <p class="desc rv rv-d2">Karès Blan est un extrait floral musqué éclatant et solaire. Une
+      bergamote pétillante rehaussée d’amande poudrée et d’aldéhydes lumineux s’enroule autour
+      d’un cœur blanc cotonneux de fleur d’oranger, fleurs blanches et muguet, avant de plonger
+      dans un fond doux et lacté de musc et vanille&nbsp;— un voyage sensoriel des Seychelles,
+      élégant, lumineux et caressant.</p>
+      <p class="quote rv rv-d3">La caresse blanche des Seychelles, fleur d’oranger et vanille.</p>
+      <div class="pyramid rv rv-d3">
+        <div><h4>Tête</h4><p>Bergamote, Amande, Aldéhydes</p></div>
+        <div><h4>Cœur</h4><p>Fleur d’oranger, Fleurs blanches, Muguet</p></div>
+        <div><h4>Fond</h4><p>Musc, Vanille</p></div>
+      </div>
+      <div class="buy rv rv-d4">
+        <div class="price"><span class="amount gold-deep">160&nbsp;€</span>
+          <span class="label">Extrait 50&nbsp;ml</span></div>
+        <a class="btn" href="#" data-waitlist data-product="Karès Blan">Réserver</a>
+      </div>
+      <p class="discovery rv rv-d5">Découverte 10&nbsp;ml&nbsp;— <b>49&nbsp;€</b> · Édition limitée à 300&nbsp;exemplaires</p>
+    </div>
+    <div class="arch rv">
+      <svg class="halo" viewBox="0 0 100 124" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M3 121 L3 44 Q3 4 50 4 Q97 4 97 44 L97 121"/>
+      </svg>
+      <span class="medallion">
+        <span class="faces"><img class="face-a" src="assets/kb-front-detoure.webp" alt="Karès Blan — extrait de parfum AB Signature Paris, flacon gravé de La Digue, Seychelles">
+        <img class="face-b" src="assets/kb-back-detoure.webp" alt="Karès Blan — verso gravé, tortue marine d’Anse Source d’Argent"></span>
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPITRE III — AHI PŌ -->
+<section class="chapter ch-ahi" id="ahi">
+  <video class="bgv" muted loop playsinline preload="none" poster="videos/ahi_poster.webp"
+         data-src="videos/ahi_web.mp4"></video>
+  <div class="veil"></div>
+  <div class="wrap">
+    <div class="arch rv">
+      <svg class="halo" viewBox="0 0 100 124" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M3 121 L3 44 Q3 4 50 4 Q97 4 97 44 L97 121"/>
+      </svg>
+      <span class="medallion">
+        <span class="faces"><img class="face-a" src="assets/ahi-front-detoure.webp" alt="Ahi Pō — extrait de parfum AB Signature Paris, flacon gravé de Moorea, Polynésie">
+        <img class="face-b" src="assets/ahi-back-detoure.webp" alt="Ahi Pō — verso gravé, nuit marine de Polynésie"></span>
+      </span>
+    </div>
+    <div class="ch-txt">
+      <div class="ch-num rv">Chapitre III — Moorea · La nuit sacrée</div>
+      <h2 class="name gold rv rv-d1">Ahi Pō</h2>
+      <div class="accord rv rv-d2">Cuir boisé mystique · Extrait de parfum 25&nbsp;%</div>
+      <p class="desc rv rv-d2">Voyage olfactif au cœur de la Polynésie&nbsp;: Ahi Pō capture le
+      mystère d’une nuit sacrée sur les eaux du Pacifique. Sous le ciel constellé, l’écorce et le
+      cuir tannés s’entrelacent au noir profond du cassis perlé de rosée. Une fragrance
+      contemplative signée AB&nbsp;Signature&nbsp;Paris, qui révèle l’âme boisée et cuirée des
+      îles paradisiaques.</p>
+      <p class="quote rv rv-d3">Nuit sacrée des îles, où le cuir noble s’enlace aux fleurs blanches.</p>
+      <div class="pyramid rv rv-d3">
+        <div><h4>Tête</h4><p>Cassis, Cardamome</p></div>
+        <div><h4>Cœur</h4><p>Cuir, Fleurs blanches, Rose</p></div>
+        <div><h4>Fond</h4><p>Ambre, Bois précieux, Patchouli, Vétiver</p></div>
+      </div>
+      <div class="buy rv rv-d4">
+        <div class="price"><span class="amount gold">160&nbsp;€</span>
+          <span class="label">Extrait 50&nbsp;ml</span></div>
+        <a class="btn" href="#" data-waitlist data-product="Ahi Pō">Réserver</a>
+      </div>
+      <p class="discovery rv rv-d5">Découverte 10&nbsp;ml&nbsp;— <b>49&nbsp;€</b> · Édition limitée à 300&nbsp;exemplaires</p>
+    </div>
+  </div>
+</section>
+
+<!-- LA MAISON -->
+<section class="maison" id="maison">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow rv">La Maison</div>
+      <h2 class="rv rv-d1">Composé à Grasse</h2>
+      <p class="rv rv-d2">Les trois parfums de la collection Îles Paradisiaques sont des extraits
+      de parfum à 25&nbsp;%&nbsp;— la concentration la plus noble&nbsp;— composés à Grasse,
+      berceau de la parfumerie française.</p>
+      <p class="rv rv-d2">Chaque flacon de 50&nbsp;ml est habillé d’une scène gravée, signée de
+      l’arche et du bouchon d’or qui unissent le trio. Trois îles, une seule signature.</p>
+      <blockquote class="exergue rv rv-d3">«&nbsp;Oro Rojo capture l’incandescence du couchant
+      d’Aruba&nbsp;— où la cerise mûre rencontre le cacao noir, sous le voile mystérieux de
+      l’oud.&nbsp;»</blockquote>
+      <div class="nez rv rv-d3">
+        <div class="who">Guillaume Cresp</div>
+        <div class="role">Le nez — Grasse</div>
+      </div>
+    </div>
+    <div class="photo rv rv-d2">
+      <img src="assets/ahi-v11-true-hands.webp"
+           alt="Ahi Pō entre les mains — plage volcanique de Polynésie">
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <img class="flogo" src="assets/logo_or_hero.webp" alt="AB Signature Paris">
+    <div class="links">
+      <a href="#collection">La Collection</a>
+      <a href="#maison">La Maison</a>
+      <a href="mailto:contact@absignatureparis.com">Contact</a>
+      <a href="mentions-legales.html">Mentions légales</a>
+    </div>
+    <div class="legal">
+      AB Signature Paris est une maison de PBABS INTERNATIONAL PTE.&nbsp;LTD.&nbsp;—<br>
+      © 2026 AB Signature Paris. Tous droits réservés.
+    </div>
+  </div>
+</footer>
+
+<!-- VOILE RÉSERVATION — liste d’attente -->
+<div class="wl" id="wl" role="dialog" aria-modal="true" aria-labelledby="wlTitle" hidden>
+  <div class="wl-backdrop" data-wl-close></div>
+  <div class="wl-card">
+    <button class="wl-close" type="button" aria-label="Fermer" data-wl-close>&times;</button>
+    <div class="eyebrow">Liste d’attente</div>
+    <h3 class="wl-title gold" id="wlTitle">Réserver</h3>
+    <p class="wl-sub">Les éditions de la collection Îles Paradisiaques sont confectionnées en
+    séries limitées. Inscrivez-vous&nbsp;: vous serez prévenu·e en avant-première de l’ouverture
+    des commandes, sans engagement.</p>
+    <form id="wlForm" novalidate>
+      <fieldset class="wl-group" id="wlProducts" aria-label="Parfum">
+        <button type="button" class="chip is-on" data-p="Oro Rojo">Oro Rojo</button>
+        <button type="button" class="chip" data-p="Karès Blan">Karès Blan</button>
+        <button type="button" class="chip" data-p="Ahi Pō">Ahi Pō</button>
+      </fieldset>
+      <fieldset class="wl-group" id="wlFormats" aria-label="Format">
+        <button type="button" class="chip is-on" data-f="10ml">Découverte 10&nbsp;ml — 49&nbsp;€
+          <small>Édition limitée à 300 exemplaires</small></button>
+        <button type="button" class="chip" data-f="50ml">Extrait 50&nbsp;ml — 160&nbsp;€
+          <small>Premières livraisons&nbsp;: décembre 2026</small></button>
+      </fieldset>
+      <div class="wl-row">
+        <input id="wlEmail" type="email" placeholder="Votre adresse email" autocomplete="email" required>
+        <button class="btn" type="submit" id="wlSubmit">Rejoindre</button>
+      </div>
+      <p class="wl-note" id="wlMsg">Votre adresse ne sert qu’à cette notification.</p>
+    </form>
+    <div class="wl-done" id="wlDone" hidden>
+      <p class="wl-done-title gold">Votre place est réservée.</p>
+      <p>Nous vous écrirons en avant-première dès l’ouverture des commandes.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+/* Préloader */
+window.addEventListener('load', () => {
+  setTimeout(() => document.getElementById('loader').classList.add('is-done'), 2350);
+});
+/* Nav */
+const nav = document.getElementById('nav');
+addEventListener('scroll', () => nav.classList.toggle('is-scrolled', scrollY > 60), {passive:true});
+/* Reveals — jamais imbriqués + filet de sécurité */
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting){ e.target.classList.add('is-in'); io.unobserve(e.target); }
+}), {threshold:.08, rootMargin:'0px 0px -4% 0px'});
+document.querySelectorAll('.rv').forEach(el => io.observe(el));
+setInterval(() => {                            /* sécurité anti-élément bloqué */
+  document.querySelectorAll('.rv:not(.is-in)').forEach(el => {
+    const r = el.getBoundingClientRect();
+    if (r.top < innerHeight * .92 && r.bottom > 0) el.classList.add('is-in');
+  });
+}, 900);
+/* zoom-out vidéo de chapitre quand visible */
+const ioc = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) e.target.classList.add('is-seen');
+}), {threshold:.25});
+document.querySelectorAll('.chapter').forEach(s => ioc.observe(s));
+/* lazy-load des vidéos de chapitre (perf : chargées à l'approche, jouées une fois prêtes) */
+const iov = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return;
+  const v = e.target;
+  if (v.dataset.src){
+    v.src = v.dataset.src; v.removeAttribute('data-src');
+    v.load();
+    v.addEventListener('canplay', () => v.play().catch(()=>{}), {once:true});
+  }
+  iov.unobserve(v);
+}), {rootMargin: '900px 0px'});
+document.querySelectorAll('video.bgv[data-src]').forEach(v => iov.observe(v));
+/* Curseur */
+const cur = document.getElementById('cursor');
+addEventListener('mousemove', e => { cur.style.left = e.clientX+'px'; cur.style.top = e.clientY+'px'; });
+document.querySelectorAll('a,button').forEach(el => {
+  el.addEventListener('mouseenter', () => cur.classList.add('is-link'));
+  el.addEventListener('mouseleave', () => cur.classList.remove('is-link'));
+});
+/* Parallaxe douce médaillons */
+const meds = [...document.querySelectorAll('.arch')];
+addEventListener('scroll', () => {
+  for (const m of meds){
+    const r = m.getBoundingClientRect();
+    if (r.top < innerHeight && r.bottom > 0){
+      const t = (r.top + r.height/2 - innerHeight/2) / innerHeight;
+      m.style.translate = `0 ${t * -18}px`;
+    }
+  }
+}, {passive:true});
+/* ─── Réservation / liste d'attente ─── */
+const WL_API = 'https://stella-shopify-app-production.up.railway.app/api/absignature/waitlist';
+const wl = document.getElementById('wl');
+const wlForm = document.getElementById('wlForm');
+const wlDone = document.getElementById('wlDone');
+const wlMsg = document.getElementById('wlMsg');
+const wlEmail = document.getElementById('wlEmail');
+const wlSel = {p: 'Oro Rojo', f: '10ml'};
+const pick = (groupId, attr, value) => {
+  document.querySelectorAll('#' + groupId + ' .chip').forEach(c =>
+    c.classList.toggle('is-on', c.dataset[attr] === value));
+};
+document.querySelectorAll('#wlProducts .chip').forEach(c =>
+  c.addEventListener('click', () => { wlSel.p = c.dataset.p; pick('wlProducts','p',wlSel.p); }));
+document.querySelectorAll('#wlFormats .chip').forEach(c =>
+  c.addEventListener('click', () => { wlSel.f = c.dataset.f; pick('wlFormats','f',wlSel.f); }));
+const wlOpen = (product) => {
+  if (product){ wlSel.p = product; pick('wlProducts','p',product); }
+  wlForm.hidden = false; wlDone.hidden = true;
+  wl.hidden = false; document.body.classList.add('wl-open');
+  setTimeout(() => wlEmail.focus(), 350);
+};
+const wlClose = () => { wl.hidden = true; document.body.classList.remove('wl-open'); };
+document.querySelectorAll('[data-waitlist]').forEach(el =>
+  el.addEventListener('click', e => { e.preventDefault(); wlOpen(el.dataset.product); }));
+document.querySelectorAll('[data-wl-close]').forEach(el => el.addEventListener('click', wlClose));
+addEventListener('keydown', e => { if (e.key === 'Escape' && !wl.hidden) wlClose(); });
+wlForm.addEventListener('submit', async e => {
+  e.preventDefault();
+  const email = wlEmail.value.trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){
+    wlMsg.textContent = 'Merci d’indiquer une adresse email valide.';
+    wlMsg.classList.add('is-error'); return;
+  }
+  wlMsg.classList.remove('is-error');
+  wlMsg.textContent = 'Un instant…';
+  try{
+    const r = await fetch(WL_API, {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({email, product: wlSel.p, format: wlSel.f, source: 'absignatureparis.com'})});
+    if (!r.ok) throw new Error(r.status);
+    wlForm.hidden = true; wlDone.hidden = false;
+  }catch(err){
+    wlMsg.textContent = 'Une erreur est survenue — merci de réessayer dans un instant.';
+    wlMsg.classList.add('is-error');
+  }
+});
+</script>
+</body>
+</html>
