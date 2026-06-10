@@ -214,7 +214,9 @@ section{position:relative}
   grid-template-columns:minmax(0,5fr) minmax(0,6fr);
   gap:clamp(2.6rem,6vw,6rem);align-items:center;width:100%}
 .chapter .wrap.flip{grid-template-columns:minmax(0,6fr) minmax(0,5fr)}
-@media(max-width:940px){.chapter .wrap,.chapter .wrap.flip{grid-template-columns:1fr;gap:3.2rem}}
+@media(max-width:940px){.chapter .wrap,.chapter .wrap.flip{grid-template-columns:1fr;gap:3.2rem}
+  /* mobile : flacon TOUJOURS en premier, texte dessous (même pour le layout inversé Karès) */
+  .chapter .wrap.flip .arch{order:-1}}
 
 /* arche filaire or (écho des gravures) — flacon détouré posé DIRECTEMENT sur la vidéo,
    plus aucune plaque derrière (directive Benoit 10/06 soir) */
