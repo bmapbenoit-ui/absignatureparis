@@ -676,7 +676,7 @@ body.wl-open{overflow:hidden}
         <button type="button" class="chip is-on" data-f="10ml">Discovery 10&nbsp;ml — €49
           <small>Limited edition of 300</small></button>
         <button type="button" class="chip" data-f="50ml">Extrait 50&nbsp;ml — €160
-          <small>First deliveries&nbsp;— December 2026</small></button>
+          <small>By reservation</small></button>
       </fieldset>
       <div class="wl-row">
         <input id="wlEmail" type="email" placeholder="Your email address" autocomplete="email" required>
@@ -696,14 +696,24 @@ body.wl-open{overflow:hidden}
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 if (location.hash) history.replaceState(null, '', location.pathname);
 window.scrollTo(0, 0);
-window.addEventListener('pageshow', () => {
-  window.scrollTo(0, 0);
+const heroRestart = () => {
   const v = document.getElementById('heroVideo');
-  if (v){ try { v.currentTime = 0; } catch(_){} v.play().catch(()=>{}); }
+  if (!v) return;
+  const seek = () => { try { v.currentTime = 0; } catch(_){} v.play().catch(()=>{}); };
+  if (v.readyState >= 1) seek();
+  else { v.addEventListener('loadedmetadata', seek, {once:true}); try { v.load(); } catch(_){} }
+};
+window.addEventListener('pageshow', (e) => { window.scrollTo(0, 0); if (e.persisted) heroRestart(); });
+document.addEventListener('visibilitychange', () => {
+  const v = document.getElementById('heroVideo');
+  if (!document.hidden && v && v.paused) v.play().catch(()=>{});
 });
-/* Préloader */
+/* Préloader — à sa fin, le film démarre de son premier plan (restart garanti même après reload) */
 window.addEventListener('load', () => {
-  setTimeout(() => document.getElementById('loader').classList.add('is-done'), 2350);
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('is-done');
+    heroRestart();
+  }, 2350);
 });
 /* Nav */
 const nav = document.getElementById('nav');
