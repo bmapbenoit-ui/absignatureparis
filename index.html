@@ -727,13 +727,24 @@ document.addEventListener('visibilitychange', () => {
   const v = document.getElementById('heroVideo');
   if (!document.hidden && v && v.paused) v.play().catch(()=>{});
 });
-/* Préloader — à sa fin, le film démarre de son premier plan (restart garanti même après reload) */
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    document.getElementById('loader').classList.add('is-done');
+/* Préloader — fin naturelle ~2,9 s mais JAMAIS bloquant (retour Benoit 08/07
+   « on croit que le site bugue ») : premier geste (molette, tap, touche) =
+   entrée immédiate ; plafond dur 3 s depuis le parse même si `load` traîne
+   (vidéo hero lente). À la fin, le film démarre de son premier plan. */
+(() => {
+  const loaderEl = document.getElementById('loader');
+  let introDone = false;
+  const introEnd = () => {
+    if (introDone) return;
+    introDone = true;
+    loaderEl.classList.add('is-done');
     heroRestart();
-  }, 2350);
-});
+  };
+  window.addEventListener('load', () => setTimeout(introEnd, 2350));
+  setTimeout(introEnd, 3000);
+  ['wheel', 'touchstart', 'pointerdown', 'keydown'].forEach(ev =>
+    addEventListener(ev, introEnd, { once: true, passive: true }));
+})();
 /* Nav */
 const nav = document.getElementById('nav');
 addEventListener('scroll', () => nav.classList.toggle('is-scrolled', scrollY > 60), {passive:true});
@@ -839,7 +850,11 @@ wlForm.addEventListener('submit', async e => {
    chapitre devient « Acheter — 10 ml · 49 € » vers la boutique officielle.
    Échec réseau = aucun changement (waitlist par défaut, fail-safe). */
 (async () => {
-  const API = 'https://shop.planetebeauty.shop';
+  /* ⚠️ API = le domaine du BACKEND Medusa (apex planetebeauty.shop → :9000).
+     shop.planetebeauty.shop est le STOREFRONT Next : /store/* y répond 307
+     vers une page HTML → le script restait en fail-safe « Réserver » alors
+     que le stock était saisi (bug constaté par Benoit 08/07). */
+  const API = 'https://planetebeauty.shop';
   const PK = 'pk_38103b2b5199b28ba232f883624aa537daf5df48d4341d4b56959b51a8579a55';
   const BOUTIQUE = '/fr/products/';
   const REFS = {
@@ -859,13 +874,17 @@ wlForm.addEventListener('submit', async e => {
       const v10 = (p.variants || []).find(v => /10\s*ml/i.test(v.title || ''));
       dispo[p.handle] = !!v10 && (!v10.manage_inventory || Number(v10.inventory_quantity) > 0);
     }
+    const anyDispo = Object.values(dispo).some(Boolean);
     document.querySelectorAll('[data-waitlist][data-product]').forEach(el => {
       const handle = REFS[el.dataset.product];
-      if (!handle || !dispo[handle]) return;
+      const isNav = el.classList.contains('bag');
+      if (isNav ? !anyDispo : (!handle || !dispo[handle])) return;
       const buy = el.cloneNode(false);
       buy.removeAttribute('data-waitlist');
-      buy.textContent = 'Acheter — 10 ml · 49 €';
-      buy.href = BOUTIQUE + handle;
+      buy.removeAttribute('data-product');
+      /* Nav : « Acheter » court vers la boutique ; chapitre : CTA complet vers la fiche. */
+      buy.textContent = isNav ? 'Acheter' : 'Acheter — 10 ml · 49 €';
+      buy.href = isNav ? '/fr/store' : BOUTIQUE + handle;
       buy.setAttribute('rel', 'noopener');
       el.replaceWith(buy);
     });

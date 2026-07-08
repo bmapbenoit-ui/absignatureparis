@@ -720,13 +720,23 @@ document.addEventListener('visibilitychange', () => {
   const v = document.getElementById('heroVideo');
   if (!document.hidden && v && v.paused) v.play().catch(()=>{});
 });
-/* Préloader — à sa fin, le film démarre de son premier plan (restart garanti même après reload) */
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    document.getElementById('loader').classList.add('is-done');
+/* Preloader — natural end ~2.9s but NEVER blocking (Benoit 08/07): first
+   gesture (wheel, tap, key) = immediate entry; hard 3s cap even if `load`
+   lags (slow hero video). On end, the film starts from its first frame. */
+(() => {
+  const loaderEl = document.getElementById('loader');
+  let introDone = false;
+  const introEnd = () => {
+    if (introDone) return;
+    introDone = true;
+    loaderEl.classList.add('is-done');
     heroRestart();
-  }, 2350);
-});
+  };
+  window.addEventListener('load', () => setTimeout(introEnd, 2350));
+  setTimeout(introEnd, 3000);
+  ['wheel', 'touchstart', 'pointerdown', 'keydown'].forEach(ev =>
+    addEventListener(ev, introEnd, { once: true, passive: true }));
+})();
 /* Nav */
 const nav = document.getElementById('nav');
 addEventListener('scroll', () => nav.classList.toggle('is-scrolled', scrollY > 60), {passive:true});
@@ -822,6 +832,51 @@ wlForm.addEventListener('submit', async e => {
     wlMsg.classList.add('is-error');
   }
 });
+</script>
+
+<script>
+/* ── BOUTIQUE switch (STELLA 08/07/2026) ─────────────────────────────────
+   Same logic as the FR page (it was missing here — EN CTAs stayed on
+   "Reserve" forever): checks real 10 ml availability on the Medusa
+   backend (apex planetebeauty.shop → :9000, NOT the shop.* storefront),
+   then turns CTAs into "Buy" links to the official boutique (/us).
+   Network failure = no change (waitlist by default, fail-safe). */
+(async () => {
+  const API = 'https://planetebeauty.shop';
+  const PK = 'pk_38103b2b5199b28ba232f883624aa537daf5df48d4341d4b56959b51a8579a55';
+  const BOUTIQUE = '/us/products/';
+  const REFS = {
+    'Oro Rojo':   'ab-signature-paris-oro-rojo-extrait-de-parfum',
+    'Kar\u00e8s Blan': 'ab-signature-paris-kares-blan-extrait-de-parfum',
+    'Ahi P\u014d':     'ab-signature-paris-ahi-po-extrait-de-parfum',
+  };
+  try {
+    const handles = Object.values(REFS).map(h => 'handle[]=' + encodeURIComponent(h)).join('&');
+    const r = await fetch(`${API}/store/products?${handles}&fields=handle,variants.title,variants.manage_inventory,variants.inventory_quantity`, {
+      headers: { 'x-publishable-api-key': PK },
+    });
+    if (!r.ok) return;
+    const { products = [] } = await r.json();
+    const dispo = {};
+    for (const p of products) {
+      const v10 = (p.variants || []).find(v => /10\s*ml/i.test(v.title || ''));
+      dispo[p.handle] = !!v10 && (!v10.manage_inventory || Number(v10.inventory_quantity) > 0);
+    }
+    const anyDispo = Object.values(dispo).some(Boolean);
+    document.querySelectorAll('[data-waitlist][data-product]').forEach(el => {
+      const handle = REFS[el.dataset.product];
+      const isNav = el.classList.contains('bag');
+      if (isNav ? !anyDispo : (!handle || !dispo[handle])) return;
+      const buy = el.cloneNode(false);
+      buy.removeAttribute('data-waitlist');
+      buy.removeAttribute('data-product');
+      buy.textContent = isNav ? 'Buy' : 'Buy \u2014 10 ml \u00b7 \u20ac49';
+      buy.href = isNav ? '/us/store' : BOUTIQUE + handle;
+      buy.setAttribute('rel', 'noopener');
+      el.replaceWith(buy);
+    });
+  } catch (_) { /* fail-safe: waitlist */ }
+})();
 </script>
 </body>
 </html>
