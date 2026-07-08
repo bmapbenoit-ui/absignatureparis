@@ -457,7 +457,6 @@ body.wl-open{overflow:hidden}
   <a href="#top" aria-label="Accueil"><img class="nlogo" src="assets/logo_or_nav.webp" alt="AB Signature Paris"></a>
   <ul>
     <li><a href="#collection">La Collection</a></li>
-    <li><a href="/fr/store">Boutique</a></li>
     <li class="hide-m"><a href="#maison">La Maison</a></li>
     <li class="hide-m"><a href="mailto:contact@absignatureparis.com">Contact</a></li>
     <li><a class="bag" href="#collection" data-waitlist data-product="Oro Rojo">Réserver</a></li>
@@ -716,7 +715,13 @@ const heroRestart = () => {
   if (v.readyState >= 1) seek();
   else { v.addEventListener('loadedmetadata', seek, {once:true}); try { v.load(); } catch(_){} }
 };
-window.addEventListener('pageshow', (e) => { window.scrollTo(0, 0); if (e.persisted) heroRestart(); });
+let userMoved = false;
+['wheel', 'touchstart', 'keydown', 'pointerdown'].forEach(ev =>
+  addEventListener(ev, () => { userMoved = true; }, { once: true, passive: true }));
+window.addEventListener('pageshow', (e) => {
+  if (e.persisted || !userMoved) window.scrollTo(0, 0);
+  if (e.persisted) heroRestart();
+});
 document.addEventListener('visibilitychange', () => {
   const v = document.getElementById('heroVideo');
   if (!document.hidden && v && v.paused) v.play().catch(()=>{});
@@ -879,7 +884,7 @@ wlForm.addEventListener('submit', async e => {
       /* Vitrine sans prix ni variante (décision Benoit 08/07) : nav « Acheter »
          vers la boutique ; chapitre « Consulter » vers la fiche (le prix se
          découvre sur la fiche). Le « Voir la fiche » devient redondant → retiré. */
-      buy.textContent = isNav ? 'Acheter' : 'Consulter';
+      buy.textContent = isNav ? 'Commander' : 'Consulter';
       buy.href = isNav ? '/fr/store' : BOUTIQUE + handle;
       buy.setAttribute('rel', 'noopener');
       if (!isNav) el.parentElement?.querySelector('.btn-fiche')?.remove();
