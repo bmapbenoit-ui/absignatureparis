@@ -532,12 +532,10 @@ body.wl-open{overflow:hidden}
         <div><h4>Fond</h4><p>Oud, Cacao</p></div>
       </div>
       <div class="buy rv rv-d4">
-        <div class="price"><span class="amount gold">160&nbsp;€</span>
-          <span class="label">Extrait 50&nbsp;ml</span></div>
         <a class="btn" href="#" data-waitlist data-product="Oro Rojo">Réserver</a>
         <a class="btn btn-fiche" href="/fr/products/ab-signature-paris-oro-rojo-extrait-de-parfum" rel="noopener">Voir la fiche</a>
       </div>
-      <p class="discovery rv rv-d5">Découverte 10&nbsp;ml&nbsp;— <b>49&nbsp;€</b> · Édition limitée à 300&nbsp;exemplaires</p>
+      <p class="discovery rv rv-d5">Édition limitée à 300&nbsp;exemplaires</p>
     </div>
   </div>
 </section>
@@ -564,12 +562,10 @@ body.wl-open{overflow:hidden}
         <div><h4>Fond</h4><p>Musc, Vanille</p></div>
       </div>
       <div class="buy rv rv-d4">
-        <div class="price"><span class="amount gold-deep">160&nbsp;€</span>
-          <span class="label">Extrait 50&nbsp;ml</span></div>
         <a class="btn" href="#" data-waitlist data-product="Karès Blan">Réserver</a>
         <a class="btn btn-fiche" href="/fr/products/ab-signature-paris-kares-blan-extrait-de-parfum" rel="noopener">Voir la fiche</a>
       </div>
-      <p class="discovery rv rv-d5">Découverte 10&nbsp;ml&nbsp;— <b>49&nbsp;€</b> · Édition limitée à 300&nbsp;exemplaires</p>
+      <p class="discovery rv rv-d5">Édition limitée à 300&nbsp;exemplaires</p>
     </div>
     <div class="arch rv">
       <svg class="halo" viewBox="0 0 100 124" preserveAspectRatio="none" aria-hidden="true">
@@ -614,12 +610,10 @@ body.wl-open{overflow:hidden}
         <div><h4>Fond</h4><p>Ambre, Bois précieux, Patchouli, Vétiver</p></div>
       </div>
       <div class="buy rv rv-d4">
-        <div class="price"><span class="amount gold">160&nbsp;€</span>
-          <span class="label">Extrait 50&nbsp;ml</span></div>
         <a class="btn" href="#" data-waitlist data-product="Ahi Pō">Réserver</a>
         <a class="btn btn-fiche" href="/fr/products/ab-signature-paris-ahi-po-extrait-de-parfum" rel="noopener">Voir la fiche</a>
       </div>
-      <p class="discovery rv rv-d5">Découverte 10&nbsp;ml&nbsp;— <b>49&nbsp;€</b> · Édition limitée à 300&nbsp;exemplaires</p>
+      <p class="discovery rv rv-d5">Édition limitée à 300&nbsp;exemplaires</p>
     </div>
   </div>
 </section>
@@ -882,10 +876,13 @@ wlForm.addEventListener('submit', async e => {
       const buy = el.cloneNode(false);
       buy.removeAttribute('data-waitlist');
       buy.removeAttribute('data-product');
-      /* Nav : « Acheter » court vers la boutique ; chapitre : CTA complet vers la fiche. */
-      buy.textContent = isNav ? 'Acheter' : 'Acheter — 10 ml · 49 €';
+      /* Vitrine sans prix ni variante (décision Benoit 08/07) : nav « Acheter »
+         vers la boutique ; chapitre « Consulter » vers la fiche (le prix se
+         découvre sur la fiche). Le « Voir la fiche » devient redondant → retiré. */
+      buy.textContent = isNav ? 'Acheter' : 'Consulter';
       buy.href = isNav ? '/fr/store' : BOUTIQUE + handle;
       buy.setAttribute('rel', 'noopener');
+      if (!isNav) el.parentElement?.querySelector('.btn-fiche')?.remove();
       el.replaceWith(buy);
     });
   } catch (_) { /* fail-safe : waitlist */ }

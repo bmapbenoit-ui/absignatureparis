@@ -532,11 +532,9 @@ body.wl-open{overflow:hidden}
         <div><h4>Base</h4><p>Oud, Cocoa</p></div>
       </div>
       <div class="buy rv rv-d4">
-        <div class="price"><span class="amount gold">€160</span>
-          <span class="label">Extrait 50&nbsp;ml</span></div>
         <a class="btn" href="#" data-waitlist data-product="Oro Rojo">Reserve</a>
       </div>
-      <p class="discovery rv rv-d5">Discovery 10&nbsp;ml&nbsp;— <b>€49</b> · Limited edition of 300</p>
+      <p class="discovery rv rv-d5">Limited edition of 300</p>
     </div>
   </div>
 </section>
@@ -562,11 +560,9 @@ body.wl-open{overflow:hidden}
         <div><h4>Base</h4><p>Musk, Vanilla</p></div>
       </div>
       <div class="buy rv rv-d4">
-        <div class="price"><span class="amount gold-deep">€160</span>
-          <span class="label">Extrait 50&nbsp;ml</span></div>
         <a class="btn" href="#" data-waitlist data-product="Karès Blan">Reserve</a>
       </div>
-      <p class="discovery rv rv-d5">Discovery 10&nbsp;ml&nbsp;— <b>€49</b> · Limited edition of 300</p>
+      <p class="discovery rv rv-d5">Limited edition of 300</p>
     </div>
     <div class="arch rv">
       <svg class="halo" viewBox="0 0 100 124" preserveAspectRatio="none" aria-hidden="true">
@@ -610,11 +606,9 @@ body.wl-open{overflow:hidden}
         <div><h4>Base</h4><p>Amber, Precious woods, Patchouli, Vetiver</p></div>
       </div>
       <div class="buy rv rv-d4">
-        <div class="price"><span class="amount gold">€160</span>
-          <span class="label">Extrait 50&nbsp;ml</span></div>
         <a class="btn" href="#" data-waitlist data-product="Ahi Pō">Reserve</a>
       </div>
-      <p class="discovery rv rv-d5">Discovery 10&nbsp;ml&nbsp;— <b>€49</b> · Limited edition of 300</p>
+      <p class="discovery rv rv-d5">Limited edition of 300</p>
     </div>
   </div>
 </section>
@@ -870,9 +864,11 @@ wlForm.addEventListener('submit', async e => {
       const buy = el.cloneNode(false);
       buy.removeAttribute('data-waitlist');
       buy.removeAttribute('data-product');
-      buy.textContent = isNav ? 'Buy' : 'Buy \u2014 10 ml \u00b7 \u20ac49';
+      /* No price/variant on the vitrine (Benoit 08/07): plain CTAs only. */
+      buy.textContent = isNav ? 'Buy' : 'Discover';
       buy.href = isNav ? '/us/store' : BOUTIQUE + handle;
       buy.setAttribute('rel', 'noopener');
+      if (!isNav) el.parentElement?.querySelector('.btn-fiche')?.remove();
       el.replaceWith(buy);
     });
   } catch (_) { /* fail-safe: waitlist */ }
