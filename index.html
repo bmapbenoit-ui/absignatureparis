@@ -822,5 +822,47 @@ wlForm.addEventListener('submit', async e => {
   }
 });
 </script>
+
+<script>
+/* ── Bascule BOUTIQUE (STELLA 08/07/2026) ─────────────────────────────────
+   Interroge la disponibilité réelle des formats 10 ml (Medusa Store API,
+   clé publique canal AB). Tant que le stock est à 0, les CTA restent
+   « Réserver » (liste d'attente). Dès que le stock est saisi, le CTA du
+   chapitre devient « Acheter — 10 ml · 49 € » vers la boutique officielle.
+   Échec réseau = aucun changement (waitlist par défaut, fail-safe). */
+(async () => {
+  const API = 'https://shop.planetebeauty.shop';
+  const PK = 'pk_38103b2b5199b28ba232f883624aa537daf5df48d4341d4b56959b51a8579a55';
+  const BOUTIQUE = 'https://boutique.absignatureparis.com/fr/products/';
+  const REFS = {
+    'Oro Rojo':   'ab-signature-paris-oro-rojo-extrait-de-parfum',
+    'Karès Blan': 'ab-signature-paris-kares-blan-extrait-de-parfum',
+    'Ahi Pō':     'ab-signature-paris-ahi-po-extrait-de-parfum',
+  };
+  try {
+    const handles = Object.values(REFS).map(h => 'handle[]=' + encodeURIComponent(h)).join('&');
+    const r = await fetch(`${API}/store/products?${handles}&fields=handle,variants.title,variants.manage_inventory,variants.inventory_quantity`, {
+      headers: { 'x-publishable-api-key': PK },
+    });
+    if (!r.ok) return;
+    const { products = [] } = await r.json();
+    const dispo = {};
+    for (const p of products) {
+      const v10 = (p.variants || []).find(v => /10\s*ml/i.test(v.title || ''));
+      dispo[p.handle] = !!v10 && (!v10.manage_inventory || Number(v10.inventory_quantity) > 0);
+    }
+    document.querySelectorAll('[data-waitlist][data-product]').forEach(el => {
+      const handle = REFS[el.dataset.product];
+      if (!handle || !dispo[handle]) return;
+      const buy = el.cloneNode(false);
+      buy.removeAttribute('data-waitlist');
+      buy.textContent = 'Acheter — 10 ml · 49 €';
+      buy.href = BOUTIQUE + handle;
+      buy.setAttribute('rel', 'noopener');
+      el.replaceWith(buy);
+    });
+  } catch (_) { /* fail-safe : waitlist */ }
+})();
+</script>
 </body>
 </html>
