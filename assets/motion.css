@@ -85,9 +85,11 @@ h2.name.is-in::after,.rv.is-in h2.name::after{transform:scaleX(1)}
 .manifesto .lead .w{opacity:.16;transition:opacity .55s cubic-bezier(.22,.61,.21,1)}
 .manifesto .lead .w.lit{opacity:1}
 
-/* ── Hero : reflet d'or périodique sur le logo (masqué par le logo) ──── */
-.hero-inner{position:relative}
-.hero-sheen{position:absolute;inset:0;pointer-events:none;mix-blend-mode:screen;
+/* ── Hero : reflet d'or périodique sur le logo (masqué par le logo) ────
+   ⚠️ NE PAS reposicionner .hero-inner : l'original est position:absolute
+   (l'écraser en relative fait tomber le logo dans le flux → il mord la nav,
+   incident 09/07). Le sheen est calé sur l'img par JS (left/top/width/height). */
+.hero-sheen{position:absolute;pointer-events:none;mix-blend-mode:screen;
   background:linear-gradient(115deg,transparent 40%,rgba(247,231,168,.85) 50%,transparent 60%);
   background-size:300% 100%;background-position:140% 0;
   -webkit-mask:var(--hero-logo-url) center/contain no-repeat;

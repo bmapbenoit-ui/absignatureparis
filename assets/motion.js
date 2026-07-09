@@ -34,7 +34,31 @@
     // motion.css (constaté : /assets/assets/… 404), pas contre la page.
     sheen.style.setProperty('--hero-logo-url', `url("${heroLogo.src}")`);
     heroInner.appendChild(sheen);
+    // Le reflet épouse EXACTEMENT la boîte du logo (sinon le masque « contain »
+    // sur tout le hero dessine un fantôme géant du logo).
+    const placeSheen = () => {
+      sheen.style.left = heroLogo.offsetLeft + 'px';
+      sheen.style.top = heroLogo.offsetTop + 'px';
+      sheen.style.width = heroLogo.offsetWidth + 'px';
+      sheen.style.height = heroLogo.offsetHeight + 'px';
+    };
+    placeSheen();
+    heroLogo.addEventListener('load', placeSheen);
+    addEventListener('load', placeSheen);
+    addEventListener('resize', placeSheen, { passive: true });
   }
+
+  /* ── Lecture vidéo garantie : Safari (économie d'énergie) bloque parfois
+     l'autoplay et affiche sa flèche ▶ — on relance au premier geste. */
+  const kickVideos = () => {
+    document.querySelectorAll('video[autoplay], .hero video').forEach((v) => {
+      if (v.paused) v.play().catch(() => {});
+    });
+  };
+  ['wheel', 'touchstart', 'pointerdown', 'keydown', 'scroll'].forEach((ev) =>
+    addEventListener(ev, kickVideos, { once: true, passive: true }));
+  setTimeout(kickVideos, 1500);
+  setTimeout(kickVideos, 4000);
 
   /* ── Manifeste : mots éclairés au fil du défilement ──────────────────── */
   const lead = document.querySelector('.manifesto .lead');
