@@ -30,7 +30,9 @@
   if (heroLogo && heroInner) {
     const sheen = document.createElement('div');
     sheen.className = 'hero-sheen';
-    sheen.style.setProperty('--hero-logo-url', `url("${heroLogo.getAttribute('src')}")`);
+    // .src (propriété) = URL ABSOLUE — un chemin relatif serait résolu contre
+    // motion.css (constaté : /assets/assets/… 404), pas contre la page.
+    sheen.style.setProperty('--hero-logo-url', `url("${heroLogo.src}")`);
     heroInner.appendChild(sheen);
   }
 
