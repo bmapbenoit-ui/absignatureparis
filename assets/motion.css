@@ -1,0 +1,112 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   SIGNATURE MOTION — AB Signature Paris (STELLA 09/07/2026)
+   Couche de mouvement haut de gamme, purement additive.
+   Doctrine (Emil Kowalski) : le mouvement raconte, jamais ne décore.
+   - transform/opacity uniquement (compositeur GPU, zéro reflow)
+   - courbe maison : cubic-bezier(.22,.61,.21,1) — départ vif, pose feutrée
+   - tout est éteint si prefers-reduced-motion
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── Fil d'or de lecture (progression) ───────────────────────────────── */
+.gold-progress{position:fixed;top:0;left:0;height:2px;width:100%;z-index:1200;
+  transform-origin:0 50%;transform:scaleX(0);pointer-events:none;
+  background:linear-gradient(90deg,#8a6d1f,#e8c76a 55%,#f7e7a8);
+  box-shadow:0 0 12px rgba(232,199,106,.35)}
+
+/* ── Poussière d'or (canvas plein écran, sous le grain) ──────────────── */
+.gold-dust{position:fixed;inset:0;z-index:850;pointer-events:none;opacity:.5}
+
+@media (prefers-reduced-motion: no-preference){
+
+/* ── Révélations : montée feutrée + mise au point (upgrade des .rv) ──── */
+.rv{opacity:0;transform:translateY(30px);filter:blur(7px);
+  transition:opacity 1.05s cubic-bezier(.22,.61,.21,1),
+             transform 1.05s cubic-bezier(.22,.61,.21,1),
+             filter 1.05s cubic-bezier(.22,.61,.21,1)}
+.rv.is-in{opacity:1;transform:none;filter:blur(0)}
+.rv-d1{transition-delay:.12s}.rv-d2{transition-delay:.24s}
+.rv-d3{transition-delay:.36s}.rv-d4{transition-delay:.48s}.rv-d5{transition-delay:.6s}
+
+/* ── Noms de chapitres : le filet d'or se trace sous le nom ──────────── */
+.ch-txt h2.name{position:relative;padding-bottom:.35em}
+.ch-txt h2.name::after{content:'';position:absolute;left:0;bottom:0;height:1px;width:120px;
+  background:linear-gradient(90deg,#e8c76a,rgba(232,199,106,0));
+  transform:scaleX(0);transform-origin:0 50%;
+  transition:transform 1.4s cubic-bezier(.22,.61,.21,1) .55s}
+h2.name.is-in::after,.rv.is-in h2.name::after{transform:scaleX(1)}
+.ch-kares .ch-txt h2.name::after{background:linear-gradient(90deg,#8a6d1f,rgba(138,109,31,0))}
+
+/* ── Pyramide : chaque étage se lève en cascade, filet tracé ─────────── */
+.pyramid.is-in>div{opacity:0;transform:translateY(14px);
+  animation:pyr-in .9s cubic-bezier(.22,.61,.21,1) forwards}
+.pyramid.is-in>div:nth-child(1){animation-delay:.15s}
+.pyramid.is-in>div:nth-child(2){animation-delay:.34s}
+.pyramid.is-in>div:nth-child(3){animation-delay:.53s}
+@keyframes pyr-in{to{opacity:1;transform:none}}
+
+/* ── Médaillons : halo qui respire + relief 3D piloté JS + reflet ────── */
+.arch{will-change:transform;transform-style:preserve-3d}
+.arch svg.halo{animation:halo-breathe 8s ease-in-out infinite}
+@keyframes halo-breathe{0%,100%{opacity:.85;transform:scale(1)}50%{opacity:1;transform:scale(1.014)}}
+.arch .medallion{position:relative}
+.arch .medallion::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:3;
+  background:linear-gradient(115deg,transparent 42%,rgba(247,231,168,.16) 50%,transparent 58%);
+  background-size:260% 100%;background-position:130% 0;mix-blend-mode:screen;
+  transition:background-position 1.6s cubic-bezier(.22,.61,.21,1)}
+.arch:hover .medallion::after{background-position:-130% 0}
+
+/* ── Manifeste : les mots s'éclairent au fil du défilement ───────────── */
+.manifesto .lead .w{opacity:.16;transition:opacity .55s cubic-bezier(.22,.61,.21,1)}
+.manifesto .lead .w.lit{opacity:1}
+
+/* ── Hero : reflet d'or périodique sur le logo (masqué par le logo) ──── */
+.hero-inner{position:relative}
+.hero-sheen{position:absolute;inset:0;pointer-events:none;mix-blend-mode:screen;
+  background:linear-gradient(115deg,transparent 40%,rgba(247,231,168,.85) 50%,transparent 60%);
+  background-size:300% 100%;background-position:140% 0;
+  -webkit-mask:var(--hero-logo-url) center/contain no-repeat;
+  mask:var(--hero-logo-url) center/contain no-repeat;
+  animation:hero-sheen 9s cubic-bezier(.22,.61,.21,1) 3.4s infinite}
+@keyframes hero-sheen{0%{background-position:140% 0}12%{background-position:-160% 0}
+  100%{background-position:-160% 0}}
+
+/* ── CTA : lame de lumière au survol + assise à l'appui ──────────────── */
+.btn,nav a.bag{position:relative;overflow:hidden;
+  transition:color .3s,border-color .3s,transform .25s cubic-bezier(.22,.61,.21,1)}
+.btn::before,nav a.bag::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(115deg,transparent 42%,rgba(247,231,168,.28) 50%,transparent 58%);
+  background-size:280% 100%;background-position:130% 0;
+  transition:background-position .9s cubic-bezier(.22,.61,.21,1)}
+.btn:hover::before,nav a.bag:hover::before{background-position:-130% 0}
+.btn:active,nav a.bag:active{transform:scale(.975)}
+
+/* ── Sommaire romain : l'or monte à la rencontre du regard ───────────── */
+.roman a{transition:transform .45s cubic-bezier(.22,.61,.21,1)}
+.roman a:hover{transform:translateY(-4px)}
+.roman a .t{position:relative}
+.roman a .t::after{content:'';position:absolute;left:0;right:0;bottom:-4px;height:1px;
+  background:#e8c76a;transform:scaleX(0);transform-origin:0 50%;
+  transition:transform .5s cubic-bezier(.22,.61,.21,1)}
+.roman a:hover .t::after{transform:scaleX(1)}
+
+/* ── Nav : soulignement or tracé ─────────────────────────────────────── */
+nav ul li a:not(.bag):not(.lang){position:relative}
+nav ul li a:not(.bag):not(.lang)::after{content:'';position:absolute;left:0;right:0;bottom:-6px;
+  height:1px;background:linear-gradient(90deg,#e8c76a,rgba(232,199,106,.15));
+  transform:scaleX(0);transform-origin:0 50%;
+  transition:transform .45s cubic-bezier(.22,.61,.21,1)}
+nav ul li a:not(.bag):not(.lang):hover::after{transform:scaleX(1)}
+
+/* ── Vidéos de chapitre : profondeur au défilement (JS translate) ────── */
+.chapter video.bgv{will-change:transform;transform:translateY(0) scale(1.12)}
+
+/* ── Éléments pilotés JS ─────────────────────────────────────────────── */
+.hero video,.hero .hero-inner{will-change:transform}
+.magnetic{will-change:transform}
+
+}/* fin no-preference */
+
+@media (prefers-reduced-motion: reduce){
+  .gold-dust,.hero-sheen{display:none}
+  .gold-progress{transition:none}
+}
