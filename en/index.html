@@ -427,7 +427,7 @@ body.wl-open{overflow:hidden}
   video{display:none!important}
 }
 </style>
-<link rel="stylesheet" href="/assets/motion.css?v=20260709f">
+<link rel="stylesheet" href="/assets/motion.css?v=20260709g">
 </head>
 <body>
 
@@ -854,12 +854,12 @@ wlForm.addEventListener('submit', async e => {
       buy.textContent = isNav ? 'Order' : 'Discover';
       buy.href = isNav ? '/us/store' : BOUTIQUE + handle;
       buy.setAttribute('rel', 'noopener');
-      if (!isNav) el.parentElement?.querySelector('.btn-fiche')?.remove();
+      // « Voir la fiche »/« View details » TOUJOURS visible (demande Benoit 09/07)
       el.replaceWith(buy);
     });
   } catch (_) { /* fail-safe: waitlist */ }
 })();
 </script>
-<script src="/assets/motion.js?v=20260709f" defer></script>
+<script src="/assets/motion.js?v=20260709g" defer></script>
 </body>
 </html>
