@@ -91,7 +91,9 @@
       const s = document.createElement('span');
       s.className = 'ltr';
       s.style.transitionDelay = (0.15 + i * 0.07).toFixed(2) + 's';
-      s.textContent = ch === ' ' ? ' ' : ch;
+      // Espace INSÉCABLE : un espace normal dans un span inline-block
+      // s'effondre (constaté : « OroRojo » collé).
+      s.textContent = ch === ' ' ? ' ' : ch;
       h.appendChild(s);
     });
   });
