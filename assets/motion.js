@@ -104,6 +104,113 @@
     });
   }
 
+  /* ── Noms de parfums : composés lettre à lettre ──────────────────────── */
+  document.querySelectorAll('.ch-txt h2.name').forEach((h) => {
+    const txt = h.textContent;
+    h.textContent = '';
+    [...txt].forEach((ch, i) => {
+      const s = document.createElement('span');
+      s.className = 'ltr';
+      s.style.transitionDelay = (0.15 + i * 0.07).toFixed(2) + 's';
+      s.textContent = ch === ' ' ? ' ' : ch;
+      h.appendChild(s);
+    });
+  });
+
+  /* ── LE FIL DE LA SIGNATURE ──────────────────────────────────────────────
+     « Suivez la ligne. » — un trait d'or continu, cousu dans les marges,
+     se dessine au fil du défilement : il descend du hero, traverse le
+     manifeste, longe chaque île en alternant les rives, et vient SIGNER
+     le monogramme du pied de page (embrasement à l'arrivée). */
+  const SVGNS = 'http://www.w3.org/2000/svg';
+  const thread = { svg: null, glow: null, line: null, comet: null, len: 0, top: 0, bottom: 0 };
+  const flogo = document.querySelector('footer .flogo');
+  const buildThread = () => {
+    const hero = document.querySelector('.hero');
+    const foot = flogo || document.querySelector('footer');
+    if (!hero || !foot) return;
+    const W = innerWidth, H = document.documentElement.scrollHeight;
+    const abs = (el) => { const r = el.getBoundingClientRect(); return { top: scrollY + r.top, h: r.height }; };
+    const pts = [];
+    const hr = abs(hero);
+    pts.push([W * 0.5, hr.top + hr.h * 0.86]);
+    const man = document.querySelector('.manifesto');
+    if (man) { const r = abs(man); pts.push([W * 0.5, r.top + r.h * 0.45]); }
+    [...document.querySelectorAll('.chapter')].forEach((c, i) => {
+      const r = abs(c);
+      const x = i % 2 === 0 ? W * 0.958 : W * 0.042;
+      pts.push([x, r.top + r.h * 0.26]);
+      pts.push([x, r.top + r.h * 0.74]);
+    });
+    const mais = document.querySelector('#maison, .maison');
+    if (mais) { const r = abs(mais); pts.push([W * 0.06, r.top + r.h * 0.5]); }
+    const fr = abs(foot);
+    const endY = fr.top + fr.h * 0.5;
+    pts.push([W * 0.5, endY - 110]);
+    pts.push([W * 0.5, endY]);
+    // Catmull-Rom → courbes cubiques (le fil ondule, jamais d'angle)
+    let d = `M ${pts[0][0].toFixed(1)},${pts[0][1].toFixed(1)}`;
+    for (let i = 0; i < pts.length - 1; i++) {
+      const p0 = pts[Math.max(0, i - 1)], p1 = pts[i], p2 = pts[i + 1], p3 = pts[Math.min(pts.length - 1, i + 2)];
+      const c1 = [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6];
+      const c2 = [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6];
+      d += ` C ${c1[0].toFixed(1)},${c1[1].toFixed(1)} ${c2[0].toFixed(1)},${c2[1].toFixed(1)} ${p2[0].toFixed(1)},${p2[1].toFixed(1)}`;
+    }
+    if (!thread.svg) {
+      const svg = document.createElementNS(SVGNS, 'svg');
+      svg.setAttribute('class', 'sig-thread');
+      svg.setAttribute('aria-hidden', 'true');
+      const glow = document.createElementNS(SVGNS, 'path');
+      glow.setAttribute('class', 'sig-thread-glow');
+      const line = document.createElementNS(SVGNS, 'path');
+      line.setAttribute('class', 'sig-thread-line');
+      const comet = document.createElementNS(SVGNS, 'circle');
+      comet.setAttribute('class', 'sig-comet');
+      comet.setAttribute('r', '2.6');
+      comet.style.opacity = '0';
+      svg.append(glow, line, comet);
+      document.body.appendChild(svg);
+      Object.assign(thread, { svg, glow, line, comet });
+    }
+    thread.svg.setAttribute('width', W);
+    thread.svg.setAttribute('height', H);
+    thread.svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    thread.glow.setAttribute('d', d);
+    thread.line.setAttribute('d', d);
+    thread.len = thread.line.getTotalLength();
+    thread.line.style.strokeDasharray = thread.len;
+    thread.glow.style.strokeDasharray = thread.len;
+    thread.line.style.strokeDashoffset = thread.len;
+    thread.glow.style.strokeDashoffset = thread.len;
+    thread.top = pts[0][1];
+    thread.bottom = endY;
+  };
+  let btTimer = 0, lastDocH = 0;
+  addEventListener('load', buildThread);
+  addEventListener('resize', () => { clearTimeout(btTimer); btTimer = setTimeout(buildThread, 200); }, { passive: true });
+  setInterval(() => {
+    const h = document.documentElement.scrollHeight;
+    if (h !== lastDocH) { lastDocH = h; buildThread(); }
+  }, 2500);
+  buildThread();
+
+  /* ── Sillage d'encre du curseur (la plume, desktop) ──────────────────── */
+  let inkCtx = null, inkPts = [];
+  if (FINE) {
+    const ink = document.createElement('canvas');
+    ink.className = 'ink-trail';
+    ink.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(ink);
+    inkCtx = ink.getContext('2d');
+    const sizeInk = () => { ink.width = innerWidth * devicePixelRatio; ink.height = innerHeight * devicePixelRatio; };
+    sizeInk();
+    addEventListener('resize', sizeInk, { passive: true });
+    addEventListener('pointermove', (e) => {
+      inkPts.push({ x: e.clientX * devicePixelRatio, y: e.clientY * devicePixelRatio, t: performance.now() });
+      if (inkPts.length > 60) inkPts.shift();
+    }, { passive: true });
+  }
+
   /* ── Boucle unique ───────────────────────────────────────────────────── */
   const heroVideo = document.querySelector('.hero video');
   const chapterVids = [...document.querySelectorAll('.chapter video.bgv')];
@@ -158,6 +265,41 @@
       if (Math.abs(m.x) > 0.05 || Math.abs(m.y) > 0.05)
         m.el.style.transform = `translate(${m.x.toFixed(1)}px, ${m.y.toFixed(1)}px)`;
       else if (m.el.style.transform) m.el.style.transform = '';
+    }
+
+    // LE FIL DE LA SIGNATURE : le trait se dessine, la pointe d'or le mène
+    if (thread.len) {
+      const p = Math.min(1, Math.max(0, (y + innerHeight * 0.62 - thread.top) / (thread.bottom - thread.top)));
+      const off = thread.len * (1 - p);
+      thread.line.style.strokeDashoffset = off;
+      thread.glow.style.strokeDashoffset = off;
+      if (p > 0.004 && p < 0.996) {
+        const pt = thread.line.getPointAtLength(thread.len * p);
+        thread.comet.setAttribute('cx', pt.x.toFixed(1));
+        thread.comet.setAttribute('cy', pt.y.toFixed(1));
+        thread.comet.style.opacity = '1';
+      } else {
+        thread.comet.style.opacity = '0';
+      }
+      // Finale : la ligne atteint le monogramme → la signature s'embrase
+      if (flogo) flogo.classList.toggle('signed', p > 0.985);
+    }
+
+    // Sillage d'encre de la plume (s'évanouit en ~0,55 s)
+    if (inkCtx) {
+      const now = performance.now();
+      inkPts = inkPts.filter((q) => now - q.t < 550);
+      inkCtx.clearRect(0, 0, inkCtx.canvas.width, inkCtx.canvas.height);
+      for (let i = 1; i < inkPts.length; i++) {
+        const a = 1 - (now - inkPts[i].t) / 550;
+        inkCtx.beginPath();
+        inkCtx.moveTo(inkPts[i - 1].x, inkPts[i - 1].y);
+        inkCtx.lineTo(inkPts[i].x, inkPts[i].y);
+        inkCtx.strokeStyle = `rgba(232,199,106,${(a * 0.34).toFixed(3)})`;
+        inkCtx.lineWidth = (0.4 + a * 1.6) * devicePixelRatio;
+        inkCtx.lineCap = 'round';
+        inkCtx.stroke();
+      }
     }
 
     // Poussière d'or
