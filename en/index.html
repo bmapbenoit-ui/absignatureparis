@@ -427,7 +427,8 @@ body.wl-open{overflow:hidden}
   video{display:none!important}
 }
 </style>
-<link rel="stylesheet" href="/assets/motion.css?v=20260709g">
+<link rel="stylesheet" href="/assets/motion.css?v=20260709h">
+<link rel="preload" as="image" href="/assets/logo_or_hero_v2.webp" fetchpriority="high">
 </head>
 <body>
 
@@ -462,7 +463,7 @@ body.wl-open{overflow:hidden}
 <header class="hero" id="top">
   <div class="hero-fallback"></div>
   <!-- montage 21 s : océan étoilé → silhouette → vague d’or → tikis (boucle respirée) -->
-  <video autoplay muted loop playsinline poster="/videos/hero_poster_v2.webp" id="heroVideo">
+  <video autoplay muted loop playsinline preload="auto" poster="/videos/hero_poster_v2.webp" id="heroVideo">
     <source src="/videos/hero_web_v2.mp4" type="video/mp4">
   </video>
   <script>/* mobile : hero 720p (−60 % de poids), choisi AVANT le chargement */
@@ -860,6 +861,6 @@ wlForm.addEventListener('submit', async e => {
   } catch (_) { /* fail-safe: waitlist */ }
 })();
 </script>
-<script src="/assets/motion.js?v=20260709g" defer></script>
+<script src="/assets/motion.js?v=20260709h" defer></script>
 </body>
 </html>

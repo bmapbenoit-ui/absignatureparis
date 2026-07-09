@@ -113,6 +113,14 @@ h2.name.is-in::after,.rv.is-in h2.name::after{transform:scaleX(1)}
 .manifesto .lead .w{opacity:.16;transition:opacity .55s cubic-bezier(.22,.61,.21,1)}
 .manifesto .lead .w.lit{opacity:1}
 
+/* ── Hero : ENTRÉE du logo — surgissement feutré (échelle + mise au point
+   + halo d'or qui s'embrase puis se pose) dès le premier paint, sans JS ── */
+.hero-logo{animation:abs-logo-in 1.9s cubic-bezier(.22,.61,.21,1) both}
+@keyframes abs-logo-in{
+  0%{opacity:0;transform:scale(1.10);filter:blur(14px) brightness(2.1)}
+  42%{opacity:1;filter:blur(2px) brightness(1.35) drop-shadow(0 0 42px rgba(232,199,106,.55))}
+  100%{opacity:1;transform:scale(1);filter:blur(0) brightness(1) drop-shadow(0 0 0 rgba(232,199,106,0))}}
+
 /* ── Hero : reflet d'or périodique sur le logo (masqué par le logo) ────
    ⚠️ NE PAS reposicionner .hero-inner : l'original est position:absolute
    (l'écraser en relative fait tomber le logo dans le flux → il mord la nav,
