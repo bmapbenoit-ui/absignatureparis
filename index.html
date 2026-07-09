@@ -427,7 +427,7 @@ body.wl-open{overflow:hidden}
 .btn-fiche{margin-left:14px;background:transparent;border-color:rgba(232,199,106,.35);color:rgba(240,234,219,.8)}
 .btn-fiche:hover{border-color:#e8c76a;color:#e8c76a}
 </style>
-<link rel="stylesheet" href="/assets/motion.css?v=20260709e">
+<link rel="stylesheet" href="/assets/motion.css?v=20260709f">
 </head>
 <body>
 
@@ -443,14 +443,6 @@ body.wl-open{overflow:hidden}
   </defs>
 </svg>
 
-<!-- Préloader -->
-<div class="loader" id="loader" aria-hidden="true">
-  <div class="lcine">
-    <img class="lab" src="assets/logo_part_ab.png" alt="">
-    <img class="lsig" src="assets/logo_part_signature.png" alt="">
-    <img class="lparis" src="assets/logo_part_paris.png" alt="">
-    <div class="sweep"></div>
-  </div>
 </div>
 
 <!-- Navigation -->
@@ -727,24 +719,7 @@ document.addEventListener('visibilitychange', () => {
   const v = document.getElementById('heroVideo');
   if (!document.hidden && v && v.paused) v.play().catch(()=>{});
 });
-/* Préloader — fin naturelle ~2,9 s mais JAMAIS bloquant (retour Benoit 08/07
-   « on croit que le site bugue ») : premier geste (molette, tap, touche) =
-   entrée immédiate ; plafond dur 3 s depuis le parse même si `load` traîne
-   (vidéo hero lente). À la fin, le film démarre de son premier plan. */
-(() => {
-  const loaderEl = document.getElementById('loader');
-  let introDone = false;
-  const introEnd = () => {
-    if (introDone) return;
-    introDone = true;
-    loaderEl.classList.add('is-done');
-    heroRestart();
-  };
-  window.addEventListener('load', () => setTimeout(introEnd, 2350));
-  setTimeout(introEnd, 3000);
-  ['wheel', 'touchstart', 'pointerdown', 'keydown'].forEach(ev =>
-    addEventListener(ev, introEnd, { once: true, passive: true }));
-})();
+window.addEventListener('load', heroRestart); // générique supprimé (décision Benoit 09/07)
 /* Nav */
 const nav = document.getElementById('nav');
 addEventListener('scroll', () => nav.classList.toggle('is-scrolled', scrollY > 60), {passive:true});
@@ -894,6 +869,6 @@ wlForm.addEventListener('submit', async e => {
   } catch (_) { /* fail-safe : waitlist */ }
 })();
 </script>
-<script src="/assets/motion.js?v=20260709e" defer></script>
+<script src="/assets/motion.js?v=20260709f" defer></script>
 </body>
 </html>

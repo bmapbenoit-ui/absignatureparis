@@ -427,7 +427,7 @@ body.wl-open{overflow:hidden}
   video{display:none!important}
 }
 </style>
-<link rel="stylesheet" href="/assets/motion.css?v=20260709e">
+<link rel="stylesheet" href="/assets/motion.css?v=20260709f">
 </head>
 <body>
 
@@ -443,14 +443,6 @@ body.wl-open{overflow:hidden}
   </defs>
 </svg>
 
-<!-- Préloader -->
-<div class="loader" id="loader" aria-hidden="true">
-  <div class="lcine">
-    <img class="lab" src="/assets/logo_part_ab.png" alt="">
-    <img class="lsig" src="/assets/logo_part_signature.png" alt="">
-    <img class="lparis" src="/assets/logo_part_paris.png" alt="">
-    <div class="sweep"></div>
-  </div>
 </div>
 
 <!-- Navigation -->
@@ -534,6 +526,7 @@ body.wl-open{overflow:hidden}
       </div>
       <div class="buy rv rv-d4">
         <a class="btn" href="#" data-waitlist data-product="Oro Rojo">Reserve</a>
+        <a class="btn btn-fiche" href="/us/products/ab-signature-paris-oro-rojo-extrait-de-parfum" rel="noopener">View details</a>
       </div>
       <p class="discovery rv rv-d5">Limited edition of 300</p>
     </div>
@@ -562,6 +555,7 @@ body.wl-open{overflow:hidden}
       </div>
       <div class="buy rv rv-d4">
         <a class="btn" href="#" data-waitlist data-product="Karès Blan">Reserve</a>
+        <a class="btn btn-fiche" href="/us/products/ab-signature-paris-kares-blan-extrait-de-parfum" rel="noopener">View details</a>
       </div>
       <p class="discovery rv rv-d5">Limited edition of 300</p>
     </div>
@@ -608,6 +602,7 @@ body.wl-open{overflow:hidden}
       </div>
       <div class="buy rv rv-d4">
         <a class="btn" href="#" data-waitlist data-product="Ahi Pō">Reserve</a>
+        <a class="btn btn-fiche" href="/us/products/ab-signature-paris-ahi-po-extrait-de-parfum" rel="noopener">View details</a>
       </div>
       <p class="discovery rv rv-d5">Limited edition of 300</p>
     </div>
@@ -721,23 +716,7 @@ document.addEventListener('visibilitychange', () => {
   const v = document.getElementById('heroVideo');
   if (!document.hidden && v && v.paused) v.play().catch(()=>{});
 });
-/* Preloader — natural end ~2.9s but NEVER blocking (Benoit 08/07): first
-   gesture (wheel, tap, key) = immediate entry; hard 3s cap even if `load`
-   lags (slow hero video). On end, the film starts from its first frame. */
-(() => {
-  const loaderEl = document.getElementById('loader');
-  let introDone = false;
-  const introEnd = () => {
-    if (introDone) return;
-    introDone = true;
-    loaderEl.classList.add('is-done');
-    heroRestart();
-  };
-  window.addEventListener('load', () => setTimeout(introEnd, 2350));
-  setTimeout(introEnd, 3000);
-  ['wheel', 'touchstart', 'pointerdown', 'keydown'].forEach(ev =>
-    addEventListener(ev, introEnd, { once: true, passive: true }));
-})();
+window.addEventListener('load', heroRestart); // générique supprimé (décision Benoit 09/07)
 /* Nav */
 const nav = document.getElementById('nav');
 addEventListener('scroll', () => nav.classList.toggle('is-scrolled', scrollY > 60), {passive:true});
@@ -881,6 +860,6 @@ wlForm.addEventListener('submit', async e => {
   } catch (_) { /* fail-safe: waitlist */ }
 })();
 </script>
-<script src="/assets/motion.js?v=20260709e" defer></script>
+<script src="/assets/motion.js?v=20260709f" defer></script>
 </body>
 </html>
