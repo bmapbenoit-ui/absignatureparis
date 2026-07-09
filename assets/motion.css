@@ -20,8 +20,13 @@
    (remplace la ligne d'or, décision Benoit 09/07 : le voyage se MARCHE,
    il ne se trace pas — apparition pas à pas, jamais de trait continu) */
 .sig-steps{position:absolute;top:0;left:0;z-index:820;pointer-events:none;overflow:visible}
-.sig-steps .foot{opacity:0;transition:opacity .8s cubic-bezier(.22,.61,.21,1)}
-.sig-steps .foot.on{opacity:.34}
+.sig-steps .foot{opacity:0;transition:opacity 1s cubic-bezier(.22,.61,.21,1)}
+.sig-steps .foot.on{opacity:.5}
+
+/* ── Contraste des CTA par fond d'île (retour Benoit : « Voir la fiche »
+   invisible sur l'ivoire de Karès — ivoire sur ivoire) ────────────────── */
+.ch-kares .btn-fiche{border-color:rgba(138,109,31,.6)!important;color:rgba(38,43,33,.85)!important}
+.ch-kares .btn-fiche:hover{border-color:#8a6d1f!important;color:#8a6d1f!important}
 
 /* ── MARÉE D'ÎLE — la couleur du chapitre suivant monte entre deux îles ── */
 .island-tide{position:fixed;inset:0;z-index:830;pointer-events:none;opacity:0;

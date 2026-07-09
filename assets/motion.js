@@ -129,8 +129,11 @@
      Le dernier pas atteint le monogramme du pied de page → la signature
      s'embrase. (Remplace la ligne d'or — décision Benoit 09/07.) */
   const SVGNS = 'http://www.w3.org/2000/svg';
-  const FOOT_D = 'M8.8 1.6c2.6 0 4.6 2.2 4.9 5.6.3 3.2-.9 6.6-2.2 9.5-1 2.3-1.6 4.4-1.6 6.2 0 2.1-1 3.5-2.6 3.5s-2.8-1.3-2.9-3.4c-.1-1.8-.5-3.9-1.3-6.3-1-3-1.9-6.4-1.4-9.6C2.2 3.7 4 1.6 6.6 1.6Z';
-  const TOES = [[3.1, 1.9, 1.15], [5.9, 0.6, 1.0], [8.6, 0.2, 0.95], [11.2, 0.7, 0.9], [13.5, 1.9, 0.8]];
+  /* Empreinte de pied nu RÉALISTE (retour Benoit : « qu'on voie bien que ce
+     sont des pieds ») — plante avec voûte marquée + talon + 5 orteils,
+     dessinée pied DROIT pointe vers le haut dans un repère 0..20 × 0..32. */
+  const FOOT_SOLE = 'M10.6 4.1c3.5 0 6.1 2.7 6.5 6.6.3 3-.6 5.7-1.7 8.3-.9 2.1-1.4 4.2-1.5 6.3-.1 3-1.3 5-3.5 5s-3.4-1.9-3.5-4.8c-.1-2-.5-4.1-1.3-6.3-.9-2.7-1.9-5.6-1.5-8.6C4.6 6.7 6.9 4.1 10.6 4.1Z';
+  const FOOT_TOES = [[4.0, 2.4, 1.5], [7.3, 0.9, 1.25], [10.4, 0.3, 1.15], [13.3, 0.9, 1.05], [15.9, 2.3, 0.95]];
   const trail = { svg: null, steps: [], top: 0, bottom: 0 };
   const flogo = document.querySelector('footer .flogo');
   const kares = document.querySelector('.ch-kares');
@@ -173,9 +176,9 @@
       const sym = document.createElementNS(SVGNS, 'g');
       sym.setAttribute('id', 'abs-foot');
       const sole = document.createElementNS(SVGNS, 'path');
-      sole.setAttribute('d', FOOT_D);
+      sole.setAttribute('d', FOOT_SOLE);
       sym.appendChild(sole);
-      TOES.forEach(([cx, cy, r]) => {
+      FOOT_TOES.forEach(([cx, cy, r]) => {
         const t = document.createElementNS(SVGNS, 'circle');
         t.setAttribute('cx', cx); t.setAttribute('cy', cy); t.setAttribute('r', r);
         sym.appendChild(t);
@@ -193,29 +196,38 @@
     probe.setAttribute('d', d);
     trail.svg.appendChild(probe);
     const len = probe.getTotalLength();
-    const STEP = Math.max(96, Math.min(150, len / 90)); // ~60-90 pas au total
-    trail.steps.forEach((s) => s.el.remove());
+    // Des PAIRES d'empreintes (pied gauche + pied droit, le droit un demi-pas
+    // devant) — retour Benoit : « il faut 2 pieds, qu'on voie que ce sont des
+    // empreintes » — révélées paire par paire, jamais un trait.
+    const STEP = Math.max(170, Math.min(240, len / 42));
+    trail.steps.forEach((s) => s.els.forEach((e) => e.remove()));
     trail.steps = [];
     const karR = kares ? abs(kares) : null;
-    for (let l = STEP * 0.5, i = 0; l < len - 30; l += STEP, i++) {
+    for (let l = STEP * 0.5; l < len - 40; l += STEP) {
       const p = probe.getPointAtLength(l);
-      const q = probe.getPointAtLength(Math.min(len, l + 14));
-      const ang = Math.atan2(q.y - p.y, q.x - p.x) * 180 / Math.PI + 90; // pointe du pied vers l'avant
-      const side = i % 2 === 0 ? 1 : -1; // pied droit / pied gauche
-      const nx = -(q.y - p.y), ny = (q.x - p.x); // normale
-      const nl = Math.hypot(nx, ny) || 1;
-      const ox = (nx / nl) * 9 * side, oy = (ny / nl) * 9 * side;
-      const g = document.createElementNS(SVGNS, 'use');
-      g.setAttribute('href', '#abs-foot');
-      g.setAttribute('class', 'foot');
-      const mirror = side === 1 ? '' : ' scale(-1,1)';
-      g.setAttribute('transform',
-        `translate(${(p.x + ox).toFixed(1)},${(p.y + oy).toFixed(1)}) rotate(${ang.toFixed(1)})${mirror} scale(0.62) translate(-8,-14)`);
-      // Île claire (Karès) : empreinte encre dorée sombre, sinon or
-      if (karR && p.y > karR.top && p.y < karR.top + karR.h) g.setAttribute('fill', '#8a6d1f');
-      else g.setAttribute('fill', '#e8c76a');
-      trail.svg.appendChild(g);
-      trail.steps.push({ el: g, on: false });
+      const q = probe.getPointAtLength(Math.min(len, l + 16));
+      const tx = (q.x - p.x), ty = (q.y - p.y);
+      const tl = Math.hypot(tx, ty) || 1;
+      const ux = tx / tl, uy = ty / tl;            // direction de marche
+      const nxp = -uy, nyp = ux;                    // normale (vers la droite)
+      const ang = Math.atan2(ty, tx) * 180 / Math.PI + 90;
+      const fill = (karR && p.y > karR.top && p.y < karR.top + karR.h) ? '#8a6d1f' : '#e8c76a';
+      const els = [];
+      // [pied gauche (miroir), en retrait] puis [pied droit, un demi-pas devant]
+      [[-1, -11], [1, 11]].forEach(([side, ahead]) => {
+        const cx = p.x + nxp * 8.5 * side + ux * ahead;
+        const cy = p.y + nyp * 8.5 * side + uy * ahead;
+        const g = document.createElementNS(SVGNS, 'use');
+        g.setAttribute('href', '#abs-foot');
+        g.setAttribute('class', 'foot');
+        const mirror = side === -1 ? ' scale(-1,1)' : '';
+        g.setAttribute('transform',
+          `translate(${cx.toFixed(1)},${cy.toFixed(1)}) rotate(${ang.toFixed(1)})${mirror} translate(-10,-16)`);
+        g.setAttribute('fill', fill);
+        trail.svg.appendChild(g);
+        els.push(g);
+      });
+      trail.steps.push({ els, on: false });
     }
     probe.remove();
     trail.top = pts[0][1];
@@ -325,9 +337,17 @@
       const p = clamp01((y + innerHeight * 0.62 - trail.top) / (trail.bottom - trail.top));
       const n = Math.floor(p * trail.steps.length);
       if (n !== lastSteps) {
+        let fresh = 0; // cadence de marche quand plusieurs paires arrivent d'un coup
         trail.steps.forEach((s, i) => {
           const on = i < n;
-          if (on !== s.on) { s.on = on; s.el.classList.toggle('on', on); }
+          if (on !== s.on) {
+            s.on = on;
+            s.els.forEach((el, f) => {
+              el.style.transitionDelay = on ? `${fresh * 260 + f * 170}ms` : '0ms';
+              el.classList.toggle('on', on);
+            });
+            if (on) fresh++;
+          }
         });
         lastSteps = n;
       }
