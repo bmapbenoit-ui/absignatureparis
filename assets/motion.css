@@ -23,6 +23,14 @@
 .sig-steps .foot{opacity:0;transition:opacity 1s cubic-bezier(.22,.61,.21,1)}
 .sig-steps .foot.on{opacity:.5}
 
+/* ── Mobile : les 2 CTA en pleine largeur, impossibles à manquer
+   (retour Benoit : « Voir la fiche » passait inaperçu sous Réserver) ──── */
+@media (max-width:700px){
+  .buy{flex-direction:column;align-items:stretch;gap:.9rem}
+  .buy .btn{justify-content:center;text-align:center}
+  .buy .btn-fiche{margin-left:0}
+}
+
 /* ── Contraste des CTA par fond d'île (retour Benoit : « Voir la fiche »
    invisible sur l'ivoire de Karès — ivoire sur ivoire) ────────────────── */
 .ch-kares .btn-fiche{border-color:rgba(138,109,31,.6)!important;color:rgba(38,43,33,.85)!important}
