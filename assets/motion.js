@@ -215,7 +215,8 @@
       const els = [];
       // [pied gauche (miroir), en retrait] puis [pied droit, un demi-pas devant]
       [[-1, -11], [1, 11]].forEach(([side, ahead]) => {
-        const cx = p.x + nxp * 8.5 * side + ux * ahead;
+        // clamp : jamais d'empreinte coupée par le bord de l'écran
+        const cx = Math.min(W - 28, Math.max(28, p.x + nxp * 8.5 * side + ux * ahead));
         const cy = p.y + nyp * 8.5 * side + uy * ahead;
         const g = document.createElementNS(SVGNS, 'use');
         g.setAttribute('href', '#abs-foot');
