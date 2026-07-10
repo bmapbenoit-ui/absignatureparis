@@ -174,3 +174,12 @@ nav ul li a:not(.bag):not(.lang):hover::after{transform:scaleX(1)}
   .gold-dust,.hero-sheen{display:none}
   .gold-progress{transition:none}
 }
+
+/* ── Lien Fragrantica (chapitres) ─────────────────────────────────────── */
+.frg-link{display:inline-block;align-self:flex-start;width:max-content;max-width:100%;margin-left:14px;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(240,234,219,.45);text-decoration:none;border-bottom:1px solid rgba(232,199,106,.25);padding-bottom:2px;transition:color .3s,border-color .3s}
+@media (max-width:720px){.frg-link{align-self:center;margin:6px auto 0;display:block;text-align:center}}
+.frg-link:hover{color:#e8c76a;border-color:#e8c76a}
+.ch-kares .frg-link{color:rgba(26,23,19,.5);border-color:rgba(26,23,19,.25)}
+.ch-kares .frg-link:hover{color:#8a6d1f;border-color:#8a6d1f}
+
+.frg-link .ext-arrow{margin-left:2px;margin-bottom:1px;vertical-align:baseline}

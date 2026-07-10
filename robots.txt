@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /*/avis
 
 User-agent: GPTBot
 Allow: /

@@ -420,3 +420,32 @@
   };
   requestAnimationFrame(tick);
 })();
+
+/* ── Compteur de visiteurs first-party (anonyme, zéro cookie) ─────────────
+   Même beacon que la boutique (/store/pb-visit via Caddy) et mêmes clés de
+   session (pb_sid) : un visiteur vitrine → fiche produit = UNE seule session.
+   La clé x-publishable est PUBLIQUE (déjà exposée par le bundle boutique). */
+(function () {
+  try {
+    if (document.cookie.indexOf('pb_no_track=1') !== -1) return;
+    var sid = sessionStorage.getItem('pb_sid');
+    if (!sid) {
+      sid = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : String(Math.random()).slice(2) + Date.now();
+      sessionStorage.setItem('pb_sid', sid);
+    }
+    var ref = '';
+    if (!sessionStorage.getItem('pb_ref_sent') && document.referrer && document.referrer.indexOf(location.host) === -1) {
+      ref = document.referrer;
+      sessionStorage.setItem('pb_ref_sent', '1');
+    }
+    fetch('/store/pb-visit', {
+      method: 'POST',
+      keepalive: true,
+      headers: {
+        'Content-Type': 'application/json',
+        'x-publishable-api-key': 'pk_38103b2b5199b28ba232f883624aa537daf5df48d4341d4b56959b51a8579a55'
+      },
+      body: JSON.stringify({ s: sid, p: location.pathname, r: ref })
+    }).catch(function () {});
+  } catch (e) { /* jamais bloquant */ }
+})();
