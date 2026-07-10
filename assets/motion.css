@@ -183,3 +183,21 @@ nav ul li a:not(.bag):not(.lang):hover::after{transform:scaleX(1)}
 .ch-kares .frg-link:hover{color:#8a6d1f;border-color:#8a6d1f}
 
 .frg-link .ext-arrow{margin-left:2px;margin-bottom:1px;vertical-align:baseline}
+
+/* ── iOS Safari : pas de simulation de survol au 1er tap (fix « 2 taps CTA » 10/07) ──
+   Sur écran tactile, le 1er appui appliquait l'état :hover (lame de lumière,
+   élévation) et Safari réservait le clic au 2e appui. Sans hover tactile,
+   le clic part au premier appui. */
+@media (hover: none), (pointer: coarse) {
+  .btn:hover{background-position:0 0;transform:none;
+    box-shadow:0 14px 34px -14px rgba(232,199,106,.45)}
+  .btn:hover::before,nav a.bag:hover::before{background-position:130% 0}
+  nav a.bag:hover{background:transparent}
+  .btn-fiche:hover{border-color:rgba(232,199,106,.35);color:rgba(240,234,219,.8)}
+  .frg-link:hover{color:rgba(240,234,219,.55);border-color:transparent}
+  .roman a:hover{transform:none}
+  .roman a:hover .t::after{transform:scaleX(0)}
+  nav ul li a:not(.bag):not(.lang):hover::after{transform:scaleX(0)}
+}
+/* Tap direct sans délai double-tap-zoom */
+a,button{touch-action:manipulation}
