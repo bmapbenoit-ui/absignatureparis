@@ -40,24 +40,23 @@ function initBox(box) {
     renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, preserveDrawingBuffer: true, powerPreference: 'high-performance' });
   } catch (e) { return false; }
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-  renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.06;
+  renderer.toneMapping = THREE.NoToneMapping;
 
   const scene = new THREE.Scene();
   const pm = new THREE.PMREMGenerator(renderer);
-  scene.environment = pm.fromScene(new RoomEnvironment(), 0.04).texture;
+  const envTex = pm.fromScene(new RoomEnvironment(), 0.04).texture;  // réservé aux ors (bouchon)
 
   const camera = new THREE.PerspectiveCamera(24, BOT_W / BOT_H, 10, 900);
   camera.position.set(0, 9, 292);
   camera.lookAt(0, 1, 0);
 
-  const key = new THREE.DirectionalLight(0xfff0cf, 1.15);
+  const key = new THREE.DirectionalLight(0xfff0cf, 0.3);
   key.position.set(60, 90, 120);
   scene.add(key);
-  const rim = new THREE.DirectionalLight(0xbfe8e0, 0.35);
+  const rim = new THREE.DirectionalLight(0xbfe8e0, 0.06);
   rim.position.set(-80, 40, -60);
   scene.add(rim);
-  scene.add(new THREE.AmbientLight(0xffffff, 0.12));
+  
 
   const group = new THREE.Group();
   scene.add(group);
@@ -67,22 +66,29 @@ function initBox(box) {
   let texLoaded = 0; const TEX_TOTAL = 8;
 
   const loader = new THREE.TextureLoader();
-  const P = m => `/assets/rot3d/${model}-${m}.webp`;
+  const P = m => `/assets/rot3d/${model}-${m}.webp?v=10`;
   const renderOnce = () => { group.rotation.y = ry; renderer.render(scene, camera); };
   const startIntro = () => { intro = { start: performance.now(), from: ry, dur: 6000 }; needsRender = true; loop(); };
   const kick = () => {
     needsRender = true; renderOnce();
-    if (++texLoaded >= TEX_TOTAL && pendingIntro) { pendingIntro = false; startIntro(); }
+    if (++texLoaded >= TEX_TOTAL) {
+      renderOnce();
+      box.classList.add('gl-ready');          // le fallback ne s'efface que maintenant
+      canvas.style.opacity = '1';
+      if (pendingIntro) { pendingIntro = false; startIntro(); }
+    }
   };
-  const lacquer = (face, mirrorX) => new THREE.MeshPhysicalMaterial({
-    map: loadTex(loader, P(face), mirrorX, kick),
-    roughnessMap: loadTex(loader, P(face + '-rm'), mirrorX, kick, true),
-    metalnessMap: loadTex(loader, P(face + '-rm'), mirrorX, kick, true),
-    roughness: 1, metalness: 1,
-    clearcoat: 1, clearcoatRoughness: 0.14, envMapIntensity: 1.18
-  });
+  const lacquer = (face, mirrorX) => {
+    const tex = loadTex(loader, P(face), mirrorX, kick);
+    const rm = loadTex(loader, P(face + '-rm'), mirrorX, kick, true);
+    return new THREE.MeshPhysicalMaterial({
+      map: tex, emissiveMap: tex, emissive: 0xffffff, emissiveIntensity: 1.0,
+      roughnessMap: rm, metalnessMap: rm,
+      roughness: 1, metalness: 1
+    });
+  };
   const darkSide = new THREE.MeshPhysicalMaterial({
-    color: 0x0d0a08, roughness: 0.55, metalness: 0.1, clearcoat: 0.25, clearcoatRoughness: 0.4, envMapIntensity: 0.5
+    color: 0x17100c, emissive: 0x17100c, emissiveIntensity: 0.9, roughness: 0.55, metalness: 0.1
   });
   const mats = [
     lacquer('right', false),
@@ -96,10 +102,10 @@ function initBox(box) {
   group.add(body);
 
   const gold = new THREE.MeshPhysicalMaterial({
-    color: 0xd9b465, metalness: 1, roughness: 0.21, envMapIntensity: 1.35,
+    color: 0xd9b465, metalness: 1, roughness: 0.21, envMap: envTex, envMapIntensity: 1.35,
     clearcoat: 0.4, clearcoatRoughness: 0.25
   });
-  const goldDark = gold.clone(); goldDark.color = new THREE.Color(0xa8853f); goldDark.roughness = 0.3;
+  const goldDark = gold.clone(); goldDark.envMap = envTex; goldDark.color = new THREE.Color(0xa8853f); goldDark.roughness = 0.3;
   const bodyTop = body.position.y + BOT_H / 2;
   const neck = new THREE.Mesh(new THREE.CylinderGeometry(11.3, 11.3, NECK_H, 48), goldDark);
   neck.position.y = bodyTop + NECK_H / 2;
@@ -209,6 +215,9 @@ function initBox(box) {
   }
 
   box.addEventListener('rot3d-intro', () => { visible = true; introPlayed = true; startIntro(); });
+  canvas.style.opacity = '0';
+  canvas.style.transition = 'opacity .5s ease';
+  (window.__rot3d = window.__rot3d || {})[model] = { scene, mats, key, rim, renderer, renderOnce, group };
   box.appendChild(canvas);
   box.classList.add('gl-on');
   resize();

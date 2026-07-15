@@ -225,9 +225,9 @@ section{position:relative}
 .arch .rot3d .rcapw{position:absolute;top:3.77%;left:50%;transform:translateX(-50%);width:91.5%;z-index:4;pointer-events:none;filter:drop-shadow(0 8px 16px rgba(0,0,0,.45))}
 .arch .rot3d .rcapw .rcap{display:block;width:100%}
 .arch .rot3d .rcapw::after{content:"";position:absolute;inset:0;background:linear-gradient(104deg,transparent 34%,rgba(255,246,214,.34) 45%,rgba(255,255,255,.62) 50%,rgba(255,246,214,.34) 55%,transparent 66%);background-size:260% 100%;background-position:var(--sheen,50%) 0;transition:background-position 1.05s cubic-bezier(.24,.75,.22,1);mix-blend-mode:overlay;-webkit-mask-size:100% 100%;mask-size:100% 100%}
-.rot3d[data-model="oro"] .rcapw::after{-webkit-mask-image:url("/assets/rot3d/oro-cap.webp");mask-image:url("/assets/rot3d/oro-cap.webp")}
-.rot3d[data-model="kb"] .rcapw::after{-webkit-mask-image:url("/assets/rot3d/kb-cap.webp");mask-image:url("/assets/rot3d/kb-cap.webp")}
-.rot3d[data-model="ahi"] .rcapw::after{-webkit-mask-image:url("/assets/rot3d/ahi-cap.webp");mask-image:url("/assets/rot3d/ahi-cap.webp")}
+.rot3d[data-model="oro"] .rcapw::after{-webkit-mask-image:url("/assets/rot3d/oro-cap.webp?v=10");mask-image:url("/assets/rot3d/oro-cap.webp?v=10")}
+.rot3d[data-model="kb"] .rcapw::after{-webkit-mask-image:url("/assets/rot3d/kb-cap.webp?v=10");mask-image:url("/assets/rot3d/kb-cap.webp?v=10")}
+.rot3d[data-model="ahi"] .rcapw::after{-webkit-mask-image:url("/assets/rot3d/ahi-cap.webp?v=10");mask-image:url("/assets/rot3d/ahi-cap.webp?v=10")}
 .arch .rot3d .rstage{position:absolute;top:20.35%;left:4.4%;width:91.2%;height:75.77%;transform-style:preserve-3d;
   transition:transform 1.05s cubic-bezier(.24,.75,.22,1);will-change:transform}
 .arch .rot3d .rf{position:absolute;top:0;left:0;width:100%;height:100%;backface-visibility:hidden;-webkit-backface-visibility:hidden}
@@ -243,7 +243,9 @@ section{position:relative}
 .rot3d:hover .rbtn,.rot3d .rbtn:focus-visible{opacity:1}
 @media (hover:none){.rot3d .rbtn{opacity:.55;width:30px;height:30px}.rot3d .rprev{left:-36px}.rot3d .rnext{right:-36px}}
 @media (prefers-reduced-motion:reduce){.arch .rot3d .rstage{transition:none}}
-.rot3d.gl-on .rstage,.rot3d.gl-on .rcapw{visibility:hidden}
+.rot3d.gl-ready .rstage,.rot3d.gl-ready .rcapw{visibility:hidden}
+.rot3d canvas.rgl{opacity:0;transition:opacity .5s ease}
+.rot3d.gl-ready canvas.rgl{opacity:1}
 .rot3d canvas.rgl{position:absolute;inset:0;width:100%;height:100%;z-index:3;cursor:grab}
 .rot3d canvas.rgl:active{cursor:grabbing}
 .rot3d .rbtn{z-index:6}
@@ -496,11 +498,11 @@ body.wl-open{overflow:hidden}
   <div class="hero-fallback"></div>
   <!-- montage 21 s : océan étoilé → silhouette → vague d’or → tikis (boucle respirée) -->
   <video autoplay muted loop playsinline preload="auto" poster="videos/hero_poster_v2.webp" id="heroVideo">
-    <source src="videos/hero_web_v3.mp4" type="video/mp4">
+    <source src="videos/hero_web_v5_60.mp4" type="video/mp4">
   </video>
   <script>/* mobile : hero 720p (−60 % de poids), choisi AVANT le chargement */
   (function(){var v=document.getElementById('heroVideo');
-    if(matchMedia('(max-width:700px)').matches){v.querySelector('source').src='videos/hero_web_720_v3.mp4';v.load();}})();
+    if(matchMedia('(max-width:700px)').matches){v.querySelector('source').src='videos/hero_web_720_v5_60.mp4';v.load();}})();
   </script>
   <div class="veil"></div>
   <div class="hero-inner">
@@ -539,7 +541,7 @@ body.wl-open{overflow:hidden}
         <path d="M3 121 L3 44 Q3 4 50 4 Q97 4 97 44 L97 121"/>
       </svg>
       <span class="medallion">
-        <span class="faces rot3d" data-model="oro"><span class="rcapw" aria-hidden="true"><img class="rcap" src="/assets/rot3d/oro-cap.webp" alt=""></span><span class="rstage"><img class="rf rf0" src="/assets/rot3d/oro-front.webp" alt="Oro Rojo — extrait de parfum AB Signature Paris, flacon gravé d’Aruba"><img class="rf rf90" src="/assets/rot3d/oro-right.webp" alt="Oro Rojo — profil droit, crocus dorés d’Aruba"><img class="rf rf180" src="/assets/rot3d/oro-back.webp" alt="Oro Rojo — verso gravé, divi-divi au couchant d’Aruba"><img class="rf rf270" src="/assets/rot3d/oro-left.webp" alt="Oro Rojo — profil gauche, grappe de cerises au clair de lune"></span><button class="rbtn rprev" type="button" aria-label="Face précédente">‹</button><button class="rbtn rnext" type="button" aria-label="Face suivante">›</button></span>
+        <span class="faces rot3d" data-model="oro"><span class="rcapw" aria-hidden="true"><img class="rcap" src="/assets/rot3d/oro-cap.webp?v=10" alt=""></span><span class="rstage"><img class="rf rf0" src="/assets/rot3d/oro-front.webp?v=10" alt="Oro Rojo — extrait de parfum AB Signature Paris, flacon gravé d’Aruba"><img class="rf rf90" src="/assets/rot3d/oro-right.webp?v=10" alt="Oro Rojo — profil droit, crocus dorés d’Aruba"><img class="rf rf180" src="/assets/rot3d/oro-back.webp?v=10" alt="Oro Rojo — verso gravé, divi-divi au couchant d’Aruba"><img class="rf rf270" src="/assets/rot3d/oro-left.webp?v=10" alt="Oro Rojo — profil gauche, grappe de cerises au clair de lune"></span><button class="rbtn rprev" type="button" aria-label="Face précédente">‹</button><button class="rbtn rnext" type="button" aria-label="Face suivante">›</button></span>
       </span>
     </div>
     <div class="ch-txt">
@@ -597,7 +599,7 @@ body.wl-open{overflow:hidden}
         <path d="M3 121 L3 44 Q3 4 50 4 Q97 4 97 44 L97 121"/>
       </svg>
       <span class="medallion">
-        <span class="faces rot3d" data-model="kb"><span class="rcapw" aria-hidden="true"><img class="rcap" src="/assets/rot3d/kb-cap.webp" alt=""></span><span class="rstage"><img class="rf rf0" src="/assets/rot3d/kb-front.webp" alt="Karès Blan — extrait de parfum AB Signature Paris, flacon gravé de La Digue, Seychelles"><img class="rf rf90" src="/assets/rot3d/kb-right.webp" alt="Karès Blan — profil droit, amandes des Seychelles"><img class="rf rf180" src="/assets/rot3d/kb-back.webp" alt="Karès Blan — verso gravé, tortue marine d’Anse Source d’Argent"><img class="rf rf270" src="/assets/rot3d/kb-left.webp" alt="Karès Blan — profil gauche, muguet en fleur"></span><button class="rbtn rprev" type="button" aria-label="Face précédente">‹</button><button class="rbtn rnext" type="button" aria-label="Face suivante">›</button></span>
+        <span class="faces rot3d" data-model="kb"><span class="rcapw" aria-hidden="true"><img class="rcap" src="/assets/rot3d/kb-cap.webp?v=10" alt=""></span><span class="rstage"><img class="rf rf0" src="/assets/rot3d/kb-front.webp?v=10" alt="Karès Blan — extrait de parfum AB Signature Paris, flacon gravé de La Digue, Seychelles"><img class="rf rf90" src="/assets/rot3d/kb-right.webp?v=10" alt="Karès Blan — profil droit, amandes des Seychelles"><img class="rf rf180" src="/assets/rot3d/kb-back.webp?v=10" alt="Karès Blan — verso gravé, tortue marine d’Anse Source d’Argent"><img class="rf rf270" src="/assets/rot3d/kb-left.webp?v=10" alt="Karès Blan — profil gauche, muguet en fleur"></span><button class="rbtn rprev" type="button" aria-label="Face précédente">‹</button><button class="rbtn rnext" type="button" aria-label="Face suivante">›</button></span>
       </span>
     </div>
   </div>
@@ -614,7 +616,7 @@ body.wl-open{overflow:hidden}
         <path d="M3 121 L3 44 Q3 4 50 4 Q97 4 97 44 L97 121"/>
       </svg>
       <span class="medallion">
-        <span class="faces rot3d" data-model="ahi"><span class="rcapw" aria-hidden="true"><img class="rcap" src="/assets/rot3d/ahi-cap.webp" alt=""></span><span class="rstage"><img class="rf rf0" src="/assets/rot3d/ahi-front.webp" alt="Ahi Pō — extrait de parfum AB Signature Paris, flacon gravé de Moorea, Polynésie"><img class="rf rf90" src="/assets/rot3d/ahi-right.webp" alt="Ahi Pō — profil droit, tiki de feu et esprits polynésiens"><img class="rf rf180" src="/assets/rot3d/ahi-back.webp" alt="Ahi Pō — verso gravé, nuit marine de Polynésie"><img class="rf rf270" src="/assets/rot3d/ahi-left.webp" alt="Ahi Pō — profil gauche, vigne de cassis sur le lagon"></span><button class="rbtn rprev" type="button" aria-label="Face précédente">‹</button><button class="rbtn rnext" type="button" aria-label="Face suivante">›</button></span>
+        <span class="faces rot3d" data-model="ahi"><span class="rcapw" aria-hidden="true"><img class="rcap" src="/assets/rot3d/ahi-cap.webp?v=10" alt=""></span><span class="rstage"><img class="rf rf0" src="/assets/rot3d/ahi-front.webp?v=10" alt="Ahi Pō — extrait de parfum AB Signature Paris, flacon gravé de Moorea, Polynésie"><img class="rf rf90" src="/assets/rot3d/ahi-right.webp?v=10" alt="Ahi Pō — profil droit, tiki de feu et esprits polynésiens"><img class="rf rf180" src="/assets/rot3d/ahi-back.webp?v=10" alt="Ahi Pō — verso gravé, nuit marine de Polynésie"><img class="rf rf270" src="/assets/rot3d/ahi-left.webp?v=10" alt="Ahi Pō — profil gauche, vigne de cassis sur le lagon"></span><button class="rbtn rprev" type="button" aria-label="Face précédente">‹</button><button class="rbtn rnext" type="button" aria-label="Face suivante">›</button></span>
       </span>
     </div>
     <div class="ch-txt">
@@ -946,6 +948,6 @@ wlForm.addEventListener('submit', async e => {
 })();
 </script>
 <script type="importmap">{"imports":{"three":"/assets/vendor/three.module.min.js"}}</script>
-<script type="module" src="/assets/rot3d/rot3d-gl.js?v=9"></script>
+<script type="module" src="/assets/rot3d/rot3d-gl.js?v=15"></script>
 </body>
 </html>
