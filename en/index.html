@@ -896,8 +896,10 @@ wlForm.addEventListener('submit', async e => {
       stage.style.setProperty('--d2', (w*0.317).toFixed(1) + 'px');
     }
     if (window.ResizeObserver) new ResizeObserver(size).observe(stage);
+    window.addEventListener('resize', size);
+    window.addEventListener('orientationchange', size);
     size(); apply();
-    function bump(d){ ry += d; last = Date.now(); apply(); }
+    function bump(d){ size(); ry += d; last = Date.now(); apply(); }
     box.querySelector('.rprev').addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); bump(90); });
     box.querySelector('.rnext').addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); bump(-90); });
     var sx = null;
