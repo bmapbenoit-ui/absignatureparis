@@ -243,6 +243,10 @@ section{position:relative}
 .rot3d:hover .rbtn,.rot3d .rbtn:focus-visible{opacity:1}
 @media (hover:none){.rot3d .rbtn{opacity:.55;width:30px;height:30px}.rot3d .rprev{left:-36px}.rot3d .rnext{right:-36px}}
 @media (prefers-reduced-motion:reduce){.arch .rot3d .rstage{transition:none}}
+.rot3d.gl-on .rstage,.rot3d.gl-on .rcapw{visibility:hidden}
+.rot3d canvas.rgl{position:absolute;inset:0;width:100%;height:100%;z-index:3;cursor:grab}
+.rot3d canvas.rgl:active{cursor:grabbing}
+.rot3d .rbtn{z-index:6}
 @keyframes medBreath{0%,100%{transform:scale(1)}50%{transform:scale(1.014)}}
 .arch.is-in .medallion{animation:medBreath 14s ease-in-out infinite}
 /* assise lumineuse très subtile derrière le flacon (présence sans plaque) */
@@ -941,5 +945,7 @@ wlForm.addEventListener('submit', async e => {
   });
 })();
 </script>
+<script type="importmap">{"imports":{"three":"/assets/vendor/three.module.min.js"}}</script>
+<script type="module" src="/assets/rot3d/rot3d-gl.js"></script>
 </body>
 </html>
