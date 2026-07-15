@@ -220,13 +220,26 @@ section{position:relative}
 /* cycle recto → verso → recto : fondu de film 14 s + respiration de zoom.
    .faces = repère exact commun aux 2 vues (le padding du médaillon ne biaise plus l'absolu) */
 .arch .faces{position:relative;display:block}
-.arch img.face-b{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0}
-@keyframes faceA{0%,38%{opacity:1}50%,88%{opacity:0}100%{opacity:1}}
-@keyframes faceB{0%,38%{opacity:0}50%,88%{opacity:1}100%{opacity:0}}
+/* rotation 3D 4 faces — le bouchon (cylindre) reste fixe, les panneaux tournent en boîte */
+.rot3d{aspect-ratio:791/1882;perspective:1400px;perspective-origin:50% 38%;display:block;position:relative;touch-action:pan-y}
+.rot3d .rcap{position:absolute;top:3.77%;left:50%;transform:translateX(-50%);width:91.5%;z-index:4;pointer-events:none}
+.rot3d .rstage{position:absolute;top:20.35%;left:4.4%;width:91.2%;height:75.77%;transform-style:preserve-3d;
+  transition:transform 1.05s cubic-bezier(.24,.75,.22,1);will-change:transform}
+.rot3d .rf{position:absolute;top:0;left:0;width:100%;height:100%;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.rot3d .rf90,.rot3d .rf270{width:63.4%;left:18.3%;filter:brightness(.94)}
+.rot3d .rf0{transform:rotateY(0deg) translateZ(var(--d2,60px))}
+.rot3d .rf90{transform:rotateY(90deg) translateZ(var(--w2,95px))}
+.rot3d .rf180{transform:rotateY(180deg) translateZ(var(--d2,60px))}
+.rot3d .rf270{transform:rotateY(-90deg) translateZ(var(--w2,95px))}
+.rot3d .rbtn{position:absolute;top:55%;transform:translateY(-50%);z-index:6;width:34px;height:34px;border-radius:50%;
+  border:1px solid rgba(232,199,106,.55);background:rgba(6,12,11,.45);color:#e8c76a;font-size:19px;line-height:1;
+  cursor:pointer;opacity:0;transition:opacity .35s;display:flex;align-items:center;justify-content:center;padding:0 0 2px}
+.rot3d .rprev{left:-44px}.rot3d .rnext{right:-44px}
+.rot3d:hover .rbtn,.rot3d .rbtn:focus-visible{opacity:1}
+@media (hover:none){.rot3d .rbtn{opacity:.55;width:30px;height:30px}.rot3d .rprev{left:-36px}.rot3d .rnext{right:-36px}}
+@media (prefers-reduced-motion:reduce){.rot3d .rstage{transition:none}}
 @keyframes medBreath{0%,100%{transform:scale(1)}50%{transform:scale(1.014)}}
 .arch.is-in .medallion{animation:medBreath 14s ease-in-out infinite}
-.arch.is-in img.face-a{animation:faceA 14s ease-in-out 1.8s infinite}
-.arch.is-in img.face-b{animation:faceB 14s ease-in-out 1.8s infinite}
 /* assise lumineuse très subtile derrière le flacon (présence sans plaque) */
 .arch .medallion::after{content:'';position:absolute;inset:-4% -14%;z-index:-1;
   background:radial-gradient(58% 46% at 50% 56%,rgba(232,199,106,.13) 0%,transparent 70%);
@@ -509,8 +522,7 @@ body.wl-open{overflow:hidden}
         <path d="M3 121 L3 44 Q3 4 50 4 Q97 4 97 44 L97 121"/>
       </svg>
       <span class="medallion">
-        <span class="faces"><img class="face-a" src="/assets/oro-front-detoure.webp?v=5" alt="Oro Rojo — AB Signature Paris extrait de parfum, bottle engraved with Aruba">
-        <img class="face-b" src="/assets/oro-back-detoure.webp?v=5" alt="Oro Rojo — engraved back, divi-divi tree at Aruba’s sunset"></span>
+        <span class="faces rot3d" data-model="oro"><img class="rcap" src="/assets/rot3d/oro-cap.webp" alt="" aria-hidden="true"><span class="rstage"><img class="rf rf0" src="/assets/rot3d/oro-front.webp" alt="Oro Rojo — AB Signature Paris extrait de parfum, bottle engraved with Aruba"><img class="rf rf90" src="/assets/rot3d/oro-right.webp" alt="Oro Rojo — right profile, golden crocus of Aruba"><img class="rf rf180" src="/assets/rot3d/oro-back.webp" alt="Oro Rojo — engraved back, divi-divi tree at Aruba sunset"><img class="rf rf270" src="/assets/rot3d/oro-left.webp" alt="Oro Rojo — left profile, moonlit cherry cluster"></span><button class="rbtn rprev" type="button" aria-label="Face précédente">‹</button><button class="rbtn rnext" type="button" aria-label="Face suivante">›</button></span>
       </span>
     </div>
     <div class="ch-txt">
@@ -567,8 +579,7 @@ body.wl-open{overflow:hidden}
         <path d="M3 121 L3 44 Q3 4 50 4 Q97 4 97 44 L97 121"/>
       </svg>
       <span class="medallion">
-        <span class="faces"><img class="face-a" src="/assets/kb-front-detoure.webp?v=5" alt="Karès Blan — AB Signature Paris extrait de parfum, bottle engraved with La Digue, Seychelles">
-        <img class="face-b" src="/assets/kb-back-detoure.webp?v=5" alt="Karès Blan — engraved back, sea turtle of Anse Source d’Argent"></span>
+        <span class="faces rot3d" data-model="kb"><img class="rcap" src="/assets/rot3d/kb-cap.webp" alt="" aria-hidden="true"><span class="rstage"><img class="rf rf0" src="/assets/rot3d/kb-front.webp" alt="Karès Blan — AB Signature Paris extrait de parfum, bottle engraved with La Digue, Seychelles"><img class="rf rf90" src="/assets/rot3d/kb-right.webp" alt="Karès Blan — right profile, Seychelles almonds"><img class="rf rf180" src="/assets/rot3d/kb-back.webp" alt="Karès Blan — engraved back, sea turtle of Anse Source d’Argent"><img class="rf rf270" src="/assets/rot3d/kb-left.webp" alt="Karès Blan — left profile, lily of the valley"></span><button class="rbtn rprev" type="button" aria-label="Face précédente">‹</button><button class="rbtn rnext" type="button" aria-label="Face suivante">›</button></span>
       </span>
     </div>
   </div>
@@ -585,8 +596,7 @@ body.wl-open{overflow:hidden}
         <path d="M3 121 L3 44 Q3 4 50 4 Q97 4 97 44 L97 121"/>
       </svg>
       <span class="medallion">
-        <span class="faces"><img class="face-a" src="/assets/ahi-front-detoure.webp?v=6" alt="Ahi Pō — AB Signature Paris extrait de parfum, bottle engraved with Moorea, Polynesia">
-        <img class="face-b" src="/assets/ahi-back-detoure.webp?v=5" alt="Ahi Pō — engraved back, Polynesian marine night"></span>
+        <span class="faces rot3d" data-model="ahi"><img class="rcap" src="/assets/rot3d/ahi-cap.webp" alt="" aria-hidden="true"><span class="rstage"><img class="rf rf0" src="/assets/rot3d/ahi-front.webp" alt="Ahi Pō — AB Signature Paris extrait de parfum, bottle engraved with Moorea, Polynesia"><img class="rf rf90" src="/assets/rot3d/ahi-right.webp" alt="Ahi Pō — right profile, fire tiki and Polynesian spirits"><img class="rf rf180" src="/assets/rot3d/ahi-back.webp" alt="Ahi Pō — engraved back, Polynesian marine night"><img class="rf rf270" src="/assets/rot3d/ahi-left.webp" alt="Ahi Pō — left profile, blackcurrant vine over the lagoon"></span><button class="rbtn rprev" type="button" aria-label="Face précédente">‹</button><button class="rbtn rnext" type="button" aria-label="Face suivante">›</button></span>
       </span>
     </div>
     <div class="ch-txt">
@@ -868,5 +878,40 @@ wlForm.addEventListener('submit', async e => {
 })();
 </script>
 <script src="/assets/motion.js?v=20260709n" defer></script>
+
+<script>
+(function(){
+  var rm = window.matchMedia('(prefers-reduced-motion: reduce)');
+  document.querySelectorAll('.rot3d').forEach(function(box){
+    var stage = box.querySelector('.rstage');
+    var ry = 0, last = 0;
+    function apply(){ stage.style.transform = 'rotateY(' + ry + 'deg)'; }
+    function size(){
+      var w = stage.clientWidth;
+      stage.style.setProperty('--w2', (w/2).toFixed(1) + 'px');
+      stage.style.setProperty('--d2', (w*0.317).toFixed(1) + 'px');
+    }
+    if (window.ResizeObserver) new ResizeObserver(size).observe(stage);
+    size(); apply();
+    function bump(d){ ry += d; last = Date.now(); apply(); }
+    box.querySelector('.rprev').addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); bump(90); });
+    box.querySelector('.rnext').addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); bump(-90); });
+    var sx = null;
+    box.addEventListener('pointerdown', function(e){ sx = e.clientX; }, {passive:true});
+    box.addEventListener('pointerup', function(e){
+      if (sx === null) return;
+      var dx = e.clientX - sx; sx = null;
+      if (Math.abs(dx) > 32) bump(dx > 0 ? 90 : -90);
+    }, {passive:true});
+    setInterval(function(){
+      if (rm.matches) return;
+      var arch = box.closest('.arch');
+      if (arch && !arch.classList.contains('is-in') && !arch.classList.contains('is-seen')) return;
+      if (Date.now() - last < 8000) return;
+      bump(-90);
+    }, 4600);
+  });
+})();
+</script>
 </body>
 </html>
