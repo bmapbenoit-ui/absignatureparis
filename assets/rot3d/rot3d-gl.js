@@ -7,7 +7,7 @@ import { RoomEnvironment } from '/assets/vendor/RoomEnvironment.js';
 
 const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const BOT_W = 45, BOT_D = 28.5, BOT_H = 88.97, EDGE_R = 0.9;
-const CAP_R = 13.95, CAP_H = 27.2, NECK_H = 2.2;
+const CAP_R = 20.4, CAP_H = 19.5, NECK_H = 2.4;
 
 
 
@@ -93,7 +93,7 @@ function initBox(box) {
   });
   const goldDark = gold.clone(); goldDark.color = new THREE.Color(0xa8853f); goldDark.roughness = 0.3;
   const bodyTop = body.position.y + BOT_H / 2;
-  const neck = new THREE.Mesh(new THREE.CylinderGeometry(10.6, 11.6, NECK_H, 48), goldDark);
+  const neck = new THREE.Mesh(new THREE.CylinderGeometry(12.6, 13.6, NECK_H, 48), goldDark);
   neck.position.y = bodyTop + NECK_H / 2;
   group.add(neck);
   const cap = new THREE.Mesh(new THREE.CylinderGeometry(CAP_R, CAP_R, CAP_H, 72, 1, false), gold);
