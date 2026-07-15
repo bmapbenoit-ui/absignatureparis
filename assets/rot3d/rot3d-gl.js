@@ -7,7 +7,7 @@ import { RoomEnvironment } from '/assets/vendor/RoomEnvironment.js';
 
 const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const BOT_W = 45, BOT_D = 28.5, BOT_H = 88.97, EDGE_R = 0.9;
-const CAP_RX = 20.6, CAP_RZ = 13.5, CAP_H = 19.5, NECK_H = 2.2;
+const CAP_R = 13.95, CAP_H = 27.2, NECK_H = 2.2;
 
 
 
@@ -93,16 +93,13 @@ function initBox(box) {
   });
   const goldDark = gold.clone(); goldDark.color = new THREE.Color(0xa8853f); goldDark.roughness = 0.3;
   const bodyTop = body.position.y + BOT_H / 2;
-  const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.8, 0.86, NECK_H, 48), goldDark);
-  neck.scale.set(18.5, 1, 12.0);
+  const neck = new THREE.Mesh(new THREE.CylinderGeometry(10.6, 11.6, NECK_H, 48), goldDark);
   neck.position.y = bodyTop + NECK_H / 2;
   group.add(neck);
-  const cap = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, CAP_H, 72, 1, false), gold);
-  cap.scale.set(CAP_RX, 1, CAP_RZ);
+  const cap = new THREE.Mesh(new THREE.CylinderGeometry(CAP_R, CAP_R, CAP_H, 72, 1, false), gold);
   cap.position.y = bodyTop + NECK_H + CAP_H / 2;
   group.add(cap);
-  const capTop = new THREE.Mesh(new THREE.CircleGeometry(1, 72), goldDark);
-  capTop.scale.set(CAP_RX, CAP_RZ, 1);
+  const capTop = new THREE.Mesh(new THREE.CircleGeometry(CAP_R, 72), goldDark);
   capTop.rotation.x = -Math.PI / 2;
   capTop.position.y = cap.position.y + CAP_H / 2 + 0.01;
   group.add(capTop);
