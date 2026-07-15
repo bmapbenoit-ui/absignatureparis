@@ -23,9 +23,9 @@ function makeShadowTexture() {
   return t;
 }
 
-function loadTex(loader, url, mirrorX, onload) {
+function loadTex(loader, url, mirrorX, onload, linear) {
   const t = loader.load(url, onload);
-  t.colorSpace = THREE.SRGBColorSpace;
+  t.colorSpace = linear ? THREE.NoColorSpace : THREE.SRGBColorSpace;
   t.anisotropy = 8;
   if (mirrorX) { t.wrapS = THREE.RepeatWrapping; t.repeat.x = -1; t.offset.x = 1; }
   return t;
@@ -37,7 +37,7 @@ function initBox(box) {
   canvas.className = 'rgl';
   let renderer;
   try {
-    renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, preserveDrawingBuffer: true });
+    renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, preserveDrawingBuffer: true, powerPreference: 'high-performance' });
   } catch (e) { return false; }
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -63,25 +63,33 @@ function initBox(box) {
   scene.add(group);
 
   let ry = 0, vel = 0, target = null, lastInteract = 0, visible = false, needsRender = true;
-  let intro = null, introPlayed = false;
+  let intro = null, introPlayed = false, pendingIntro = false;
+  let texLoaded = 0; const TEX_TOTAL = 8;
 
   const loader = new THREE.TextureLoader();
   const P = m => `/assets/rot3d/${model}-${m}.webp`;
   const renderOnce = () => { group.rotation.y = ry; renderer.render(scene, camera); };
-  const kick = () => { needsRender = true; renderOnce(); };
-  const lacquer = (map) => new THREE.MeshPhysicalMaterial({
-    map, roughness: 0.38, metalness: 0.06,
-    clearcoat: 1, clearcoatRoughness: 0.12, envMapIntensity: 1.05
+  const startIntro = () => { intro = { start: performance.now(), from: ry, dur: 6000 }; needsRender = true; loop(); };
+  const kick = () => {
+    needsRender = true; renderOnce();
+    if (++texLoaded >= TEX_TOTAL && pendingIntro) { pendingIntro = false; startIntro(); }
+  };
+  const lacquer = (face, mirrorX) => new THREE.MeshPhysicalMaterial({
+    map: loadTex(loader, P(face), mirrorX, kick),
+    roughnessMap: loadTex(loader, P(face + '-rm'), mirrorX, kick, true),
+    metalnessMap: loadTex(loader, P(face + '-rm'), mirrorX, kick, true),
+    roughness: 1, metalness: 1,
+    clearcoat: 1, clearcoatRoughness: 0.14, envMapIntensity: 1.18
   });
   const darkSide = new THREE.MeshPhysicalMaterial({
     color: 0x0d0a08, roughness: 0.55, metalness: 0.1, clearcoat: 0.25, clearcoatRoughness: 0.4, envMapIntensity: 0.5
   });
   const mats = [
-    lacquer(loadTex(loader, P('right'), false, kick)),
-    lacquer(loadTex(loader, P('left'), false, kick)),
+    lacquer('right', false),
+    lacquer('left', false),
     darkSide, darkSide,
-    lacquer(loadTex(loader, P('front'), false, kick)),
-    lacquer(loadTex(loader, P('back'), true, kick)),
+    lacquer('front', false),
+    lacquer('back', true),
   ];
   const body = new THREE.Mesh(new RoundedBoxGeometry(BOT_W, BOT_H, BOT_D, 3, EDGE_R), mats);
   body.position.y = -(CAP_H + NECK_H) / 2;
@@ -159,7 +167,10 @@ function initBox(box) {
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(en => { visible = en[0].isIntersecting;
       if (visible) {
-        if (!introPlayed && !REDUCED) { introPlayed = true; intro = { start: performance.now(), from: ry, dur: 4000 }; }
+        if (!introPlayed && !REDUCED) {
+          introPlayed = true;
+          if (texLoaded >= TEX_TOTAL) startIntro(); else pendingIntro = true;
+        }
         needsRender = true; loop();
       } }, { threshold: 0.35 }).observe(box);
   } else visible = true;
@@ -197,11 +208,7 @@ function initBox(box) {
     rafId = requestAnimationFrame(tick);
   }
 
-  box.addEventListener('rot3d-intro', () => {
-    visible = true; introPlayed = true;
-    intro = { start: performance.now(), from: ry, dur: 4000 };
-    needsRender = true; loop();
-  });
+  box.addEventListener('rot3d-intro', () => { visible = true; introPlayed = true; startIntro(); });
   box.appendChild(canvas);
   box.classList.add('gl-on');
   resize();
