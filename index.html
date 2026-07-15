@@ -208,32 +208,36 @@ section{position:relative}
    plus aucune plaque derrière (directive Benoit 10/06 soir) */
 .arch{position:relative;justify-self:center;width:min(72vw,400px)}
 .arch .medallion{position:relative;display:block;padding:11% 9% 6%}
-.arch img{display:block;width:100%;
+.arch img:not(.rf):not(.rcap){display:block;width:100%;
   filter:drop-shadow(0 36px 48px rgba(0,0,0,.6)) drop-shadow(0 8px 16px rgba(0,0,0,.4));
   transform:translateY(20px) scale(1.01);
   transition:transform 1.7s var(--ease) .25s}
-.arch.is-in img{transform:translateY(0) scale(1.01)}
+.arch.is-in img:not(.rf):not(.rcap){transform:translateY(0) scale(1.01)}
 /* cycle recto → verso → recto : fondu de film 14 s + respiration de zoom.
    .faces = repère exact commun aux 2 vues (le padding du médaillon ne biaise plus l'absolu) */
 .arch .faces{position:relative;display:block}
 /* rotation 3D 4 faces — le bouchon (cylindre) reste fixe, les panneaux tournent en boîte */
-.rot3d{aspect-ratio:791/1882;perspective:1400px;perspective-origin:50% 38%;display:block;position:relative;touch-action:pan-y}
-.rot3d .rcap{position:absolute;top:3.77%;left:50%;transform:translateX(-50%);width:91.5%;z-index:4;pointer-events:none}
-.rot3d .rstage{position:absolute;top:20.35%;left:4.4%;width:91.2%;height:75.77%;transform-style:preserve-3d;
+.arch .rot3d{aspect-ratio:791/1882;perspective:1400px;perspective-origin:50% 38%;display:block;position:relative;touch-action:pan-y;transform:translateY(20px);transition:transform 1.7s var(--ease) .25s}
+.arch.is-in .rot3d{transform:translateY(0)}
+.arch .rot3d img{display:block;width:100%}
+.arch .arch .rot3d .rstage{z-index:1}
+.arch .rot3d::after{content:"";position:absolute;left:10%;right:10%;bottom:-1%;height:4.5%;background:radial-gradient(50% 50% at 50% 50%,rgba(0,0,0,.48),transparent 72%);z-index:0;pointer-events:none}
+.arch .rot3d .rcap{position:absolute;top:3.77%;left:50%;transform:translateX(-50%);width:91.5%;z-index:4;pointer-events:none;filter:drop-shadow(0 8px 16px rgba(0,0,0,.45))}
+.arch .rot3d .rstage{position:absolute;top:20.35%;left:4.4%;width:91.2%;height:75.77%;transform-style:preserve-3d;
   transition:transform 1.05s cubic-bezier(.24,.75,.22,1);will-change:transform}
-.rot3d .rf{position:absolute;top:0;left:0;width:100%;height:100%;backface-visibility:hidden;-webkit-backface-visibility:hidden}
-.rot3d .rf90,.rot3d .rf270{width:63.4%;left:18.3%;filter:brightness(.94)}
-.rot3d .rf0{transform:rotateY(0deg) translateZ(var(--d2,60px))}
-.rot3d .rf90{transform:rotateY(90deg) translateZ(var(--w2,95px))}
-.rot3d .rf180{transform:rotateY(180deg) translateZ(var(--d2,60px))}
-.rot3d .rf270{transform:rotateY(-90deg) translateZ(var(--w2,95px))}
+.arch .rot3d .rf{position:absolute;top:0;left:0;width:100%;height:100%;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.arch .rot3d .rf90,.arch .rot3d .rf270{width:63.4%;left:18.3%;filter:brightness(.94)}
+.arch .rot3d .rf0{transform:rotateY(0deg) translateZ(var(--d2,60px))}
+.arch .rot3d .rf90{transform:rotateY(90deg) translateZ(var(--w2,95px))}
+.arch .rot3d .rf180{transform:rotateY(180deg) translateZ(var(--d2,60px))}
+.arch .rot3d .rf270{transform:rotateY(-90deg) translateZ(var(--w2,95px))}
 .rot3d .rbtn{position:absolute;top:55%;transform:translateY(-50%);z-index:6;width:34px;height:34px;border-radius:50%;
   border:1px solid rgba(232,199,106,.55);background:rgba(6,12,11,.45);color:#e8c76a;font-size:19px;line-height:1;
   cursor:pointer;opacity:0;transition:opacity .35s;display:flex;align-items:center;justify-content:center;padding:0 0 2px}
 .rot3d .rprev{left:-44px}.rot3d .rnext{right:-44px}
 .rot3d:hover .rbtn,.rot3d .rbtn:focus-visible{opacity:1}
 @media (hover:none){.rot3d .rbtn{opacity:.55;width:30px;height:30px}.rot3d .rprev{left:-36px}.rot3d .rnext{right:-36px}}
-@media (prefers-reduced-motion:reduce){.rot3d .rstage{transition:none}}
+@media (prefers-reduced-motion:reduce){.arch .rot3d .rstage{transition:none}}
 @keyframes medBreath{0%,100%{transform:scale(1)}50%{transform:scale(1.014)}}
 .arch.is-in .medallion{animation:medBreath 14s ease-in-out infinite}
 /* assise lumineuse très subtile derrière le flacon (présence sans plaque) */
@@ -242,7 +246,7 @@ section{position:relative}
   pointer-events:none}
 .ch-kares .arch .medallion::after{
   background:radial-gradient(58% 46% at 50% 56%,rgba(38,43,33,.16) 0%,transparent 70%)}
-.ch-kares .arch img{filter:drop-shadow(0 36px 48px rgba(40,30,10,.42)) drop-shadow(0 8px 16px rgba(40,30,10,.3))}
+.ch-kares .arch img:not(.rf):not(.rcap){filter:drop-shadow(0 36px 48px rgba(40,30,10,.42)) drop-shadow(0 8px 16px rgba(40,30,10,.3))}
 /* arche or filaire extérieure qui se dessine */
 .arch svg.halo{position:absolute;inset:-6.5% -8%;width:116%;height:111%;overflow:visible}
 .arch svg.halo path{fill:none;stroke:url(#goldStroke);stroke-width:1.6;
