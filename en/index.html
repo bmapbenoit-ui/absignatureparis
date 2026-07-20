@@ -864,11 +864,10 @@ wlForm.addEventListener('submit', async e => {
    chapitre devient « Acheter — 10 ml · 49 € » vers la boutique officielle.
    Échec réseau = aucun changement (waitlist par défaut, fail-safe). */
 (async () => {
-  /* ⚠️ API = le domaine du BACKEND Medusa (apex planetebeauty.shop → :9000).
-     shop.planetebeauty.shop est le STOREFRONT Next : /store/* y répond 307
-     vers une page HTML → le script restait en fail-safe « Réserver » alors
-     que le stock était saisi (bug constaté par Benoit 08/07). */
-  const API = 'https://planetebeauty.shop';
+  /* API SAME-ORIGIN (règle Benoit 20/07 — relation inter-entités secrète) :
+     /store/* est proxifié par Caddy vers le backend local. Aucun domaine
+     tiers ne doit apparaître dans le source ni dans l'onglet réseau. */
+  const API = '';
   const PK = 'pk_38103b2b5199b28ba232f883624aa537daf5df48d4341d4b56959b51a8579a55';
   const BOUTIQUE = '/us/products/';
   const REFS = {
