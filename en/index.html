@@ -7,9 +7,9 @@
 <title>AB Signature Paris — Îles Paradisiaques · Extraits de Parfum 25&nbsp;%</title>
 <meta name="description" content="AB Signature Paris — Îles Paradisiaques. Trois extraits de parfum 25 % composés à Grasse : Oro Rojo (Aruba), Karès Blan (La Digue), Ahi Pō (Moorea). Éditions en séries limitées.">
 <link rel="icon" href="favicon.ico" sizes="48x48">
-<link rel="icon" type="image/png" href="assets/favicon-192.png" sizes="192x192">
-<link rel="icon" type="image/png" href="assets/favicon.png" sizes="512x512">
-<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="/assets/favicon-192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/assets/favicon.png" sizes="512x512">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="canonical" href="https://www.absignatureparis.com/">
 <link rel="alternate" hreflang="fr" href="https://www.absignatureparis.com/">
 <link rel="alternate" hreflang="en" href="https://www.absignatureparis.com/en/">
@@ -346,7 +346,7 @@ section{position:relative}
 footer{border-top:1px solid rgba(232,199,106,.12);
   padding:5rem 0 3rem;text-align:center;background:#050c0b}
 footer .flogo{width:200px;margin:0 auto 2rem;display:block}
-footer .links{display:flex;gap:2.4rem;justify-content:center;margin:0 0 2.6rem;flex-wrap:wrap}
+footer .links{display:flex;gap:1.5rem 3.4rem;justify-content:center;margin:0 0 2.6rem;flex-wrap:wrap}
 footer .links a{color:var(--ivory-60);text-decoration:none;font-size:.7rem;
   letter-spacing:.32em;text-transform:uppercase;transition:color .4s}
 footer .links a:hover{color:var(--gold-3)}
@@ -481,7 +481,7 @@ body.wl-open{overflow:hidden}
 
 <!-- Navigation -->
 <nav id="nav">
-  <a href="#top" aria-label="Accueil"><img class="nlogo" src="assets/logo_or_nav.webp" alt="AB Signature Paris"></a>
+  <a href="#top" aria-label="Accueil"><img class="nlogo" src="/assets/logo_or_nav.webp" alt="AB Signature Paris"></a>
   <ul>
     <li><a href="#collection">La Collection</a></li>
     <li class="hide-m"><a href="#maison">La Maison</a></li>
@@ -489,7 +489,7 @@ body.wl-open{overflow:hidden}
       <a href="/fr/suivi">Suivre ma commande</a>
       <a href="questions.html">Questions</a></li>
     <li><a class="bag" href="#collection" data-waitlist data-product="Oro Rojo">Réserver</a></li>
-    <li><a class="lang" href="/en/" title="English version">EN</a></li>
+    <li><a class="lang" href="/" title="Version française">FR</a></li>
   </ul>
 </nav>
 
@@ -497,16 +497,16 @@ body.wl-open{overflow:hidden}
 <header class="hero" id="top">
   <div class="hero-fallback"></div>
   <!-- montage 21 s : océan étoilé → silhouette → vague d’or → tikis (boucle respirée) -->
-  <video autoplay muted loop playsinline preload="auto" poster="videos/hero_poster_v2.webp" id="heroVideo">
-    <source src="videos/hero_web_v5_60.mp4" type="video/mp4">
+  <video autoplay muted loop playsinline preload="auto" poster="/videos/hero_poster_v2.webp" id="heroVideo">
+    <source src="/videos/hero_web_v5_60.mp4" type="video/mp4">
   </video>
   <script>/* mobile : hero 720p (−60 % de poids), choisi AVANT le chargement */
   (function(){var v=document.getElementById('heroVideo');
-    if(matchMedia('(max-width:700px)').matches){v.querySelector('source').src='videos/hero_web_720_v5_60.mp4';v.load();}})();
+    if(matchMedia('(max-width:700px)').matches){v.querySelector('source').src='/videos/hero_web_720_v5_60.mp4';v.load();}})();
   </script>
   <div class="veil"></div>
   <div class="hero-inner">
-    <img class="hero-logo" src="assets/logo_or_hero_v2.webp" alt="AB Signature Paris">
+    <img class="hero-logo" src="/assets/logo_or_hero_v2.webp" alt="AB Signature Paris">
   </div>
   <div class="scroll-cue"><span>Le voyage commence</span><span class="line"></span></div>
 </header>
@@ -532,8 +532,8 @@ body.wl-open{overflow:hidden}
 <!-- CHAPITRE I — ORO ROJO -->
 <section class="chapter ch-oro" id="collection">
   <span id="oro" style="position:absolute;top:-1px"></span>
-  <video class="bgv" muted loop playsinline preload="none" poster="videos/oro_poster.webp"
-         data-src="videos/oro_web.mp4"></video>
+  <video class="bgv" muted loop playsinline preload="none" poster="/videos/oro_poster.webp"
+         data-src="/videos/oro_web.mp4"></video>
   <div class="veil"></div>
   <div class="wrap">
     <div class="arch rv">
@@ -569,8 +569,8 @@ body.wl-open{overflow:hidden}
 
 <!-- CHAPITRE II — KARÈS BLAN (lumière) -->
 <section class="chapter ch-kares" id="kares">
-  <video class="bgv" muted loop playsinline preload="none" poster="videos/kares_poster.webp"
-         data-src="videos/kares_web.mp4"></video>
+  <video class="bgv" muted loop playsinline preload="none" poster="/videos/kares_poster.webp"
+         data-src="/videos/kares_web.mp4"></video>
   <div class="veil"></div>
   <div class="wrap flip">
     <div class="ch-txt">
@@ -607,8 +607,8 @@ body.wl-open{overflow:hidden}
 
 <!-- CHAPITRE III — AHI PŌ -->
 <section class="chapter ch-ahi" id="ahi">
-  <video class="bgv" muted loop playsinline preload="none" poster="videos/ahi_poster.webp"
-         data-src="videos/ahi_web.mp4"></video>
+  <video class="bgv" muted loop playsinline preload="none" poster="/videos/ahi_poster.webp"
+         data-src="/videos/ahi_web.mp4"></video>
   <div class="veil"></div>
   <div class="wrap">
     <div class="arch rv">
@@ -663,7 +663,7 @@ body.wl-open{overflow:hidden}
       </div>
     </div>
     <div class="photo rv rv-d2">
-      <img src="assets/ahi-v11-true-hands.webp"
+      <img src="/assets/ahi-v11-true-hands.webp"
            alt="Ahi Pō entre les mains — plage volcanique de Polynésie">
     </div>
   </div>
@@ -672,7 +672,7 @@ body.wl-open{overflow:hidden}
 <!-- FOOTER -->
 <footer>
   <div class="wrap">
-    <img class="flogo" src="assets/logo_or_hero_v2.webp" alt="AB Signature Paris">
+    <img class="flogo" src="/assets/logo_or_hero_v2.webp" alt="AB Signature Paris">
     <div class="links">
       <a href="#collection">La Collection</a>
       <a href="#maison">La Maison</a>
@@ -680,7 +680,7 @@ body.wl-open{overflow:hidden}
       <a href="/us/content/cgv">Terms &amp; conditions</a>
       <a href="/us/content/confidentialite">Privacy</a>
       <a href="/us/content/livraison">Shipping &amp; returns</a>
-      <a href="mentions-legales.html">Mentions légales</a>
+      <a href="/mentions-legales.html">Mentions légales</a>
     </div>
     <div class="socials" aria-label="Réseaux sociaux">
       <a href="https://www.instagram.com/absignatureparis/" target="_blank" rel="noopener" aria-label="Instagram AB Signature Paris">
