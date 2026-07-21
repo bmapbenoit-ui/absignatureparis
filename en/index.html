@@ -876,7 +876,6 @@ wlForm.addEventListener('submit', async e => {
 
 <script>
 (function(){
-  var rm = window.matchMedia('(prefers-reduced-motion: reduce)');
   document.querySelectorAll('.rot3d').forEach(function(box){
     var stage = box.querySelector('.rstage');
     var ry = 0, last = 0;
@@ -903,17 +902,15 @@ wlForm.addEventListener('submit', async e => {
       var dx = e.clientX - sx; sx = null;
       if (Math.abs(dx) > 32) bump(dx > 0 ? 90 : -90);
     }, {passive:true});
-    setInterval(function(){
-      if (rm.matches) return;
-      var arch = box.closest('.arch');
-      if (arch && !arch.classList.contains('is-in') && !arch.classList.contains('is-seen')) return;
-      if (Date.now() - last < 8000) return;
-      bump(-90);
-    }, 4600);
+    /* v16 (21/07) — plus d'auto-rotation du fallback CSS. Ce fallback n'est fait que
+       de 4 images plates : le faire tourner tout seul donnait « une 3D qui rate »
+       (retour Benoit). Au repos il montre désormais la FACE AVANT + le bouchon, fixes
+       — une vraie photo produit, assumée. La rotation appartient à la version WebGL ;
+       les flèches et le glissé restent disponibles pour explorer les faces. */
   });
 })();
 </script>
 <script type="importmap">{"imports":{"three":"/assets/vendor/three.module.min.js"}}</script>
-<script type="module" src="/assets/rot3d/rot3d-gl.js?v=15"></script>
+<script type="module" src="/assets/rot3d/rot3d-gl.js?v=16"></script>
 </body>
 </html>
