@@ -16,7 +16,8 @@
 //      fallback plat définitif. Et une perte de contexte laissait un trou vide.
 // Corrections : chargement tolérant à l'échec · révélation garantie dès que la face
 // AVANT est prête · init paresseuse à l'approche · budget GPU réduit · reprise sur
-// perte de contexte.
+// perte de contexte. La RECETTE VISUELLE (matériaux, textures, lumières, pixelRatio)
+// reste STRICTEMENT identique à v15, figée par Benoit le 15/07.
 import * as THREE from 'three';
 import { RoundedBoxGeometry } from '/assets/vendor/RoundedBoxGeometry.js';
 import { RoomEnvironment } from '/assets/vendor/RoomEnvironment.js';
@@ -54,7 +55,12 @@ function initBox(box) {
     // et le conserver double la mémoire GPU par contexte — ×3 sur cette page.
     renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: 'high-performance' });
   } catch (e) { return false; }
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
+  // pixelRatio LAISSÉ À 2 : la recette visuelle 3D est FIGÉE par Benoit (15/07,
+  // « ne touche plus à rien, les visuels 3D sont parfaits »). Le plafonner à 1,75
+  // aurait allégé le GPU mais coûté 12 % de netteté sur les filets d'or. Les gains
+  // GPU viennent de preserveDrawingBuffer, pm.dispose() et l'init paresseuse — tous
+  // trois strictement invisibles à l'écran.
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   renderer.toneMapping = THREE.NoToneMapping;
 
   const scene = new THREE.Scene();
@@ -242,7 +248,7 @@ function initBox(box) {
   canvas.addEventListener('webglcontextrestored', () => {
     lost = false;
     try {
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
       resize();
       renderOnce();
       if (revealed) { box.classList.add('gl-ready'); canvas.style.opacity = '1'; }
