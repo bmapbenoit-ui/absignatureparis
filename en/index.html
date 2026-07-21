@@ -454,16 +454,25 @@ body.wl-open{overflow:hidden}
   video{display:none!important}
 }
 
-/* Lien fiche produit — filet discret sous le CTA Réserver (boutique même domaine) */
-.btn-fiche{margin-left:14px;background:transparent;border-color:rgba(232,199,106,.35);color:rgba(240,234,219,.8)}
-.btn-fiche:hover{border-color:#e8c76a;color:#e8c76a}
+/* Ligne formats & prix sous le CTA Commander (transparence achat — GMC 21/07) */
+.discovery .fmt{white-space:nowrap}
+.discovery .wl-inline{color:var(--gold-3);text-decoration:none;
+  border:0;border-bottom:1px solid rgba(232,199,106,.42);padding:0 0 1px;
+  background:none;font:inherit;letter-spacing:inherit;cursor:pointer;
+  transition:color .3s,border-color .3s}
+.discovery .wl-inline:hover{color:var(--gold-4);border-bottom-color:var(--gold-4)}
+.ch-kares .discovery .wl-inline{color:var(--gold-deep-2);border-bottom-color:rgba(138,109,31,.45)}
+.ch-kares .discovery .wl-inline:hover{color:var(--gold-deep-1);border-bottom-color:var(--gold-deep-1)}
+.wl-sub a{color:var(--gold-3);text-decoration:none;
+  border-bottom:1px solid rgba(232,199,106,.42);padding-bottom:1px;transition:color .3s,border-color .3s}
+.wl-sub a:hover{color:var(--gold-4);border-bottom-color:var(--gold-4)}
 .frg-link{display:inline-block;align-self:flex-start;width:max-content;max-width:100%;margin-left:14px;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(240,234,219,.45);text-decoration:none;border-bottom:1px solid rgba(232,199,106,.25);padding-bottom:2px;transition:color .3s,border-color .3s}
 .frg-link:hover{color:#e8c76a;border-color:#e8c76a}
 @media (max-width:720px){.frg-link{align-self:center;margin:6px auto 0;display:block;text-align:center;width:max-content}}
 .ch-kares .frg-link{color:rgba(26,23,19,.5);border-color:rgba(26,23,19,.25)}
 .ch-kares .frg-link:hover{color:#8a6d1f;border-color:#8a6d1f}
 </style>
-<link rel="stylesheet" href="/assets/motion.css?v=20260710a">
+<link rel="stylesheet" href="/assets/motion.css?v=20260721a">
 <link rel="preload" as="image" href="/assets/logo_or_hero_v2.webp" fetchpriority="high">
 </head>
 <body>
@@ -562,10 +571,13 @@ body.wl-open{overflow:hidden}
         <div><h4>Base</h4><p>Oud, Cocoa</p></div>
       </div>
       <div class="buy rv rv-d4">
-        <a class="btn" href="#" data-waitlist data-product="Oro Rojo">Reserve</a>
-        <a class="btn btn-fiche" href="/us/products/ab-signature-paris-oro-rojo-extrait-de-parfum" rel="noopener">View product</a>
+        <a class="btn" href="/us/products/ab-signature-paris-oro-rojo-extrait-de-parfum" rel="noopener">Order</a>
         <a class="frg-link" href="https://www.fragrantica.com/perfume/AB-Signature-Paris/Oro-Rojo-135886.html" target="_blank" rel="noopener">Listed on Fragrantica <svg class="ext-arrow" viewBox="0 0 10 10" width="7" height="7" aria-hidden="true"><path d="M2 8L8 2M3.4 2H8v4.6" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </div>
+      <p class="discovery rv rv-d4"><span class="fmt">2&nbsp;ml discovery sample <b>$10</b></span> ·
+      <span class="fmt">10&nbsp;ml travel case <b>$62</b></span> ·
+      <span class="fmt">50&nbsp;ml extrait <b>$201</b></span>,
+      <button class="wl-inline" type="button" data-waitlist data-product="Oro Rojo">get notified when it is available</button></p>
     </div>
   </div>
 </section>
@@ -592,10 +604,13 @@ body.wl-open{overflow:hidden}
         <div><h4>Base</h4><p>Musk, Vanilla</p></div>
       </div>
       <div class="buy rv rv-d4">
-        <a class="btn" href="#" data-waitlist data-product="Karès Blan">Reserve</a>
-        <a class="btn btn-fiche" href="/us/products/ab-signature-paris-kares-blan-extrait-de-parfum" rel="noopener">View product</a>
+        <a class="btn" href="/us/products/ab-signature-paris-kares-blan-extrait-de-parfum" rel="noopener">Order</a>
         <a class="frg-link" href="https://www.fragrantica.com/perfume/AB-Signature-Paris/Kares-Blan-135887.html" target="_blank" rel="noopener">Listed on Fragrantica <svg class="ext-arrow" viewBox="0 0 10 10" width="7" height="7" aria-hidden="true"><path d="M2 8L8 2M3.4 2H8v4.6" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </div>
+      <p class="discovery rv rv-d4"><span class="fmt">2&nbsp;ml discovery sample <b>$10</b></span> ·
+      <span class="fmt">10&nbsp;ml travel case <b>$62</b></span> ·
+      <span class="fmt">50&nbsp;ml extrait <b>$201</b></span>,
+      <button class="wl-inline" type="button" data-waitlist data-product="Karès Blan">get notified when it is available</button></p>
     </div>
     <div class="arch rv">
       <svg class="halo" viewBox="0 0 100 124" preserveAspectRatio="none" aria-hidden="true">
@@ -638,10 +653,13 @@ body.wl-open{overflow:hidden}
         <div><h4>Base</h4><p>Amber, Precious woods, Patchouli, Vetiver</p></div>
       </div>
       <div class="buy rv rv-d4">
-        <a class="btn" href="#" data-waitlist data-product="Ahi Pō">Reserve</a>
-        <a class="btn btn-fiche" href="/us/products/ab-signature-paris-ahi-po-extrait-de-parfum" rel="noopener">View product</a>
+        <a class="btn" href="/us/products/ab-signature-paris-ahi-po-extrait-de-parfum" rel="noopener">Order</a>
         <a class="frg-link" href="https://www.fragrantica.com/perfume/AB-Signature-Paris/Ahi-Po-135888.html" target="_blank" rel="noopener">Listed on Fragrantica <svg class="ext-arrow" viewBox="0 0 10 10" width="7" height="7" aria-hidden="true"><path d="M2 8L8 2M3.4 2H8v4.6" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </div>
+      <p class="discovery rv rv-d4"><span class="fmt">2&nbsp;ml discovery sample <b>$10</b></span> ·
+      <span class="fmt">10&nbsp;ml travel case <b>$62</b></span> ·
+      <span class="fmt">50&nbsp;ml extrait <b>$201</b></span>,
+      <button class="wl-inline" type="button" data-waitlist data-product="Ahi Pō">get notified when it is available</button></p>
     </div>
   </div>
 </section>
@@ -701,36 +719,32 @@ body.wl-open{overflow:hidden}
   </div>
 </footer>
 
-<!-- VOILE RÉSERVATION — liste d’attente -->
+<!-- VEIL — availability alert for the 50 ml format only -->
 <div class="wl" id="wl" role="dialog" aria-modal="true" aria-labelledby="wlTitle" hidden>
   <div class="wl-backdrop" data-wl-close></div>
   <div class="wl-card">
     <button class="wl-close" type="button" aria-label="Close" data-wl-close>&times;</button>
-    <div class="eyebrow">Waitlist</div>
-    <h3 class="wl-title gold" id="wlTitle">Reserve</h3>
-    <p class="wl-sub">The Paradise Islands editions are crafted in strictly limited
-    series. Sign up&nbsp;: you’ll be the first to hear when orders open,
-    with no commitment.</p>
+    <div class="eyebrow">Availability alert</div>
+    <h3 class="wl-title gold" id="wlTitle">50&nbsp;ml extrait</h3>
+    <p class="wl-sub">The engraved 50&nbsp;ml flacon — $201 — is not on sale yet. Leave your
+    address: you’ll be the first to hear, with no commitment, the moment it becomes
+    available. The 2&nbsp;ml and 10&nbsp;ml formats are on sale today
+    — <a href="/us/store">order now</a>.</p>
     <form id="wlForm" novalidate>
-      <fieldset class="wl-group" id="wlProducts" aria-label="Parfum">
+      <fieldset class="wl-group" id="wlProducts" aria-label="Fragrance">
         <button type="button" class="chip is-on" data-p="Oro Rojo">Oro Rojo</button>
         <button type="button" class="chip" data-p="Karès Blan">Karès Blan</button>
         <button type="button" class="chip" data-p="Ahi Pō">Ahi Pō</button>
       </fieldset>
-      <fieldset class="wl-group" id="wlFormats" aria-label="Format">
-        <button type="button" class="chip is-on" data-f="10ml">Discovery 10&nbsp;ml — 49&nbsp;€</button>
-        <button type="button" class="chip" data-f="50ml">Extrait 50&nbsp;ml — 160&nbsp;€
-          <small>On reservation</small></button>
-      </fieldset>
       <div class="wl-row">
         <input id="wlEmail" type="email" placeholder="Your email address" autocomplete="email" required>
-        <button class="btn" type="submit" id="wlSubmit">Join</button>
+        <button class="btn" type="submit" id="wlSubmit">Notify me</button>
       </div>
       <p class="wl-note" id="wlMsg">Your address is used only for this notification.</p>
     </form>
     <div class="wl-done" id="wlDone" hidden>
-      <p class="wl-done-title gold">Your place is reserved.</p>
-      <p>We’ll write to you first, the moment orders open.</p>
+      <p class="wl-done-title gold">You’re on the list.</p>
+      <p>We’ll write to you the moment the 50&nbsp;ml extrait becomes available.</p>
     </div>
   </div>
 </div>
@@ -808,22 +822,20 @@ addEventListener('scroll', () => {
     }
   }
 }, {passive:true});
-/* ─── Réservation / liste d'attente ─── */
+/* ─── Availability alert — 50 ml format only (GMC 21/07) ─── */
 const WL_API = 'https://stella-shopify-app-production.up.railway.app/api/absignature/waitlist';
 const wl = document.getElementById('wl');
 const wlForm = document.getElementById('wlForm');
 const wlDone = document.getElementById('wlDone');
 const wlMsg = document.getElementById('wlMsg');
 const wlEmail = document.getElementById('wlEmail');
-const wlSel = {p: 'Oro Rojo', f: '10ml'};
+const wlSel = {p: 'Oro Rojo', f: '50ml'};   /* the only format not yet on sale */
 const pick = (groupId, attr, value) => {
   document.querySelectorAll('#' + groupId + ' .chip').forEach(c =>
     c.classList.toggle('is-on', c.dataset[attr] === value));
 };
 document.querySelectorAll('#wlProducts .chip').forEach(c =>
   c.addEventListener('click', () => { wlSel.p = c.dataset.p; pick('wlProducts','p',wlSel.p); }));
-document.querySelectorAll('#wlFormats .chip').forEach(c =>
-  c.addEventListener('click', () => { wlSel.f = c.dataset.f; pick('wlFormats','f',wlSel.f); }));
 const wlOpen = (product) => {
   if (product){ wlSel.p = product; pick('wlProducts','p',product); }
   wlForm.hidden = false; wlDone.hidden = true;
@@ -856,62 +868,10 @@ wlForm.addEventListener('submit', async e => {
 });
 </script>
 
-<script>
-/* ── Bascule BOUTIQUE (STELLA 08/07/2026) ─────────────────────────────────
-   Interroge la disponibilité réelle des formats 10 ml (Medusa Store API,
-   clé publique canal AB). Tant que le stock est à 0, les CTA restent
-   « Réserver » (liste d'attente). Dès que le stock est saisi, le CTA du
-   chapitre devient « Acheter — 10 ml · 49 € » vers la boutique officielle.
-   Échec réseau = aucun changement (waitlist par défaut, fail-safe). */
-(async () => {
-  /* API SAME-ORIGIN (règle Benoit 20/07 — relation inter-entités secrète) :
-     /store/* est proxifié par Caddy vers le backend local. Aucun domaine
-     tiers ne doit apparaître dans le source ni dans l'onglet réseau. */
-  const API = '';
-  const PK = 'pk_38103b2b5199b28ba232f883624aa537daf5df48d4341d4b56959b51a8579a55';
-  const BOUTIQUE = '/us/products/';
-  const REFS = {
-    'Oro Rojo':   'ab-signature-paris-oro-rojo-extrait-de-parfum',
-    'Karès Blan': 'ab-signature-paris-kares-blan-extrait-de-parfum',
-    'Ahi Pō':     'ab-signature-paris-ahi-po-extrait-de-parfum',
-  };
-  try {
-    const handles = Object.values(REFS).map(h => 'handle[]=' + encodeURIComponent(h)).join('&');
-    const r = await fetch(`${API}/store/products?${handles}&fields=handle,variants.title,variants.manage_inventory,variants.inventory_quantity`, {
-      headers: { 'x-publishable-api-key': PK },
-    });
-    if (!r.ok) return;
-    const { products = [] } = await r.json();
-    const dispo = {};
-    for (const p of products) {
-      const v10 = (p.variants || []).find(v => /10\s*ml/i.test(v.title || ''));
-      dispo[p.handle] = !!v10 && (!v10.manage_inventory || Number(v10.inventory_quantity) > 0);
-    }
-    const anyDispo = Object.values(dispo).some(Boolean);
-    document.querySelectorAll('[data-waitlist][data-product]').forEach(el => {
-      const handle = REFS[el.dataset.product];
-      const isNav = el.classList.contains('bag');
-      if (isNav ? !anyDispo : (!handle || !dispo[handle])) return;
-      const buy = el.cloneNode(false);
-      buy.removeAttribute('data-waitlist');
-      buy.removeAttribute('data-product');
-      /* Vitrine sans prix ni variante (décision Benoit 08/07) : nav « Acheter »
-         vers la boutique ; chapitre « Consulter » vers la fiche (le prix se
-         découvre sur la fiche). Le « Voir la fiche » devient redondant → retiré. */
-      buy.textContent = isNav ? 'Order' : 'View';
-      buy.href = isNav ? '/us/store' : BOUTIQUE + handle;
-      buy.setAttribute('rel', 'noopener');
-      // Un seul CTA par chapitre (décision Benoit 10/07) : quand le bouton
-      // principal mène à la fiche, « Voir la fiche » est redondant → retiré.
-      if (!isNav && el.parentElement) {
-        const fiche = el.parentElement.querySelector('.btn-fiche');
-        if (fiche) fiche.remove();
-      }
-      el.replaceWith(buy);
-    });
-  } catch (_) { /* fail-safe : waitlist */ }
-})();
-</script>
+<!-- Stock-flip JS removed on 21/07/2026: each chapter's « Order » CTA is now a
+     STATIC link to its product page. Crawlers (Googlebot, GMC, AI engines) see the
+     purchase links without running JS, and the page no longer depends on a network
+     call to display the right label. -->
 <script src="/assets/motion.js?v=20260709n" defer></script>
 
 <script>
