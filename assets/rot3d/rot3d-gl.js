@@ -62,6 +62,11 @@ function initBox(box) {
   // trois strictement invisibles à l'écran.
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   renderer.toneMapping = THREE.NoToneMapping;
+  // NETTETÉ DES FACES VUES DE BIAIS — c'est précisément ce qu'on regarde PENDANT la
+  // rotation. L'anisotropie des textures était figée à 8 ; on prend le maximum
+  // réellement supporté par la carte (16 sur la plupart des GPU). Aucun effet sur les
+  // couleurs, la lumière ni les matériaux : la recette visuelle reste intacte.
+  const ANISO = Math.max(8, renderer.capabilities.getMaxAnisotropy());
 
   const scene = new THREE.Scene();
   const pm = new THREE.PMREMGenerator(renderer);
@@ -181,7 +186,7 @@ function initBox(box) {
     };
     tex = loader.load(url, ok, undefined, fail);
     tex.colorSpace = linear ? THREE.NoColorSpace : THREE.SRGBColorSpace;
-    tex.anisotropy = 8;
+    tex.anisotropy = ANISO;
     if (mirrorX) { tex.wrapS = THREE.RepeatWrapping; tex.repeat.x = -1; tex.offset.x = 1; }
     return tex;
   };
@@ -335,7 +340,9 @@ function initBox(box) {
         ry += vel * dt * 60; vel *= Math.pow(0.94, dt * 60); animating = true;
       } else if (!REDUCED && Date.now() - lastInteract > 6000 &&
                  (arch && (arch.classList.contains('is-in') || arch.classList.contains('is-seen')))) {
-        ry -= dt * 0.42; animating = true;
+        /* Un tour en ~24 s au lieu de 15 : le geste d'un objet qu'on présente,
+           pas d'un carrousel. */
+        ry -= dt * 0.26; animating = true;
       }
       group.rotation.y = ry;
       if (animating || needsRender) { renderer.render(scene, camera); needsRender = false; }

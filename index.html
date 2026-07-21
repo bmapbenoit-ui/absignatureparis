@@ -241,12 +241,17 @@ section{position:relative}
 .arch .rot3d .rf90{transform:rotateY(90deg) translateZ(var(--w2,95px))}
 .arch .rot3d .rf180{transform:rotateY(180deg) translateZ(var(--d2,60px))}
 .arch .rot3d .rf270{transform:rotateY(-90deg) translateZ(var(--w2,95px))}
+/* Le flacon TOURNE — encore faut-il que le visiteur le sache. Les flèches
+   n'apparaissaient qu'au survol : sur un écran tactile comme sur un écran de
+   bureau, l'interaction restait invisible. Elles respirent maintenant en
+   permanence, discrètement, et se révèlent au survol. */
 .rot3d .rbtn{position:absolute;top:55%;transform:translateY(-50%);z-index:6;width:34px;height:34px;border-radius:50%;
   border:1px solid rgba(232,199,106,.55);background:rgba(6,12,11,.45);color:#e8c76a;font-size:19px;line-height:1;
-  cursor:pointer;opacity:0;transition:opacity .35s;display:flex;align-items:center;justify-content:center;padding:0 0 2px}
+  cursor:pointer;opacity:.34;transition:opacity .35s;display:flex;align-items:center;justify-content:center;padding:0 0 2px}
 .rot3d .rprev{left:-44px}.rot3d .rnext{right:-44px}
 .rot3d:hover .rbtn,.rot3d .rbtn:focus-visible{opacity:1}
-@media (hover:none){.rot3d .rbtn{opacity:.55;width:30px;height:30px}.rot3d .rprev{left:-36px}.rot3d .rnext{right:-36px}}
+.rot3d .rbtn:focus-visible{outline:2px solid var(--gold-3);outline-offset:2px}
+@media (hover:none){.rot3d .rbtn{opacity:.6;width:34px;height:34px}.rot3d .rprev{left:-36px}.rot3d .rnext{right:-36px}}
 @media (prefers-reduced-motion:reduce){.arch .rot3d .rstage{transition:none}}
 .rot3d.gl-ready .rstage,.rot3d.gl-ready .rcapw{visibility:hidden}
 .rot3d canvas.rgl{opacity:0;transition:opacity .5s ease}
@@ -543,6 +548,20 @@ body.wl-open{overflow:hidden}
       ? '/videos/hero_web_720_v5_60.mp4'      /* mobile : 6,15 Mo */
       : '/videos/hero_web_v5_60.mp4';         /* bureau : 12,6 Mo, 60 fps */
     v.load();
+    /* load() RÉINITIALISE l'élément et annule la lecture automatique en attente :
+       l'attribut `autoplay` ne suffit plus une fois la source posée par script.
+       Constat mesuré le 21/07 : hero chargé (readyState 4) mais À L'ARRÊT sur le
+       premier écran. On relance donc explicitement, à chaque occasion utile — et
+       en dernier recours au premier geste de l'utilisateur, si la politique de
+       lecture automatique du navigateur l'exige. */
+    var lance = function(){ var p = v.play(); if (p && p.catch) p.catch(function(){}); };
+    lance();
+    v.addEventListener('loadeddata', lance, { once: true });
+    v.addEventListener('canplay', lance, { once: true });
+    ['pointerdown','touchstart','keydown','wheel'].forEach(function(ev){
+      addEventListener(ev, function once(){ if (v.paused) lance(); removeEventListener(ev, once); },
+        { once: true, passive: true });
+    });
   })();
   </script>
   <div class="veil"></div>
@@ -730,7 +749,6 @@ body.wl-open{overflow:hidden}
       <a href="#collection">La Collection</a>
       <a href="#maison">La Maison</a>
       <a href="mailto:contact@absignatureparis.com">Contact</a>
-      <a href="tel:+33699863494">+33&nbsp;6&nbsp;99&nbsp;86&nbsp;34&nbsp;94</a>
       <a href="questions.html">Questions</a>
       <a href="/fr/suivi">Suivre ma commande</a>
       <a href="/fr/content/cgv">Conditions générales</a>
@@ -839,6 +857,28 @@ const iov = new IntersectionObserver(es => es.forEach(e => {
   iov.unobserve(v);
 }), {rootMargin: '900px 0px'});
 document.querySelectorAll('video.bgv[data-src]').forEach(v => iov.observe(v));
+/* FILET — aucune fonctionnalité ne doit dépendre du SEUL IntersectionObserver.
+   Même leçon que la 3D : si l'observateur ne délivre jamais (onglet ouvert en
+   arrière-plan, rendu suspendu, moteur exotique), la vidéo d'île resterait à
+   l'état de simple poster pour toujours. On repasse donc à la main, au défilement
+   et périodiquement, sur tout ce qui approche du champ. */
+const chargerBgv = (v) => {
+  if (!v.dataset.src) return;
+  v.src = v.dataset.src; v.removeAttribute('data-src');
+  v.load();
+  v.addEventListener('canplay', () => v.play().catch(()=>{}), {once:true});
+};
+const filetBgv = () => {
+  const restants = document.querySelectorAll('video.bgv[data-src]');
+  if (!restants.length) return true;
+  restants.forEach(v => {
+    const r = v.getBoundingClientRect();
+    if (r.top < innerHeight * 1.9 && r.bottom > -innerHeight * 0.9) chargerBgv(v);
+  });
+  return false;
+};
+addEventListener('scroll', filetBgv, {passive:true});
+const tickBgv = setInterval(() => { if (filetBgv()) clearInterval(tickBgv); }, 1200);
 /* Curseur */
 const cur = document.getElementById('cursor');
 addEventListener('mousemove', e => { cur.style.left = e.clientX+'px'; cur.style.top = e.clientY+'px'; });
@@ -946,6 +986,6 @@ wlForm.addEventListener('submit', async e => {
 })();
 </script>
 <script type="importmap">{"imports":{"three":"/assets/vendor/three.module.min.js"}}</script>
-<script type="module" src="/assets/rot3d/rot3d-gl.js?v=17"></script>
+<script type="module" src="/assets/rot3d/rot3d-gl.js?v=18"></script>
 </body>
 </html>
