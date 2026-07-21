@@ -111,7 +111,10 @@ nav.is-scrolled{background:rgba(6,13,12,.78);backdrop-filter:blur(16px);
 nav .nlogo{height:40px;display:block}
 nav ul{display:flex;gap:clamp(1.1rem,2.6vw,2.5rem);list-style:none;align-items:center}
 nav a{color:var(--ivory-60);text-decoration:none;font-size:.72rem;
-  letter-spacing:.32em;text-transform:uppercase;transition:color .4s}
+  letter-spacing:.32em;text-transform:uppercase;transition:color .4s;
+  /* Zone atteignable : le texte fait 18 px de haut, la cible en fait 36.
+     Padding vertical seul — l'alignement flex garde la barre à sa hauteur. */
+  padding:.56rem 0;display:inline-block}
 nav a:hover{color:var(--gold-3)}
 nav li a + a{margin-inline-start:clamp(1.1rem,2.6vw,2.5rem)}
 nav .bag{display:inline-flex;align-items:center;gap:.5rem;color:var(--gold-3);
@@ -119,7 +122,8 @@ nav .bag{display:inline-flex;align-items:center;gap:.5rem;color:var(--gold-3);
   transition:background .4s,color .4s}
 nav .bag:hover{background:rgba(232,199,106,.12)}
 nav a.lang{color:var(--gold-3);font-family:'Marcellus',serif;letter-spacing:.3em;
-  border-bottom:1px solid rgba(232,199,106,.35);padding-bottom:2px}
+  border-bottom:1px solid rgba(232,199,106,.35);padding:.8rem .7rem 4px;
+  background-clip:content-box}
 @media(max-width:780px){nav ul li.hide-m{display:none}}
 @keyframes fadein{to{opacity:1}}
 
@@ -356,12 +360,18 @@ section{position:relative}
 footer{border-top:1px solid rgba(232,199,106,.12);
   padding:5rem 0 3rem;text-align:center;background:#050c0b}
 footer .flogo{width:200px;margin:0 auto 2rem;display:block}
-footer .links{display:flex;gap:1.5rem 3.4rem;justify-content:center;margin:0 0 2.6rem;flex-wrap:wrap}
+footer .links{display:flex;gap:.2rem 3.4rem;justify-content:center;margin:0 0 2.4rem;flex-wrap:wrap}
 footer .links a{color:var(--ivory-60);text-decoration:none;font-size:.7rem;
-  letter-spacing:.32em;text-transform:uppercase;transition:color .4s}
+  letter-spacing:.32em;text-transform:uppercase;transition:color .4s;
+  /* Onze liens de 18 px de haut collés les uns aux autres : un doigt en
+     manquait un sur deux. Cible portée à 44 px, l'interligne du conteneur
+     est réduit d'autant pour que le pied de page ne grandisse pas. */
+  padding:.8rem 0;display:inline-block}
 footer .links a:hover{color:var(--gold-3)}
-footer .socials{display:flex;gap:1.6rem;justify-content:center;margin:0 0 2.4rem}
-footer .socials a{color:var(--ivory-60);transition:color .35s,transform .35s;display:block}
+footer .socials{display:flex;gap:.8rem;justify-content:center;margin:0 0 2rem}
+footer .socials a{color:var(--ivory-60);transition:color .35s,transform .35s;
+  /* Icônes de 22 px : cible portée à 44 px, l'icône ne bouge pas. */
+  display:flex;align-items:center;justify-content:center;width:44px;height:44px}
 footer .socials a:hover{color:var(--gold-3);transform:translateY(-2px)}
 footer .socials svg{width:22px;height:22px;display:block}
 footer .legal{font-size:.76rem;color:rgba(240,234,219,.60);letter-spacing:.06em;line-height:2.1}
@@ -484,6 +494,7 @@ body.wl-open{overflow:hidden}
   border:0;border-bottom:1px solid rgba(232,199,106,.42);padding:0 0 1px;
   background:none;font:inherit;letter-spacing:inherit;cursor:pointer;
   transition:color .3s,border-color .3s}
+.discovery .wl-inline{padding-top:.35rem;padding-bottom:.35rem}
 .discovery .wl-inline:hover{color:var(--gold-4);border-bottom-color:var(--gold-4)}
 .ch-kares .discovery .wl-inline{color:var(--gold-deep-2);border-bottom-color:rgba(138,109,31,.45)}
 .ch-kares .discovery .wl-inline:hover{color:var(--gold-deep-1);border-bottom-color:var(--gold-deep-1)}
@@ -491,6 +502,7 @@ body.wl-open{overflow:hidden}
   border-bottom:1px solid rgba(232,199,106,.42);padding-bottom:1px;transition:color .3s,border-color .3s}
 .wl-sub a:hover{color:var(--gold-4);border-bottom-color:var(--gold-4)}
 .frg-link{display:inline-block;align-self:flex-start;width:max-content;max-width:100%;margin-left:14px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:rgba(240,234,219,.70);text-decoration:none;border-bottom:1px solid rgba(232,199,106,.35);padding-bottom:2px;transition:color .3s,border-color .3s}
+.frg-link{padding-top:.85rem;padding-bottom:.75rem}
 .frg-link:hover{color:#e8c76a;border-color:#e8c76a}
 @media (max-width:720px){.frg-link{align-self:center;margin:6px auto 0;display:block;text-align:center;width:max-content}}
 .ch-kares .frg-link{color:rgba(26,23,19,.5);border-color:rgba(26,23,19,.25)}
