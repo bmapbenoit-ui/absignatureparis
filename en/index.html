@@ -858,7 +858,24 @@ const jouer = (v) => {
     evs.forEach(ev => addEventListener(ev, retenter, { passive: true }));
   });
 };
-const reprendreVideos = () => document.querySelectorAll('video').forEach(v => jouer(v));
+/* RETOUR D'APPLICATION (iOS) — constat Benoit 22/07 : Safari → Mail → retour =
+   hero FIGÉ. Quirk documenté : au retour, Safari peut laisser l'élément GELÉ
+   avec paused=false — il se croit en lecture, l'image n'avance plus, et un
+   play() sur un élément « déjà en lecture » est un no-op. On ne croit donc pas
+   l'état déclaré : on MESURE si l'image avance ; si elle est gelée après
+   300 ms, on resynchronise (pause → jouer, ré-armement au geste inclus). */
+const reveiller = (v) => {
+  if (v.hasAttribute('data-rest') || !(v.currentSrc || v.src)) return;
+  if (v.paused) { jouer(v); return; }
+  const t0 = v.currentTime;
+  setTimeout(() => {
+    if (!v.paused && !v.hasAttribute('data-rest') && v.currentTime === t0) {
+      try { v.pause(); } catch(_){}
+      jouer(v);
+    }
+  }, 300);
+};
+const reprendreVideos = () => document.querySelectorAll('video').forEach(v => reveiller(v));
 const heroRestart = () => {          /* règle 1 : uniquement au chargement frais */
   const v = document.getElementById('heroVideo');
   if (!v) return;
@@ -869,6 +886,7 @@ const heroRestart = () => {          /* règle 1 : uniquement au chargement frai
 window.addEventListener('load', heroRestart);
 window.addEventListener('pageshow', (e) => { if (e.persisted) reprendreVideos(); });   /* règle 2 */
 document.addEventListener('visibilitychange', () => { if (!document.hidden) reprendreVideos(); });
+addEventListener('focus', () => { if (!document.hidden) reprendreVideos(); });   /* filet : certains retours iOS ne délivrent que focus */
 /* Nav */
 const nav = document.getElementById('nav');
 addEventListener('scroll', () => nav.classList.toggle('is-scrolled', scrollY > 60), {passive:true});
