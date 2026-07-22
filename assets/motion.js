@@ -16,6 +16,11 @@
   const lerp = (a, b, t) => a + (b - a) * t;
   const clamp01 = (v) => Math.min(1, Math.max(0, v));
   const easeInOut = (t) => t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+  /* La boucle unique ne refait le travail lié au défilement QUE si le défilement a
+     bougé (22/07 : elle relisait ~8 geometries et réécrivait des styles à CHAQUE
+     frame, même page immobile). lastY = -1 force une repasse (resize, rebuilds). */
+  let lastY = -1, lastLit = -1, lastSteps = -1;
+  addEventListener('resize', () => { lastY = -1; }, { passive: true });
 
   /* ── Fil d'or de progression (fin, en haut — conservé) ───────────────── */
   const progress = document.createElement('div');
@@ -34,7 +39,9 @@
   /* ── Lecture vidéo garantie (Safari économie d'énergie → flèche ▶) ───── */
   const kickVideos = () => {
     document.querySelectorAll('video[autoplay], .hero video').forEach((v) => {
-      if (v.paused) v.play().catch(() => {});
+      /* data-rest = mise en pause volontaire hors champ (chef d'orchestre vidéo,
+         index.html) : le kick ne réveille jamais une vidéo au repos. */
+      if (v.paused && !v.hasAttribute('data-rest')) v.play().catch(() => {});
     });
   };
   ['wheel', 'touchstart', 'pointerdown', 'keydown', 'scroll'].forEach((ev) =>
@@ -105,16 +112,20 @@
   document.body.appendChild(dust);
   const dctx = dust.getContext('2d');
   let parts = [];
+  /* Poussière rendue à 1,5× max : des lueurs floues de 1-2 px n'ont pas besoin du
+     retina complet, et ce canvas PLEIN ÉCRAN était re-rasterisé à chaque frame.
+     Ratio relu à chaque seed (resize) : un changement d'écran reste juste. */
   const seedDust = () => {
-    dust.width = innerWidth * devicePixelRatio;
-    dust.height = innerHeight * devicePixelRatio;
+    const dpr = Math.min(devicePixelRatio || 1, 1.5);
+    dust.width = innerWidth * dpr;
+    dust.height = innerHeight * dpr;
     const n = FINE ? 42 : 22;
     parts = Array.from({ length: n }, () => ({
       x: Math.random() * dust.width,
       y: Math.random() * dust.height,
-      r: (Math.random() * 1.4 + 0.5) * devicePixelRatio,
-      vx: (Math.random() - 0.5) * 0.12 * devicePixelRatio,
-      vy: (-Math.random() * 0.2 - 0.05) * devicePixelRatio,
+      r: (Math.random() * 1.4 + 0.5) * dpr,
+      vx: (Math.random() - 0.5) * 0.12 * dpr,
+      vy: (-Math.random() * 0.2 - 0.05) * dpr,
       tw: Math.random() * Math.PI * 2,
       ts: Math.random() * 0.012 + 0.004,
     }));
@@ -233,6 +244,7 @@
     probe.remove();
     trail.top = pts[0][1];
     trail.bottom = endY;
+    lastY = -1; lastSteps = -1;   /* pas reconstruits → forcer une repasse du tick */
   };
   let btTimer = 0, lastDocH = 0;
   addEventListener('load', buildTrail);
@@ -266,6 +278,7 @@
       const r = c.getBoundingClientRect();
       tideBounds.push({ y: scrollY + r.top, rgb: TIDE_COLORS[key] });
     }
+    lastY = -1;   /* bornes recalculées → forcer une repasse du tick */
   };
   addEventListener('load', buildTide);
   addEventListener('resize', () => setTimeout(buildTide, 220), { passive: true });
@@ -298,9 +311,12 @@
   /* ── Boucle unique ───────────────────────────────────────────────────── */
   const heroVideo = document.querySelector('.hero video');
   const chapterVids = [...document.querySelectorAll('.chapter video.bgv')];
-  let lastLit = -1, lastSteps = -1;
-  const tick = () => {
+  let lastDust = 0;
+  const tick = (now) => {
     const y = scrollY;
+    const scrolled = y !== lastY;
+    if (scrolled) {
+    lastY = y;
     const max = document.documentElement.scrollHeight - innerHeight;
     progress.style.transform = `scaleX(${max > 0 ? y / max : 0})`;
 
@@ -384,6 +400,15 @@
       }
     }
 
+    // Parallaxe douce des médaillons (reprise du handler scroll dédié de la page :
+    // même formule, mais UNE lecture par frame et seulement si le défilement a bougé)
+    for (const a of arches) {
+      const r = a.el.getBoundingClientRect();
+      if (r.top < innerHeight && r.bottom > 0)
+        a.el.style.translate = `0 ${(((r.top + r.height / 2 - innerHeight / 2) / innerHeight) * -18).toFixed(1)}px`;
+    }
+    } /* fin du travail lié au défilement */
+
     // Médaillons : relief amorti
     for (const a of arches) {
       a.rx = lerp(a.rx, a.trx, 0.09);
@@ -402,18 +427,23 @@
       else if (m.el.style.transform) m.el.style.transform = '';
     }
 
-    // Poussière d'or
-    dctx.clearRect(0, 0, dust.width, dust.height);
-    for (const p of parts) {
-      p.x += p.vx; p.y += p.vy; p.tw += p.ts;
-      if (p.y < -6) { p.y = dust.height + 6; p.x = Math.random() * dust.width; }
-      if (p.x < -6) p.x = dust.width + 6;
-      if (p.x > dust.width + 6) p.x = -6;
-      const a = 0.14 + 0.5 * Math.abs(Math.sin(p.tw));
-      dctx.beginPath();
-      dctx.arc(p.x, p.y, p.r, 0, 6.2832);
-      dctx.fillStyle = `rgba(232,199,106,${a.toFixed(3)})`;
-      dctx.fill();
+    // Poussière d'or — cadencée à ~30 i/s : une dérive de 0,1 px/frame n'a pas
+    // besoin de 60, et chaque passage rasterise un canvas plein écran.
+    if (now - lastDust >= 30) {
+      const k = lastDust ? Math.min((now - lastDust) / 16.7, 4) : 1;
+      lastDust = now;
+      dctx.clearRect(0, 0, dust.width, dust.height);
+      for (const p of parts) {
+        p.x += p.vx * k; p.y += p.vy * k; p.tw += p.ts * k;
+        if (p.y < -6) { p.y = dust.height + 6; p.x = Math.random() * dust.width; }
+        if (p.x < -6) p.x = dust.width + 6;
+        if (p.x > dust.width + 6) p.x = -6;
+        const a = 0.14 + 0.5 * Math.abs(Math.sin(p.tw));
+        dctx.beginPath();
+        dctx.arc(p.x, p.y, p.r, 0, 6.2832);
+        dctx.fillStyle = `rgba(232,199,106,${a.toFixed(3)})`;
+        dctx.fill();
+      }
     }
 
     requestAnimationFrame(tick);
