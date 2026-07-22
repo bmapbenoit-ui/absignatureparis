@@ -869,10 +869,18 @@ const reveiller = (v) => {
   if (v.paused) { jouer(v); return; }
   const t0 = v.currentTime;
   setTimeout(() => {
-    if (!v.paused && !v.hasAttribute('data-rest') && v.currentTime === t0) {
-      try { v.pause(); } catch(_){}
-      jouer(v);
-    }
+    if (v.paused || v.hasAttribute('data-rest') || v.currentTime !== t0) return;
+    try { v.pause(); } catch(_){}
+    jouer(v);
+    /* DERNIER RECOURS (arrière-plan long : iOS a purgé le tampon, le kick ne
+       ranime rien) : recharger la source. La boucle repart du début — mais
+       elle REPART. Une vidéo visible ne meurt jamais, quel que soit l'état. */
+    setTimeout(() => {
+      if (!v.hasAttribute('data-rest') && (v.paused || v.currentTime === t0)) {
+        try { v.load(); } catch(_){}
+        jouer(v);
+      }
+    }, 900);
   }, 300);
 };
 const reprendreVideos = () => document.querySelectorAll('video').forEach(v => reveiller(v));
