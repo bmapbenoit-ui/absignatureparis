@@ -337,15 +337,6 @@ section{position:relative}
 .ch-ahi{background:var(--ahi)}
 .ch-ahi .veil{background:linear-gradient(90deg,rgba(2,11,10,.92) 0%,rgba(2,11,10,.6) 48%,rgba(2,11,10,.42) 100%)}
 
-/* ─── Respirations — l'île en pleine largeur entre les chapitres (photos muettes) ─── */
-.resp{position:relative;height:min(56vh,520px);overflow:hidden}
-.resp img{width:100%;height:100%;object-fit:cover;display:block;
-  transform:scale(1.06);transition:transform 2.8s var(--ease)}
-.resp.is-in img{transform:scale(1)}
-.resp::before,.resp::after{content:'';position:absolute;left:0;right:0;height:26%;z-index:2;pointer-events:none}
-.resp::before{top:0;background:linear-gradient(180deg,rgba(5,10,9,.85),transparent)}
-.resp::after{bottom:0;background:linear-gradient(0deg,rgba(5,10,9,.85),transparent)}
-@media(max-width:700px){.resp{height:44vh}}
 
 
 /* ─── Maison ─── */
@@ -659,9 +650,6 @@ nav.is-away{transform:translateY(-110%);opacity:0;pointer-events:none}}
   </div>
 </section>
 
-<figure class="resp rv" aria-hidden="false">
-  <img src="/assets/resp_oro.webp" alt="Le couchant d&rsquo;Aruba &mdash; respiration" loading="lazy" decoding="async">
-</figure>
 
 <!-- CHAPITRE II — KARÈS BLAN (lumière) -->
 <section class="chapter ch-kares" id="kares">
@@ -705,9 +693,6 @@ nav.is-away{transform:translateY(-110%);opacity:0;pointer-events:none}}
   </div>
 </section>
 
-<figure class="resp rv" aria-hidden="false">
-  <img src="/assets/resp_kares.webp" alt="Le plein midi de La Digue &mdash; respiration" loading="lazy" decoding="async">
-</figure>
 
 <!-- CHAPITRE III — AHI PŌ -->
 <section class="chapter ch-ahi" id="ahi">
@@ -792,9 +777,6 @@ nav.is-away{transform:translateY(-110%);opacity:0;pointer-events:none}}
 
 @media (max-width:860px){#coups-de-coeur .cc-grid{grid-template-columns:1fr}#coups-de-coeur .cc-card img{height:210px}}
 </style>
-<figure class="resp rv" aria-hidden="false">
-  <img src="/assets/resp_ahi.webp" alt="La nuit sacr&eacute;e de Moorea &mdash; respiration" loading="lazy" decoding="async">
-</figure>
 
 <section class="maison" id="coups-de-coeur">
   <div style="max-width:980px;margin:0 auto 3rem;text-align:center">
