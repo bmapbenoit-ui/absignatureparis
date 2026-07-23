@@ -267,7 +267,9 @@ footer .legal{font-size:.76rem;color:rgba(240,234,219,.60);letter-spacing:.06em;
   nav{opacity:1!important}
 }
 /* Nav téléphone : libellés sur UNE ligne (constat 23/07 : « LA COLLECTION »/« LA MAISON » coupés en deux) */
-@media(max-width:780px){nav a{white-space:nowrap}nav a.bag{font-size:.82rem;padding:.6rem 1.05rem}}
+@media(max-width:780px){nav a{white-space:nowrap}nav a.bag{font-size:.82rem;padding:.6rem 1.05rem}
+nav{transition:background .6s,backdrop-filter .6s,padding .5s,transform .5s var(--ease),opacity .5s var(--ease)}
+nav.is-away{transform:translateY(-110%);opacity:0;pointer-events:none}}
 @media(max-width:520px){nav{padding-left:1rem;padding-right:1rem}nav ul{gap:.8rem}nav a{letter-spacing:.18em}nav .bag{padding:.5rem .7rem}}
 </style>
 </head>
@@ -530,6 +532,17 @@ footer .legal{font-size:.76rem;color:rgba(240,234,219,.60);letter-spacing:.06em;
 /* Nav au scroll */
 const nav = document.getElementById('nav');
 addEventListener('scroll', () => nav.classList.toggle('is-scrolled', scrollY > 60), {passive:true});
+/* Téléphone : la barre s'efface pendant le défilement et revient à l'arrêt (Benoit 23/07).
+   Jamais masquée près du haut de page. */
+if (matchMedia('(max-width:780px)').matches) {
+  let navTimer = null;
+  addEventListener('scroll', () => {
+    if (scrollY < 90) { nav.classList.remove('is-away'); clearTimeout(navTimer); return; }
+    nav.classList.add('is-away');
+    clearTimeout(navTimer);
+    navTimer = setTimeout(() => nav.classList.remove('is-away'), 280);
+  }, { passive: true });
+}
 /* Reveals + filet de sécurité (même grammaire que l'accueil) */
 const io = new IntersectionObserver(es => es.forEach(e => {
   if (e.isIntersecting){ e.target.classList.add('is-in'); io.unobserve(e.target); }
