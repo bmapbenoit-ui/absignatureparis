@@ -34,7 +34,6 @@
 - [Home (FR)](https://www.absignatureparis.com/): collection, house, availability alert
 - [Home (EN)](https://www.absignatureparis.com/en/): full English version
 - [La Maison (FR)](https://www.absignatureparis.com/maison/) · [The House (EN)](https://www.absignatureparis.com/en/maison/): the story of the House — journeys, brief, creation
-- [Shop (FR)](https://www.absignatureparis.com/fr/store) · [Shop (EN/US)](https://www.absignatureparis.com/us/store)
 - Oro Rojo: [FR](https://www.absignatureparis.com/fr/products/ab-signature-paris-oro-rojo-extrait-de-parfum) · [US](https://www.absignatureparis.com/us/products/ab-signature-paris-oro-rojo-extrait-de-parfum)
 - Karès Blan: [FR](https://www.absignatureparis.com/fr/products/ab-signature-paris-kares-blan-extrait-de-parfum) · [US](https://www.absignatureparis.com/us/products/ab-signature-paris-kares-blan-extrait-de-parfum)
 - Ahi Pō: [FR](https://www.absignatureparis.com/fr/products/ab-signature-paris-ahi-po-extrait-de-parfum) · [US](https://www.absignatureparis.com/us/products/ab-signature-paris-ahi-po-extrait-de-parfum)
