@@ -759,6 +759,65 @@ body.wl-open{overflow:hidden}
   </div>
 </section>
 
+<!-- ═══ LES SYMBOLES — la scène du logo qui se révèle (23/07/2026) ═══ -->
+
+<style>
+#symboles-scene .sy-wrap{display:grid;grid-template-columns:1fr 1fr;gap:4rem;max-width:1100px;margin:0 auto;align-items:start}
+#symboles-scene .sy-visual{position:sticky;top:14vh}
+#symboles-scene .sy-visual .sy-frame{position:relative;max-width:440px;margin:0 auto}
+#symboles-scene .sy-visual img{width:100%;display:block;filter:brightness(.5) saturate(.85);transition:filter 1.1s ease}
+#symboles-scene[data-active] .sy-visual img{filter:brightness(.72) saturate(1)}
+#symboles-scene .sy-spot{position:absolute;inset:-8%;pointer-events:none;opacity:0;transition:opacity 1.1s ease;mix-blend-mode:screen}
+#symboles-scene[data-active] .sy-spot{opacity:1}
+#symboles-scene[data-active="taureau"] .sy-spot{background:radial-gradient(circle at 38% 64%,rgba(232,199,106,.5),transparent 42%)}
+#symboles-scene[data-active="archer"] .sy-spot{background:radial-gradient(circle at 56% 26%,rgba(232,199,106,.5),transparent 38%)}
+#symboles-scene[data-active="arc"] .sy-spot{background:radial-gradient(circle at 76% 20%,rgba(232,199,106,.5),transparent 36%)}
+#symboles-scene[data-active="or"] .sy-spot,#symboles-scene[data-active="paris"] .sy-spot,#symboles-scene[data-active="iles"] .sy-spot,#symboles-scene[data-active="vitrail"] .sy-spot{background:radial-gradient(circle at 50% 45%,rgba(232,199,106,.38),transparent 62%)}
+#symboles-scene .sy-step{min-height:46vh;display:flex;flex-direction:column;justify-content:center;max-width:480px}
+#symboles-scene .sy-step h3{font-family:'Marcellus',serif;font-weight:400;font-size:1.5rem;color:#c9a227;letter-spacing:.06em;margin:0 0 .8rem}
+#symboles-scene .sy-step p{color:var(--ivory-60);line-height:2;font-size:1rem;margin:0}
+@media (scripting:enabled){#symboles-scene .sy-step{opacity:.22;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease}#symboles-scene .sy-step.on{opacity:1;transform:none}}
+@media (max-width:940px){#symboles-scene .sy-wrap{grid-template-columns:1fr;gap:1.5rem}#symboles-scene .sy-visual{position:sticky;top:60px;z-index:2;background:linear-gradient(180deg,var(--night) 78%,transparent)}#symboles-scene .sy-visual .sy-frame{max-width:250px;padding:.8rem 0}#symboles-scene .sy-step{min-height:38vh}}
+</style>
+
+<section class="maison" id="symboles-scene">
+  <div style="max-width:1100px;margin:0 auto 3rem;text-align:center">
+    <div class="eyebrow rv">The Symbols of the House</div>
+    <h2 class="rv rv-d1">Nothing here is by chance</h2>
+  </div>
+  <div class="sy-wrap">
+    <div class="sy-visual"><div class="sy-frame">
+      <img src="/assets/logo_or_hero_v2.webp" alt="The AB Signature Paris emblem &mdash; the golden centaur" loading="lazy" decoding="async" width="919" height="767">
+      <div class="sy-spot" aria-hidden="true"></div>
+    </div></div>
+    <div class="sy-steps">
+      <div class="sy-step" data-spot="taureau"><h3>The Bull</h3><p>Quiet strength. Patience, earth, foundation. That which does not yield.</p></div>
+      <div class="sy-step" data-spot="archer"><h3>The Archer</h3><p>Momentum and aim. The horizon as only direction. That which does not stop.</p></div>
+      <div class="sy-step" data-spot="arc"><h3>The Bow</h3><p>The bow carries love&nbsp;&mdash; drawn, patient, precise. The arrow leaves&nbsp;; the mark remains.</p></div>
+      <div class="sy-step" data-spot="or"><h3>The Gold</h3><p>It crosses centuries without losing its light&nbsp;: timelessness, excellence, transmission. On every cap, it seals the promise.</p></div>
+      <div class="sy-step" data-spot="paris"><h3>Paris</h3><p>Not an address&nbsp;: a boarding gate. The door from which depart the journeys that feed every creation.</p></div>
+      <div class="sy-step" data-spot="iles"><h3>The Islands</h3><p>Three islands, three hours of the world. Destinations become chapters&nbsp;; chapters, perfumes&nbsp;; perfumes, memories to be worn.</p></div>
+      <div class="sy-step" data-spot="vitrail"><h3>The Stained Glass</h3><p>Light passes through lacquer as it passes through memory. Held against the light, the glass awakens&nbsp;: the journey continues inside the bottle.</p></div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var scene=document.getElementById('symboles-scene');if(!scene)return;
+  var steps=scene.querySelectorAll('.sy-step');
+  if(!('IntersectionObserver' in window)){steps.forEach&&steps.forEach(function(s){s.classList.add('on')});return}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){
+      for(var i=0;i<steps.length;i++){steps[i].classList.remove('on')}
+      e.target.classList.add('on');
+      scene.setAttribute('data-active',e.target.getAttribute('data-spot'));
+    }})},{threshold:.55});
+  for(var i=0;i<steps.length;i++){io.observe(steps[i])}
+})();
+</script>
+
+
 <!-- ═══ TWO DEVOTEES + THE SYMBOLS (23/07/2026) ═══ -->
 <style>
 .symb{margin:0}
@@ -784,30 +843,6 @@ body.wl-open{overflow:hidden}
       <p class="rv rv-d3">The rest was done by their own hand&nbsp;: bottles designed within the
       house, filling done by themselves, creations worn for months by their circle before being
       signed. Nothing was left to chance.</p>
-    </div>
-    <div>
-      <div class="eyebrow rv">The Symbols of the House</div>
-      <dl class="symb rv rv-d2">
-        <dt>The Centaur</dt>
-        <dd>Two temperaments, one mount. The bull&nbsp;&mdash; quiet strength, patience. The
-        archer&nbsp;&mdash; momentum, aim, horizon. The house was born of this union&nbsp;: two
-        sensibilities moving in the same direction.</dd>
-        <dt>The Bow</dt>
-        <dd>The bow carries love&nbsp;&mdash; drawn, patient, precise. The arrow leaves&nbsp;;
-        the mark remains.</dd>
-        <dt>The Gold</dt>
-        <dd>It crosses centuries without losing its light&nbsp;: timelessness, excellence,
-        transmission. On every cap, it seals the promise.</dd>
-        <dt>Paris</dt>
-        <dd>Not an address&nbsp;: a boarding gate. The door from which depart the journeys that
-        feed every creation.</dd>
-        <dt>The Islands</dt>
-        <dd>Three islands, three hours of the world. Destinations become chapters&nbsp;;
-        chapters, perfumes&nbsp;; perfumes, memories to be worn.</dd>
-        <dt>The Stained Glass</dt>
-        <dd>Light passes through lacquer as it passes through memory. Held against the light, the
-        glass awakens&nbsp;: the journey continues inside the bottle.</dd>
-      </dl>
     </div>
   </div>
 </section>
@@ -851,6 +886,44 @@ body.wl-open{overflow:hidden}
     <li><div class="fd">February 2027 &mdash; The boarding is already booked</div>
       <div class="ft">Mauritius. The next journey &mdash; and already, desire is reborn.</div></li>
   </ul>
+</section>
+
+<!-- ═══ LES COUPS DE CŒUR — deux cartes (23/07/2026) ═══ -->
+<style>
+#coups-de-coeur .cc-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.2rem;max-width:1000px;margin:0 auto}
+#coups-de-coeur .cc-card{position:relative;border:1px solid var(--gold-line);border-radius:2px;padding:2.6rem 2rem 2.2rem;text-align:center;overflow:hidden;transition:transform .6s ease,border-color .6s ease}
+#coups-de-coeur .cc-card:hover{transform:translateY(-6px);border-color:#c9a227}
+#coups-de-coeur .cc-oro{background:linear-gradient(172deg,#240502,#3a0400 70%)}
+#coups-de-coeur .cc-ahi{background:linear-gradient(172deg,#03100f,#022420 70%)}
+#coups-de-coeur .cc-card img{height:280px;width:auto;margin:0 auto 1.6rem;display:block;filter:drop-shadow(0 22px 34px rgba(0,0,0,.45))}
+#coups-de-coeur .cc-who{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:#c9a227;margin-bottom:.5rem}
+#coups-de-coeur .cc-name{font-family:'Marcellus',serif;font-size:1.7rem;color:var(--ivory);margin-bottom:.9rem}
+#coups-de-coeur .cc-txt{color:var(--ivory-60);line-height:1.95;font-size:.96rem;max-width:360px;margin:0 auto 1.4rem}
+#coups-de-coeur .cc-cta{display:inline-block;font-size:.72rem;letter-spacing:.26em;text-transform:uppercase;color:var(--ivory);border-bottom:1px solid var(--gold-line);padding-bottom:.35rem;text-decoration:none;transition:opacity .4s}
+#coups-de-coeur .cc-cta:hover{opacity:.7}
+@media (max-width:860px){#coups-de-coeur .cc-grid{grid-template-columns:1fr}#coups-de-coeur .cc-card img{height:220px}}
+</style>
+<section class="maison" id="coups-de-coeur">
+  <div style="max-width:1000px;margin:0 auto 3rem;text-align:center">
+    <div class="eyebrow rv">The favourites</div>
+    <h2 class="rv rv-d1">Two sensibilities, two chapters</h2>
+  </div>
+  <div class="cc-grid">
+    <div class="cc-card cc-oro rv rv-d1">
+      <img src="/assets/oro-front-detoure.webp" alt="Oro Rojo &mdash; flacon" loading="lazy" decoding="async">
+      <div class="cc-who">A.&rsquo;s perfume</div>
+      <div class="cc-name">Oro Rojo</div>
+      <p class="cc-txt">The solar evidence&nbsp;&mdash; Aruba&rsquo;s sunset, cherry set ablaze by saffron. Chosen at first encounter&nbsp;; never left since.</p>
+      <a class="cc-cta" href="/us/products/ab-signature-paris-oro-rojo-extrait-de-parfum">Discover Oro Rojo &rarr;</a>
+    </div>
+    <div class="cc-card cc-ahi rv rv-d2">
+      <img src="/assets/ahi-front-detoure.webp" alt="Ahi P&omacr; &mdash; flacon" loading="lazy" decoding="async">
+      <div class="cc-who">B.&rsquo;s perfume</div>
+      <div class="cc-name">Ahi P&omacr;</div>
+      <p class="cc-txt">The sacred night of Moorea&nbsp;&mdash; dew-beaded blackcurrant, noble leather, dawn as the only ending. The choice of the one who travels while others sleep.</p>
+      <a class="cc-cta" href="/us/products/ab-signature-paris-ahi-po-extrait-de-parfum">Discover Ahi P&omacr; &rarr;</a>
+    </div>
+  </div>
 </section>
 
 <!-- FOOTER -->
