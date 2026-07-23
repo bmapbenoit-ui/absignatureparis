@@ -511,6 +511,9 @@ body.wl-open{overflow:hidden}
 @media (max-width:720px){.frg-link{align-self:center;margin:6px auto 0;display:block;text-align:center;width:max-content}}
 .ch-kares .frg-link{color:rgba(26,23,19,.5);border-color:rgba(26,23,19,.25)}
 .ch-kares .frg-link:hover{color:#8a6d1f;border-color:#8a6d1f}
+/* Nav téléphone : libellés sur UNE ligne (constat 23/07 : « LA COLLECTION »/« LA MAISON » coupés en deux) */
+@media(max-width:780px){nav a{white-space:nowrap}}
+@media(max-width:520px){nav{padding-left:1rem;padding-right:1rem}nav ul{gap:.8rem}nav a{letter-spacing:.18em}nav .bag{padding:.5rem .7rem}}
 </style>
 <link rel="stylesheet" href="/assets/motion.css?v=20260721a">
 <link rel="preload" as="image" href="/assets/logo_or_hero_v2.webp" fetchpriority="high">
