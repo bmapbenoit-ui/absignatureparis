@@ -853,6 +853,71 @@ body.wl-open{overflow:hidden}
   </ul>
 </section>
 
+<!-- ═══ L'ARCHIVE + LES COUPS DE CŒUR (validés Benoit 23/07, maquette v2) ═══ -->
+<style>
+#archive .doc{max-width:400px;margin:0 auto;position:relative;background:linear-gradient(172deg,#fdfcf8,#f3efe2 60%,#ece7d6);color:#2a2a26;padding:3.9rem 2.5rem 3.2rem;text-align:center;border-radius:2px;box-shadow:0 40px 90px rgba(0,0,0,.55),0 6px 18px rgba(0,0,0,.3);transform:rotate(-.6deg)}
+#archive .doc::before{content:"";position:absolute;inset:14px;border:1px solid #cfc49e;pointer-events:none}
+#archive .doc::after{content:"";position:absolute;inset:18px;border:1px solid #e2dabb;pointer-events:none}
+#archive .conf{font-size:.6rem;letter-spacing:.4em;color:#a08018;text-transform:uppercase;margin-bottom:2.4rem}
+#archive .bmk{font-family:'Marcellus',serif;font-size:1.1rem;letter-spacing:.35em}
+#archive .bmk small{display:block;font-size:.58rem;letter-spacing:.5em;color:#8a7b52;margin-top:.2rem}
+#archive .doc hr{border:none;border-top:1px solid #d8cfae;margin:2rem auto;width:70%}
+#archive .bt{font-family:'Marcellus',serif;font-size:1.55rem;color:#8a6d1f;margin-bottom:.7rem}
+#archive .bs{font-size:.84rem;color:#6a6350;line-height:1.9}
+#archive .cap{max-width:430px;margin:1.8rem auto 0;text-align:center;color:var(--ivory-60);font-size:.92rem;line-height:1.95}
+#coups-de-coeur .cc-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;max-width:980px;margin:0 auto}
+#coups-de-coeur .cc-card{position:relative;border:1px solid var(--gold-line);border-radius:2px;padding:2.8rem 2rem 2.4rem;text-align:center;overflow:hidden;transition:transform .6s ease,border-color .6s ease}
+#coups-de-coeur .cc-card:hover{transform:translateY(-6px);border-color:#c9a227}
+#coups-de-coeur .cc-halo{position:absolute;inset:0;pointer-events:none}
+#coups-de-coeur .cc-halo-oro{background:radial-gradient(ellipse 60% 45% at 50% 38%,rgba(122,20,8,.12),transparent 70%)}
+#coups-de-coeur .cc-halo-ahi{background:radial-gradient(ellipse 60% 45% at 50% 38%,rgba(1,58,52,.14),transparent 70%)}
+#coups-de-coeur .cc-card img{position:relative;height:260px;width:auto;margin:0 auto 1.5rem;display:block;filter:drop-shadow(0 20px 30px rgba(0,0,0,.5))}
+#coups-de-coeur .cc-who{font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:#c9a227;margin-bottom:.45rem}
+#coups-de-coeur .cc-name{font-family:'Marcellus',serif;font-size:1.6rem;color:var(--ivory);margin-bottom:.85rem}
+#coups-de-coeur .cc-txt{color:var(--ivory-60);line-height:1.95;font-size:.95rem;max-width:340px;margin:0 auto 1.35rem}
+#coups-de-coeur .cc-cta{display:inline-block;font-family:'Marcellus',serif;font-size:.86rem;letter-spacing:.12em;color:var(--ivory);border-bottom:1px solid var(--gold-line);padding-bottom:.32rem;text-decoration:none;transition:opacity .4s}
+#coups-de-coeur .cc-cta:hover{opacity:.7}
+#coups-de-coeur .cc-silence{height:clamp(3rem,8vh,6rem)}
+@media (max-width:860px){#coups-de-coeur .cc-grid{grid-template-columns:1fr}#coups-de-coeur .cc-card img{height:210px}}
+</style>
+<section class="maison" id="archive">
+  <div style="max-width:1000px;margin:0 auto 3rem;text-align:center">
+    <div class="eyebrow rv">The archive</div>
+    <h2 class="rv rv-d1">The brief exists</h2>
+  </div>
+  <div class="doc rv rv-d2">
+    <div class="conf">Confidential</div>
+    <div class="bmk">AB SIGNATURE<small>PARIS</small></div>
+    <hr>
+    <div class="bt">Brief Cr&eacute;atif Parfumeur</div>
+    <div class="bs">Creation of 6 Extraits de Parfum<br>3 versions from the nose per creation</div>
+  </div>
+  <p class="cap rv rv-d3">Eighteen blotters were born of it. Three references survived.<br>The document itself remains sealed.</p>
+</section>
+<section class="maison" id="coups-de-coeur">
+  <div style="max-width:980px;margin:0 auto 3rem;text-align:center">
+    <div class="eyebrow rv">The favourites</div>
+    <h2 class="rv rv-d1">Two sensibilities, two chapters</h2>
+  </div>
+  <div class="cc-grid">
+    <div class="cc-card rv rv-d1"><div class="cc-halo cc-halo-oro"></div>
+      <img src="/assets/oro-front-detoure.webp" alt="Oro Rojo &mdash; flacon" loading="lazy" decoding="async">
+      <div class="cc-who">A.&rsquo;s perfume</div>
+      <div class="cc-name">Oro Rojo</div>
+      <p class="cc-txt">The solar evidence &mdash; Aruba&rsquo;s sunset, cherry set ablaze by saffron. Chosen at first encounter&nbsp;; never left since.</p>
+      <a class="cc-cta" href="/us/products/ab-signature-paris-oro-rojo-extrait-de-parfum">Discover Oro Rojo &rarr;</a>
+    </div>
+    <div class="cc-card rv rv-d2"><div class="cc-halo cc-halo-ahi"></div>
+      <img src="/assets/ahi-front-detoure.webp" alt="Ahi P&#333; &mdash; flacon" loading="lazy" decoding="async">
+      <div class="cc-who">B.&rsquo;s perfume</div>
+      <div class="cc-name">Ahi P&#333;</div>
+      <p class="cc-txt">The sacred night of Moorea &mdash; dew-beaded blackcurrant, noble leather, dawn as the only ending. The choice of the one who travels while others sleep.</p>
+      <a class="cc-cta" href="/us/products/ab-signature-paris-ahi-po-extrait-de-parfum">Discover Ahi P&#333; &rarr;</a>
+    </div>
+  </div>
+  <div class="cc-silence"></div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <div class="wrap">
