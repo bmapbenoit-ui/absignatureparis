@@ -758,6 +758,15 @@ body.wl-open{overflow:hidden}
 #coups-de-coeur .cc-cta{display:inline-block;font-family:'Marcellus',serif;font-size:.86rem;letter-spacing:.12em;color:var(--ivory);border-bottom:1px solid var(--gold-line);padding-bottom:.32rem;text-decoration:none;transition:opacity .4s}
 #coups-de-coeur .cc-cta:hover{opacity:.7}
 #coups-de-coeur .cc-silence{height:clamp(3rem,8vh,6rem)}
+#coups-de-coeur .cc-invite{display:flex;flex-direction:column;align-items:center;gap:1.35rem;text-decoration:none;margin-top:4.4rem}
+#coups-de-coeur .ci-line{width:1px;height:62px;overflow:hidden;position:relative}
+#coups-de-coeur .ci-line::after{content:'';position:absolute;left:0;top:-100%;width:100%;height:100%;background:linear-gradient(180deg,transparent,var(--gold-3));animation:drip 2.6s var(--ease) infinite}
+#coups-de-coeur .ci-q{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1.5rem,3vw,2rem);color:var(--ivory);line-height:1.45;text-align:center}
+#coups-de-coeur .ci-dest{font-family:'Marcellus',serif;font-size:.85rem;letter-spacing:.5em;text-indent:.5em;text-transform:uppercase;padding-bottom:.55rem;position:relative}
+#coups-de-coeur .ci-dest::after{content:'';position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:36%;height:1px;background:linear-gradient(90deg,transparent,var(--gold-3),transparent);transition:width .8s var(--ease)}
+#coups-de-coeur .cc-invite:hover .ci-dest::after{width:110%}
+@media(max-width:700px){#coups-de-coeur .ci-q{font-size:1.55rem}#coups-de-coeur .ci-dest{font-size:.92rem}}
+
 @media (max-width:860px){#coups-de-coeur .cc-grid{grid-template-columns:1fr}#coups-de-coeur .cc-card img{height:210px}}
 </style>
 <section class="maison" id="coups-de-coeur">
@@ -781,9 +790,11 @@ body.wl-open{overflow:hidden}
       <a class="cc-cta" href="/us/products/ab-signature-paris-ahi-po-extrait-de-parfum">Discover Ahi P&#333; &rarr;</a>
     </div>
   </div>
-  <p class="rv rv-d3" style="text-align:center;margin-top:2.6rem">
-    <a class="cc-cta" href="/en/maison/">Who are A. and B.? &mdash; The House &rarr;</a>
-  </p>
+  <a class="cc-invite rv rv-d3" href="/en/maison/">
+    <span class="ci-line" aria-hidden="true"></span>
+    <span class="ci-q">Who are A.&nbsp;and&nbsp;B.?</span>
+    <span class="ci-dest gold">The House</span>
+  </a>
   <div class="cc-silence"></div>
 </section>
 
