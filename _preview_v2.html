@@ -1,0 +1,144 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MAQUETTE v2 — ne pas déployer</title>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Jost:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{--night:#07100f;--ivory:#f0eadb;--ivory-60:rgba(240,234,219,.62);--gold:#c9a227;--gold-line:rgba(176,138,46,.32)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--night);color:var(--ivory);font-family:'Jost',sans-serif;font-weight:300}
+.eyebrow{font-size:.7rem;letter-spacing:.34em;text-transform:uppercase;color:var(--gold)}
+h2{font-family:'Marcellus',serif;font-weight:400;font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:.02em}
+section{padding:clamp(6rem,13vh,10rem) 1.4rem}
+.center{text-align:center;max-width:1100px;margin:0 auto 3.4rem}
+
+/* ── SCÈNE SYMBOLES v2 ── */
+#sy .wrap{display:grid;grid-template-columns:5fr 6fr;gap:5rem;max-width:1060px;margin:0 auto;align-items:start}
+#sy .vis{position:sticky;top:16vh}
+#sy .frame{position:relative;max-width:330px;margin:0 auto}
+#sy .frame img{width:100%;display:block;filter:brightness(.55) saturate(.9);transition:filter 1.1s}
+#sy[data-active] .frame img{filter:brightness(.75) saturate(1)}
+#sy .spot{position:absolute;inset:-35%;opacity:0;transition:opacity 1.1s;mix-blend-mode:screen;pointer-events:none}
+#sy[data-active] .spot{opacity:1}
+#sy[data-active="taureau"] .spot{background:radial-gradient(circle at 32% 60%,rgba(232,199,106,.36),transparent 46%)}
+#sy[data-active="archer"] .spot{background:radial-gradient(circle at 55% 25%,rgba(232,199,106,.36),transparent 42%)}
+#sy[data-active="arc"] .spot{background:radial-gradient(circle at 78% 22%,rgba(232,199,106,.36),transparent 40%)}
+#sy[data-active="or"] .spot,#sy[data-active="paris"] .spot,#sy[data-active="iles"] .spot,#sy[data-active="vitrail"] .spot{background:radial-gradient(circle at 50% 42%,rgba(232,199,106,.34),transparent 62%)}
+#sy .step{min-height:44vh;display:flex;flex-direction:column;justify-content:center;max-width:430px}
+#sy .step h3{font-family:'Marcellus',serif;font-weight:400;font-size:1.45rem;color:var(--gold);letter-spacing:.06em;margin-bottom:.75rem}
+#sy .step p{color:var(--ivory-60);line-height:2;font-size:.98rem}
+#sy .step{opacity:.24;transform:translateY(12px);transition:opacity .7s,transform .7s}
+#sy .step.on{opacity:1;transform:none}
+@media (max-width:860px){
+  #sy .wrap{grid-template-columns:1fr;gap:0}
+  #sy .vis{position:static}
+  #sy .frame{max-width:190px;margin-bottom:1rem}
+  #sy .spot{display:none}
+  #sy .frame img{filter:brightness(.8)}
+  #sy .step{min-height:0;padding:1.6rem 0;max-width:100%;opacity:1;transform:none;border-top:1px solid var(--gold-line)}
+  #sy .step:first-child{border-top:none}
+}
+
+/* ── COUPS DE CŒUR v2 : peau nuit, lueur ≤12%, respiration avant footer ── */
+#cc .grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;max-width:980px;margin:0 auto}
+#cc .card{position:relative;border:1px solid var(--gold-line);border-radius:2px;padding:2.8rem 2rem 2.4rem;text-align:center;background:var(--night);overflow:hidden;transition:transform .6s,border-color .6s}
+#cc .card:hover{transform:translateY(-6px);border-color:var(--gold)}
+#cc .halo{position:absolute;inset:0;pointer-events:none}
+#cc .halo-oro{background:radial-gradient(ellipse 60% 45% at 50% 38%,rgba(122,20,8,.12),transparent 70%)}
+#cc .halo-ahi{background:radial-gradient(ellipse 60% 45% at 50% 38%,rgba(1,58,52,.14),transparent 70%)}
+#cc img{position:relative;height:260px;width:auto;margin:0 auto 1.5rem;display:block;filter:drop-shadow(0 20px 30px rgba(0,0,0,.5))}
+#cc .who{font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:.45rem}
+#cc .name{font-family:'Marcellus',serif;font-size:1.6rem;margin-bottom:.85rem}
+#cc .txt{color:var(--ivory-60);line-height:1.95;font-size:.95rem;max-width:340px;margin:0 auto 1.35rem}
+#cc .cta{display:inline-block;font-size:.82rem;letter-spacing:.14em;font-family:'Marcellus',serif;color:var(--ivory);border-bottom:1px solid var(--gold-line);padding-bottom:.32rem;text-decoration:none}
+@media (max-width:860px){#cc .grid{grid-template-columns:1fr}#cc img{height:210px}}
+
+/* ── ARTEFACT BRIEF ── */
+#brief .doc{max-width:430px;margin:0 auto;border:1px solid var(--gold-line);background:linear-gradient(178deg,#fdfcf8,#f4f0e4);color:#2a2a26;padding:4.2rem 2.6rem 3.4rem;text-align:center;border-radius:2px;box-shadow:0 34px 80px rgba(0,0,0,.5)}
+#brief .conf{font-size:.62rem;letter-spacing:.4em;color:#a08018;text-transform:uppercase;margin-bottom:2.6rem}
+#brief .bmk{font-family:'Marcellus',serif;font-size:1.15rem;letter-spacing:.35em;margin-bottom:.2rem}
+#brief .bmk small{display:block;font-size:.6rem;letter-spacing:.5em;color:#8a7b52;margin-top:.2rem}
+#brief hr{border:none;border-top:1px solid #d8cfae;margin:2.2rem auto;width:70%}
+#brief .bt{font-family:'Marcellus',serif;font-size:1.7rem;color:#8a6d1f;margin-bottom:.8rem}
+#brief .bs{font-size:.85rem;color:#6a6350;line-height:1.9}
+#brief .ref{margin-top:2.4rem;font-size:.66rem;letter-spacing:.24em;color:#8a7b52;text-transform:uppercase}
+#brief .cap{max-width:430px;margin:1.6rem auto 0;text-align:center;color:var(--ivory-60);font-size:.9rem;line-height:1.9}
+
+/* respiration + footer mock */
+.silence{height:clamp(5rem,12vh,9rem)}
+footer{background:#050807;border-top:1px solid var(--gold-line);padding:3.4rem 1rem;text-align:center;color:var(--ivory-60);font-size:.8rem;letter-spacing:.18em}
+footer .tag{font-family:'Marcellus',serif;font-style:italic;color:rgba(232,199,106,.9);font-size:1.05rem;letter-spacing:.04em;margin-bottom:.8rem}
+</style></head><body>
+
+<section id="sy" >
+  <div class="center">
+    <div class="eyebrow">Les Symboles de la Maison</div>
+    <h2>Rien n&rsquo;est l&agrave; par hasard</h2>
+  </div>
+  <div class="wrap">
+    <div class="vis"><div class="frame">
+      <img src="assets/logo_or_centaure_seul.webp" alt="L'emblème — le centaure d'or" width="696" height="560">
+      <div class="spot"></div>
+    </div></div>
+    <div>
+      <div class="step" data-spot="taureau"><h3>Le Taureau</h3><p>La force tranquille. La patience, la terre, le socle. Ce qui ne cède pas.</p></div>
+      <div class="step" data-spot="archer"><h3>L&rsquo;Archer</h3><p>L&rsquo;élan et la visée. L&rsquo;horizon pour seule direction. Ce qui ne s&rsquo;arrête pas.</p></div>
+      <div class="step" data-spot="arc"><h3>L&rsquo;Arc</h3><p>L&rsquo;arc porte l&rsquo;amour — tendu, patient, précis. La flèche part&nbsp;; l&rsquo;empreinte reste.</p></div>
+      <div class="step" data-spot="or"><h3>L&rsquo;Or</h3><p>Il traverse les siècles sans perdre son éclat&nbsp;: l&rsquo;intemporel, l&rsquo;excellence, la transmission. Sur chaque bouchon, il scelle la promesse.</p></div>
+      <div class="step" data-spot="paris"><h3>Paris</h3><p>Pas une adresse&nbsp;: un embarquement. La porte d&rsquo;où partent les voyages qui nourrissent chaque création.</p></div>
+      <div class="step" data-spot="iles"><h3>Les Îles</h3><p>Trois îles, trois heures du monde. Les destinations deviennent des chapitres&nbsp;; les chapitres, des parfums&nbsp;; les parfums, des souvenirs que l&rsquo;on porte.</p></div>
+      <div class="step" data-spot="vitrail"><h3>Le Vitrail</h3><p>La lumière traverse la laque comme elle traverse un souvenir. À contre-jour, le verre s&rsquo;éclaire&nbsp;: le voyage continue dans le flacon.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="cc">
+  <div class="center">
+    <div class="eyebrow">Les coups de c&oelig;ur</div>
+    <h2>Deux sensibilit&eacute;s, deux chapitres</h2>
+  </div>
+  <div class="grid">
+    <div class="card"><div class="halo halo-oro"></div>
+      <img src="assets/oro-front-detoure.webp" alt="Oro Rojo">
+      <div class="who">Le parfum de A.</div><div class="name">Oro Rojo</div>
+      <p class="txt">L&rsquo;évidence solaire — le couchant d&rsquo;Aruba, la cerise embrasée de safran. Choisi à la première rencontre&nbsp;; jamais quitté depuis.</p>
+      <a class="cta" href="#">Découvrir Oro Rojo →</a>
+    </div>
+    <div class="card"><div class="halo halo-ahi"></div>
+      <img src="assets/ahi-front-detoure.webp" alt="Ahi Pō">
+      <div class="who">Le parfum de B.</div><div class="name">Ahi P&#333;</div>
+      <p class="txt">La nuit sacrée de Moorea — cassis perlé de rosée, cuir noble, l&rsquo;aube pour seule fin. Le choix de celui qui voyage quand les autres dorment.</p>
+      <a class="cta" href="#">Découvrir Ahi P&#333; →</a>
+    </div>
+  </div>
+</section>
+
+<section id="brief">
+  <div class="center">
+    <div class="eyebrow">L&rsquo;archive</div>
+    <h2>Le brief existe</h2>
+  </div>
+  <div class="doc">
+    <div class="conf">Confidentiel</div>
+    <div class="bmk">AB SIGNATURE<small>PARIS</small></div>
+    <hr>
+    <div class="bt">Brief Cr&eacute;atif Parfumeur</div>
+    <div class="bs">Cr&eacute;ation de 6 Extraits de Parfum<br>3 versions du nez par cr&eacute;ation</div>
+    <div class="ref">F&eacute;vrier 2026 &middot; AB&#8209;BRIEF&#8209;2026&#8209;001</div>
+  </div>
+  <p class="cap">Dix-huit mouillettes en sont nées. Trois références ont survécu.<br>Le document, lui, reste scellé.</p>
+</section>
+
+<div class="silence"></div>
+<footer><div class="tag">Trois îles, une seule signature.</div>© 2026 AB Signature Paris</footer>
+
+<script>
+var sc=document.getElementById('sy'),steps=sc.querySelectorAll('.step');
+var mq=window.matchMedia('(max-width:860px)');
+if(!mq.matches&&'IntersectionObserver' in window){
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
+    steps.forEach(function(s){s.classList.remove('on')});e.target.classList.add('on');
+    sc.setAttribute('data-active',e.target.getAttribute('data-spot'));}})},{threshold:.55});
+  steps.forEach(function(s){io.observe(s)});
+}else{steps.forEach(function(s){s.classList.add('on')})}
+</script>
+</body></html>

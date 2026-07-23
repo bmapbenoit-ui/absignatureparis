@@ -1,0 +1,79 @@
+<!doctype html><html><head><meta charset="utf-8">
+<title>rot3d-capture</title>
+<style>html,body{margin:0;background:#000;overflow:hidden}#c{display:block}</style>
+<script type="importmap">{"imports":{"three":"/assets/vendor/three.module.min.js"}}</script>
+</head><body>
+<script type="module">
+import * as THREE from 'three';
+import { RoundedBoxGeometry } from '/assets/vendor/RoundedBoxGeometry.js';
+import { RoomEnvironment } from '/assets/vendor/RoomEnvironment.js';
+
+const Q=new URLSearchParams(location.search);
+const model=Q.get('model')||'oro';
+const N=parseInt(Q.get('n')||'150');
+const BG=Q.get('bg')||'0b0708';
+const CAMZ=parseFloat(Q.get('z')||'300');
+const W=1080,H=1920;
+
+const BOT_W=45,BOT_D=28.5,BOT_H=88.97,EDGE_R=0.9,CAP_R=13.9,CAP_H=17.5,NECK_H=1.2;
+const canvas=document.createElement('canvas'); canvas.id='c'; canvas.width=W; canvas.height=H;
+document.body.appendChild(canvas);
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true,preserveDrawingBuffer:true,powerPreference:'high-performance'});
+renderer.setPixelRatio(1); renderer.setSize(W,H,false); renderer.toneMapping=THREE.NoToneMapping;
+renderer.setClearColor(new THREE.Color('#'+BG),1);
+
+const scene=new THREE.Scene();
+const pm=new THREE.PMREMGenerator(renderer);
+const envTex=pm.fromScene(new RoomEnvironment(),0.04).texture;
+const camera=new THREE.PerspectiveCamera(24, W/H, 10, 900);
+camera.position.set(0,6,CAMZ); camera.lookAt(0,1,0);
+const key=new THREE.DirectionalLight(0xfff0cf,0.30); key.position.set(60,90,120); scene.add(key);
+const rim=new THREE.DirectionalLight(0xbfe8e0,0.06); rim.position.set(-80,40,-60); scene.add(rim);
+const group=new THREE.Group(); scene.add(group);
+
+let texLoaded=0; const TEX_TOTAL=8;
+const loader=new THREE.TextureLoader();
+const P=m=>`/assets/rot3d/${model}-${m}.webp?v=10`;
+const kick=()=>{ texLoaded++; };
+function loadTex(url,mirrorX,linear){ const t=loader.load(url,kick);
+  t.colorSpace=linear?THREE.NoColorSpace:THREE.SRGBColorSpace; t.anisotropy=8;
+  if(mirrorX){t.wrapS=THREE.RepeatWrapping;t.repeat.x=-1;t.offset.x=1;} return t; }
+const lacquer=(face,mirrorX)=>{ const tex=loadTex(P(face),mirrorX,false); const rm=loadTex(P(face+'-rm'),mirrorX,true);
+  return new THREE.MeshPhysicalMaterial({map:tex,emissiveMap:tex,emissive:0xffffff,emissiveIntensity:1.0,
+    roughnessMap:rm,metalnessMap:rm,roughness:1,metalness:1}); };
+const darkSide=new THREE.MeshPhysicalMaterial({color:0x17100c,emissive:0x17100c,emissiveIntensity:0.9,roughness:0.55,metalness:0.1});
+const mats=[lacquer('right',false),lacquer('left',false),darkSide,darkSide,lacquer('front',false),lacquer('back',true)];
+const body=new THREE.Mesh(new RoundedBoxGeometry(BOT_W,BOT_H,BOT_D,3,EDGE_R),mats);
+body.position.y=-(CAP_H+NECK_H)/2; group.add(body);
+const gold=new THREE.MeshPhysicalMaterial({color:0xd9b465,metalness:1,roughness:0.21,envMap:envTex,envMapIntensity:1.35,clearcoat:0.4,clearcoatRoughness:0.25});
+const goldDark=gold.clone(); goldDark.color=new THREE.Color(0xa8853f); goldDark.roughness=0.3;
+const bodyTop=body.position.y+BOT_H/2;
+const neck=new THREE.Mesh(new THREE.CylinderGeometry(11.3,11.3,NECK_H,48),goldDark); neck.position.y=bodyTop+NECK_H/2; group.add(neck);
+const cap=new THREE.Mesh(new THREE.CylinderGeometry(CAP_R,CAP_R,CAP_H,72,1,false),gold); cap.position.y=bodyTop+NECK_H+CAP_H/2; group.add(cap);
+const capTop=new THREE.Mesh(new THREE.CircleGeometry(CAP_R,72),goldDark); capTop.rotation.x=-Math.PI/2; capTop.position.y=cap.position.y+CAP_H/2+0.01; group.add(capTop);
+
+function shadowTex(){const c=document.createElement('canvas');c.width=c.height=256;const g=c.getContext('2d');
+  const gr=g.createRadialGradient(128,128,10,128,128,120);gr.addColorStop(0,'rgba(0,0,0,0.55)');gr.addColorStop(0.55,'rgba(0,0,0,0.28)');gr.addColorStop(1,'rgba(0,0,0,0)');
+  g.fillStyle=gr;g.fillRect(0,0,256,256);return new THREE.CanvasTexture(c);}
+const shadow=new THREE.Mesh(new THREE.PlaneGeometry(BOT_W*1.7,BOT_D*2.6),new THREE.MeshBasicMaterial({map:shadowTex(),transparent:true,depthWrite:false,opacity:0.85}));
+shadow.rotation.x=-Math.PI/2; shadow.position.y=body.position.y-BOT_H/2-0.5; scene.add(shadow);
+
+window.__done=false; window.__mode=Q.get('mode')||'capture';
+function renderAt(a){ group.rotation.y=a; renderer.render(scene,camera); }
+async function run(){
+  // wait textures
+  let tries=0; while(texLoaded<TEX_TOTAL && tries<200){ await new Promise(r=>setTimeout(r,50)); tries++; }
+  renderAt(0); await new Promise(r=>setTimeout(r,120));
+  if(window.__mode==='preview'){ document.title='PREVIEW_READY'; return; }
+  for(let i=0;i<N;i++){
+    renderAt(-2*Math.PI*i/N);
+    const url=canvas.toDataURL('image/jpeg',0.93);
+    const blob=await (await fetch(url)).blob();
+    try{ await fetch(`/frame/${model}/${String(i).padStart(4,'0')}`,{method:'POST',body:blob}); }catch(e){}
+    if(i%15===0) document.title='CAP_'+i;
+  }
+  window.__done=true; document.title='DONE_'+model;
+}
+run();
+</script>
+</body></html>
